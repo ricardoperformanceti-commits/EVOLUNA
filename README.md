@@ -1,17 +1,22 @@
-# Sorriso com IA — versão hospedada
+# Sorriso com IA — demonstração de apresentação
 
-Adaptação do aplicativo Next.js para a hospedagem Sites (Cloudflare Worker ESM). As telas mantêm o mesmo visual. O projeto Next.js original permanece em /workspace/sorriso-com-ia.
+Aplicação completa de demonstração em HTML, CSS e JavaScript. Sem login do aplicativo, sem chamadas ao Supabase e sem dados reais. Os dados ficam em localStorage no navegador. O acesso da hospedagem Sites permanece privado.
 
-`npm ci && npm run build` produz dist/server/index.js e dist/.openai/hosting.json. O Worker implementa cadastro, login, logout, callback PKCE, confirmação de e-mail e painel protegido com validação de usuário no servidor. Cookies Secure/HttpOnly/SameSite=Lax, verificação de Origin em POST, respostas sem cache e escape de texto dinâmico.
+## Módulos
+- Painel com indicadores calculados a partir dos dados locais e gráfico histórico explicitamente ilustrativo.
+- Pacientes: cadastro, edição, busca, filtros e visualização em cartões ou lista.
+- Agenda: navegação por dia, cadastro, detecção de conflito de horário por profissional, confirmação, cancelamento e conclusão.
+- Prontuários: perfil, evolução, odontograma de 32 dentes interativo e plano de tratamento com valores.
+- Sorriso IA: ilustração comparativa, ajustes visuais, upload de referência local, geração simulada e galeria. Sem processamento de IA e sem previsão clínica.
+- Teleconsultas: sala fictícia com cronômetro, controles simulados, anotações e gravação da evolução. Sem câmera, microfone ou conexão com participantes.
+- Documentos: quatro modelos, edição, salvamento, impressão/PDF via navegador e download em texto. Sem validade clínica ou jurídica.
+- Financeiro: lançamentos de receitas e despesas, recebimento simulado, filtros e exportação CSV. Sem cobrança real.
+- Relatórios: indicadores locais, status dos agendamentos e exportações CSV.
+- Configurações: dados fictícios da clínica, preferências locais, tour em seis etapas, tela cheia e restauração dos exemplos.
 
-Configure SUPABASE_URL e SUPABASE_PUBLISHABLE_KEY nas variáveis de ambiente do Sites; nenhuma chave privilegiada é necessária.
+## Executar
+`npm run build` copia a aplicação para dist. `npm run dev` abre servidor local na porta 3001.
 
-Antes de usar os e-mails em produção, configure no Supabase, Authentication > URL Configuration:
-- Site URL: https://sorriso-com-ia-clinica.balmygnat129.chatgpt.site
-- Redirect URLs: https://sorriso-com-ia-clinica.balmygnat129.chatgpt.site/auth/callback
+Todos os exemplos usam nomes e contatos fictícios. Não use dados reais de pacientes. Os gráficos históricos são ilustrativos e rotulados. Os demais indicadores derivam da base local.
 
-Essa configuração de Auth não é exposta pelas ferramentas Supabase disponíveis nesta sessão. A confirmação por e-mail precisa ser verificada após esse ajuste. Não há tabelas de dados clínicos nem usuários de teste criados.
-
-## Acesso direto
-
-A página inicial abre sem login. A rota /login redireciona para /. O site permite visitantes sem autenticação na hospedagem. Rotas com dados de conta continuam exigindo validação de usuário no servidor.
+A identidade do Sites permanece em .openai/hosting.json. A pasta worker contém a implementação anterior com autenticação, que não é incluída na publicação estática atual. O projeto Next.js anterior continua separado em /workspace/sorriso-com-ia.

@@ -1,6 +1,6 @@
-import { build } from 'esbuild';
-import { mkdir, copyFile } from 'node:fs/promises';
-await mkdir('dist/server',{recursive:true});
+import {rm,mkdir,cp,copyFile} from 'node:fs/promises';
+await rm('dist',{recursive:true,force:true});
 await mkdir('dist/.openai',{recursive:true});
-await build({ entryPoints:['worker/index.js'], bundle:true, format:'esm', platform:'browser', target:'es2022', outfile:'dist/server/index.js', minify:true, loader:{'.css':'text'} });
+await cp('public','dist',{recursive:true});
 await copyFile('.openai/hosting.json','dist/.openai/hosting.json');
+console.log('Demonstração frontend preparada em dist/.');

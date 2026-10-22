@@ -56,3 +56,19 @@ Validação: preenchimento e persistência da anamnese, evolução estruturada, 
 No perfil, clicar no avatar ou em Adicionar/Trocar foto abre o editor. Aceita JPG, PNG e WebP até 5 MB, com recorte central e redução para JPEG de 320px. A foto pode ser trocada ou removida; aparece nas listas e demais avatares do paciente. Salvamento apenas em localStorage, com tratamento de falta de espaço e sem upload externo. Arquivo inválido não substitui a foto existente; Cancelar não altera o cadastro.
 
 Verificado: upload e processamento de imagem de teste, persistência ao recarregar, exibição nos cartões, rejeição de arquivo inválido e remoção com retorno às iniciais.
+
+## Responsividade e modelos de apresentação
+
+Rolagem vertical da página e do menu lateral, barras estilizadas em áreas roláveis, formulários longos com corpo rolável e ações acessíveis, tabelas com rolagem horizontal própria e layout revisado em telas pequenas. Verificação dos dez módulos em 320, 390, 768, 834 e 1366px sem overflow horizontal da página.
+
+A página /modelos.html permite alternar entre celular (390×844), tablet (834×1112) e computador (1440×1000). O sistema real é exibido em iframe navegável com tamanho interno fixo para cada formato, reduzido visualmente quando necessário. Prévia sem dados separados: usa a mesma origem e o mesmo armazenamento local do sistema.
+
+## Ajustes de apresentação
+
+Busca superior digitável com resultados abaixo, navegação por setas/Enter/Escape, filtro por nome/telefone/e-mail e abertura do perfil. O Dr. Help permanece separado.
+
+Banner de teleconsulta com fotografia ilustrativa gerada para o projeto, ao lado da agenda em telas largas e abaixo dela em telas pequenas. Indicadores da teleconsulta: quantidade agendada, confirmadas, pacientes acompanhados e atendimentos concluídos; sem dados financeiros. A informação do provedor e dos requisitos de conexão aparece ao preparar a chamada.
+
+Sorriso IA: selo do cabeçalho removido e mensagem comercial acolhedora; nota contextual de prévia ilustrativa permanece junto ao resultado para não apresentar filtros como IA ou previsão clínica. A foto de sorriso enviada no chat ainda não pôde ser incorporada por indisponibilidade do arquivo; o banner principal mantém a ilustração anterior até o reenvio.
+
+Documentos: modelo de atestado odontológico, com data de início, duração informada pelo profissional e CRO/UF. Sem prazo clínico ou diagnóstico automático. Exige preenchimento para salvar e permanece identificado como modelo sujeito à revisão e assinatura.

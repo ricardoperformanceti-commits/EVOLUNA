@@ -50,3 +50,9 @@ A rota #prontuarios agora abre um espaço clínico, separado de #paciente (cadas
 Todos os registros continuam locais em localStorage. O usuário informa o conteúdo clínico; não há diagnóstico automático. Não foi implementado prontuário clínico com auditoria em servidor, assinatura digital ou armazenamento multiusuário.
 
 Validação: preenchimento e persistência da anamnese, evolução estruturada, odontograma e plano; retorno entre cadastro e prontuário; exportação; layout em 390px sem overflow da página.
+
+## Foto do paciente
+
+No perfil, clicar no avatar ou em Adicionar/Trocar foto abre o editor. Aceita JPG, PNG e WebP até 5 MB, com recorte central e redução para JPEG de 320px. A foto pode ser trocada ou removida; aparece nas listas e demais avatares do paciente. Salvamento apenas em localStorage, com tratamento de falta de espaço e sem upload externo. Arquivo inválido não substitui a foto existente; Cancelar não altera o cadastro.
+
+Verificado: upload e processamento de imagem de teste, persistência ao recarregar, exibição nos cartões, rejeição de arquivo inválido e remoção com retorno às iniciais.

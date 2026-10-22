@@ -72,3 +72,13 @@ Banner de teleconsulta com fotografia ilustrativa gerada para o projeto, ao lado
 Sorriso IA: selo do cabeçalho removido e mensagem comercial acolhedora; nota contextual de prévia ilustrativa permanece junto ao resultado para não apresentar filtros como IA ou previsão clínica. A foto de sorriso enviada no chat ainda não pôde ser incorporada por indisponibilidade do arquivo; o banner principal mantém a ilustração anterior até o reenvio.
 
 Documentos: modelo de atestado odontológico, com data de início, duração informada pelo profissional e CRO/UF. Sem prazo clínico ou diagnóstico automático. Exige preenchimento para salvar e permanece identificado como modelo sujeito à revisão e assinatura.
+
+## PDF, pesquisa clínica e apresentação estética
+
+O botão Exportar PDF gera download A4 diretamente no navegador com jsPDF 4.2.1, sem envio dos registros a servidores. Inclui identificação/CPF, anamnese, evoluções estruturadas, odontograma vetorial e registros por elemento, plano clínico sem valores financeiros e referências de documentos. Cabeçalho, rodapé e paginação em todas as folhas. Mantém a indicação de registro local sem assinatura digital. Verificado em arquivos de 3 e 10 páginas, com extração de texto/acentuação e inspeção visual da primeira página.
+
+O acesso Sorriso IA ocupa agora o cartão superior do menu; não fica duplicado entre os itens. O cadastro do paciente possui CPF opcional; a seleção de prontuário usa uma pesquisa por CPF, nome ou telefone, aceitando números sem pontuação.
+
+Apresentação antes/depois: caso fotográfico sintético gerado para o projeto, com painel superior original e inferior planejamento ilustrativo, usado em um comparador com slider. Exemplo de estética natural, sem inferir um diagnóstico ou resultado individual. Alternância para desenho interativo mantém os controles de tonalidade/alinhamento. Fotos enviadas pelo usuário são apenas referências e não recebem modificação de tratamento automática. O envio de imagem fica imediatamente abaixo do comparador. Botão Apresentar caso abre a comparação ampliada.
+
+Os links Sua clínica / página atual do cabeçalho agora são navegáveis. Os controles de pesquisa, o PDF, a apresentação e o envio abaixo da imagem foram verificados no navegador, incluindo 390px.

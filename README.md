@@ -20,3 +20,13 @@ Aplicação completa de demonstração em HTML, CSS e JavaScript. Sem login do a
 Todos os exemplos usam nomes e contatos fictícios. Não use dados reais de pacientes. Os gráficos históricos são ilustrativos e rotulados. Os demais indicadores derivam da base local.
 
 A identidade do Sites permanece em .openai/hosting.json. A pasta worker contém a implementação anterior com autenticação, que não é incluída na publicação estática atual. O projeto Next.js anterior continua separado em /workspace/sorriso-com-ia.
+
+## Dr. Help
+
+O botão superior e o atalho Ctrl/⌘ K abrem o Dr. Help. A pesquisa de pacientes permanece no módulo Pacientes.
+
+Catálogo demonstrativo local com cinco princípios ativos: paracetamol, dipirona, ibuprofeno, amoxicilina e clindamicina. Pesquisa normalizada por marca, princípio ativo, nome técnico e sinônimos. Links externos reais para fontes de fabricantes e Bulário Anvisa. Não há busca remota, atualização automática de bula ou geração de prescrições.
+
+Calculadora manual com distinção explícita entre mg/kg/dose e mg/kg/dia, administrações por dia, peso, limites por dose e por dia informados pelo profissional, e conversão opcional de concentração mg/volume para mL. Os campos de dose não são preenchidos pelo catálogo. Resultados excedentes são bloqueados, sem ajuste automático. Referência, apresentação e confirmação de conferência são obrigatórias. Nenhum resultado é salvo ou encaminhado ao paciente.
+
+Validação: pesquisa pelos três tipos de nome; resultado vazio; cálculo por dose e por dia; conversão de volume; invalidação ao alterar entradas; bloqueio de limite; concentração incompleta; atalho e layout móvel.

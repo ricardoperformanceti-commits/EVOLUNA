@@ -90,3 +90,11 @@ A foto enviada agora permite montagem manual de 6, 8 ou 10 facetas superiores so
 Esse recurso é um ensaio gráfico, sem segmentação dental automática, avaliação clínica ou processamento de IA. A forma das facetas é uma representação vetorial; o posicionamento depende de ajuste manual. Não prevê resultado, preparo, viabilidade ou conduta de tratamento.
 
 Salvar a prévia preserva foto e ajustes no armazenamento local; insuficiência de espaço impede a confirmação de salvamento. Nenhuma imagem é enviada para servidores. Verificação: sobreposição somente no Depois, cor, reabertura da foto e ajustes, arraste e tela de 390px.
+
+## Revisão da prévia fotográfica
+
+A montagem vetorial opaca de dentes foi removida. A marcação da área fica visível somente quando solicitada e desaparece ao concluir o ajuste/aplicar. O texto flutuante sobre a foto foi removido.
+
+A foto enviada recebe agora um ajuste gráfico localizado de tonalidade na área marcada, preservando textura. O filtro usa características simples de cor/luminosidade dentro da seleção e não constitui segmentação odontológica; deve ser revisado visualmente. Não reconstrói anatomia, fecha espaços ou produz previsão de facetas reais. A interface mantém essa limitação explícita. O nome do tratamento é usado apenas no caso sintético demonstrativo e no fluxo de apresentação, sem alegar transformação anatômica personalizada.
+
+Aplicar exige área calibrada; alterações invalidam o resultado anterior. O modo de apresentação fica livre de caixas e blocos. O atalho Caso pronto de facetas abre a imagem sintética comparativa pronta, separada da foto enviada. Verificado: exigência de marcação, diferença entre imagens, ausência de blocos e caixas, apresentação ampliada e caso pronto.

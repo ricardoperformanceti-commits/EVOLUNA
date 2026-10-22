@@ -82,3 +82,11 @@ O acesso Sorriso IA ocupa agora o cartão superior do menu; não fica duplicado 
 Apresentação antes/depois: caso fotográfico sintético gerado para o projeto, com painel superior original e inferior planejamento ilustrativo, usado em um comparador com slider. Exemplo de estética natural, sem inferir um diagnóstico ou resultado individual. Alternância para desenho interativo mantém os controles de tonalidade/alinhamento. Fotos enviadas pelo usuário são apenas referências e não recebem modificação de tratamento automática. O envio de imagem fica imediatamente abaixo do comparador. Botão Apresentar caso abre a comparação ampliada.
 
 Os links Sua clínica / página atual do cabeçalho agora são navegáveis. Os controles de pesquisa, o PDF, a apresentação e o envio abaixo da imagem foram verificados no navegador, incluindo 390px.
+
+## Facetas na foto enviada
+
+A foto enviada agora permite montagem manual de 6, 8 ou 10 facetas superiores sobre o lado Depois, sem alterar o lado Antes. Ajustes de posição horizontal/vertical, largura, altura, inclinação e tonalidade. O usuário pode desenhar uma região com o ponteiro ou arrastar a moldura. Aplicar facetas ativa a sobreposição e esconde o ajuste para apresentação; o comparador e a apresentação ampliada usam a mesma montagem.
+
+Esse recurso é um ensaio gráfico, sem segmentação dental automática, avaliação clínica ou processamento de IA. A forma das facetas é uma representação vetorial; o posicionamento depende de ajuste manual. Não prevê resultado, preparo, viabilidade ou conduta de tratamento.
+
+Salvar a prévia preserva foto e ajustes no armazenamento local; insuficiência de espaço impede a confirmação de salvamento. Nenhuma imagem é enviada para servidores. Verificação: sobreposição somente no Depois, cor, reabertura da foto e ajustes, arraste e tela de 390px.

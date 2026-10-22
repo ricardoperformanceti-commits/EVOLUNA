@@ -6,13 +6,13 @@ const req = (path, options) => new Request('https://app.example'+path,options);
 const mock = (auth) => () => ({auth});
 test('páginas públicas abrem sem sessão',async()=>{
   const handle=createHandler(()=>{throw Error('cliente não necessário')});
-  for(const path of ['/','/login','/cadastro']) assert.equal((await handle(req(path),env)).status,200);
+  for(const path of ['/','/cadastro']) assert.equal((await handle(req(path),env)).status,200);
 });
 test('painel e subrotas bloqueiam sessão ausente ou inválida',async()=>{
   const handle=createHandler(mock({getUser:async()=>({data:{user:null},error:Error('invalid')})}));
   for(const path of ['/painel','/painel/dados']) {
     const r=await handle(req(path,{headers:{cookie:'sb-auth-token=falso'}}),env);
-    assert.equal(r.status,303);assert.equal(r.headers.get('location'),'/login');
+    assert.equal(r.status,303);assert.equal(r.headers.get('location'),'/');
   }
 });
 test('painel valida usuário no servidor e escapa HTML',async()=>{
@@ -49,4 +49,10 @@ test('logout não usa GET e mantém erro remoto visível',async()=>{
   const handle=createHandler(mock({signOut:async()=>({error:Error('network')})}));
   assert.equal((await handle(req('/auth/logout'),env)).status,404);
   assert.equal((await handle(req('/auth/logout',{method:'POST',headers:{origin:'https://app.example'}}),env)).status,502);
+});
+
+test('login redireciona ao início e início não oferece formulário de acesso',async()=>{
+ const handle=createHandler(()=>{throw Error('não deve autenticar')});
+ const r=await handle(req('/login'),env);assert.equal(r.status,303);assert.equal(r.headers.get('location'),'/');
+ const home=await handle(req('/'),env);const html=await home.text();assert.equal(home.status,200);assert.ok(!html.includes('href="/login"'));assert.ok(!html.includes('type="password"'));
 });

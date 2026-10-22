@@ -11,3 +11,7 @@ Antes de usar os e-mails em produção, configure no Supabase, Authentication > 
 - Redirect URLs: https://sorriso-com-ia-clinica.balmygnat129.chatgpt.site/auth/callback
 
 Essa configuração de Auth não é exposta pelas ferramentas Supabase disponíveis nesta sessão. A confirmação por e-mail precisa ser verificada após esse ajuste. Não há tabelas de dados clínicos nem usuários de teste criados.
+
+## Acesso direto
+
+A página inicial abre sem login. A rota /login redireciona para /. O site permite visitantes sem autenticação na hospedagem. Rotas com dados de conta continuam exigindo validação de usuário no servidor.

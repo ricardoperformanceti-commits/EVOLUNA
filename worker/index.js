@@ -8,7 +8,7 @@ function shell(content) {
 function authForm(signupMode = false, message = '', error = false) {
   return shell(`<section class="card"><p class="eyebrow">SORRISO COM IA</p><h1>${signupMode ? 'Comece por aqui.' : 'Que bom ter você aqui.'}</h1><p>${signupMode ? 'Crie sua conta para acessar a plataforma.' : 'Entre para acessar seu espaço.'}</p><form method="post" action="/auth/${signupMode ? 'signup' : 'login'}"><label for="email">E-mail</label><input name="email" id="email" type="email" autocomplete="email" maxlength="254" required placeholder="voce@clinica.com.br"><label for="password">Senha</label><input name="password" id="password" type="password" autocomplete="${signupMode ? 'new-password' : 'current-password'}" minlength="${signupMode ? 12 : 1}" maxlength="128" required>${signupMode ? '<small>Use pelo menos 12 caracteres.</small>' : ''}${message ? `<p ${error ? 'class="error" role="alert"' : 'role="status"'}>${escape(message)}</p>` : ''}<button>${signupMode ? 'Criar minha conta' : 'Entrar →'}</button></form><p>${signupMode ? 'Já tem conta? <a href="/login">Entrar</a>' : 'Ainda não tem conta? <a href="/cadastro">Cadastre-se</a>'}</p></section>`);
 }
-const home = () => shell('<section class="hero"><p class="eyebrow">CUIDADO QUE CONECTA</p><h1>Mais tempo para<br>cuidar de sorrisos.</h1><p>Um espaço para sua clínica, com acesso seguro à sua conta.</p><div class="links"><a class="button" href="/login">Acessar minha conta →</a><a href="/cadastro">Criar conta</a></div><div class="note">Sorriso com IA · Plataforma odontológica</div></section>');
+const home = () => shell('<section class="hero"><p class="eyebrow">CUIDADO QUE CONECTA</p><h1>Mais tempo para<br>cuidar de sorrisos.</h1><p>Bem-vindo ao espaço da sua clínica.</p><div class="note">Sorriso com IA · Plataforma odontológica</div></section>');
 
 export function createHandler(clientFactory = createServerClient) {
   return async function handle(request, env) {
@@ -59,11 +59,11 @@ export function createHandler(clientFactory = createServerClient) {
       if (request.method !== 'GET' && request.method !== 'HEAD') return respond('Método não permitido',405);
       if (path === '/' && url.searchParams.has('code')) return redirect('/auth/callback?code='+encodeURIComponent(url.searchParams.get('code')));
       if (path === '/') return respond(home());
-      if (path === '/login') return respond(authForm());
+      if (path === '/login') return redirect('/');
       if (path === '/cadastro') return respond(authForm(true));
       if (path === '/painel' || path.startsWith('/painel/')) {
         const {data,error} = await client().auth.getUser();
-        if (error || !data.user) return redirect('/login');
+        if (error || !data.user) return redirect('/');
         if (path !== '/painel') return respond(shell('<section class="card"><h1>Página não encontrada.</h1><a href="/painel">Voltar ao painel</a></section>'),404);
         return respond(shell(`<section class="card wide"><p class="eyebrow">ÁREA PROTEGIDA</p><h1>Seu espaço está pronto.</h1><p>Você está conectado como <strong>${escape(data.user.email)}</strong>.</p><div class="note">Esta é a base de acesso da plataforma. Os módulos de gestão da clínica serão adicionados nas próximas etapas.</div><form method="post" action="/auth/logout"><button class="secondary">Sair da conta</button></form></section>`));
       }

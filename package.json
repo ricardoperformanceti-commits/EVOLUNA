@@ -9,6 +9,7 @@
     "dev": "python -m http.server 3001 --directory dist"
   },
   "dependencies": {
+    "@mediapipe/face_mesh": "0.4.1633559619",
     "@supabase/ssr": "0.12.7",
     "@supabase/supabase-js": "2.118.0",
     "jspdf": "4.2.1"

@@ -1,5 +1,6 @@
+import {createHash} from 'node:crypto';
 import { build } from 'esbuild';
-import {rm,mkdir,cp,copyFile} from 'node:fs/promises';
+import {rm,mkdir,cp,copyFile,readFile,writeFile} from 'node:fs/promises';
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist/.openai',{recursive:true});
 await cp('public','dist',{recursive:true});
@@ -9,3 +10,8 @@ await copyFile('.openai/hosting.json','dist/.openai/hosting.json');
 console.log('Demonstração frontend preparada em dist/.');
 
 await build({entryPoints:['pdf/record-export.js'],bundle:true,format:'iife',platform:'browser',target:'es2022',outfile:'dist/record-pdf.js',minify:true});
+
+// Cada versão pede os arquivos novos, sem reutilizar JavaScript ou CSS antigo do navegador.
+let html=await readFile('dist/index.html','utf8');
+for(const match of [...html.matchAll(/(?:src|href)="(\/[^"?]+\.(?:js|css))"/g)]){const path=match[1],hash=createHash('sha256').update(await readFile('dist'+path)).digest('hex').slice(0,12);html=html.replaceAll('"'+path+'"','"'+path+'?v='+hash+'"')}
+await writeFile('dist/index.html',html);

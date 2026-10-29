@@ -12,6 +12,10 @@ const hue=spread===0?60:Math.max(r,g,b)===r?60*((g-b)/spread):Math.max(r,g,b)===
 if(!neutral&&(hue<27||hue>82))continue;
 const chromaMargin=neutral?1:clamp((yellow-red*.55+2)/12),light=clamp((luma-85)/45);const weight=chromaMargin*light;if(weight<.40)continue;candidate[p]=1;confidence[p]=Math.round(255*weight)}
 if(!regionCount)return result;
+// Uma faixa fina sobre o lábio pode ter cor clara, mas não a profundidade de um dente.
+// Remove esses trechos por coluna antes de unir as superfícies de esmalte.
+const minDepth=Math.max(3,Math.round((maxY-minY)*.13));
+for(let x=1;x<width-1;x++){let y=minY;while(y<=maxY){if(!candidate[y*width+x]){y++;continue}const start=y;while(y<=maxY&&candidate[y*width+x])y++;if(y-start<minDepth)for(let row=start;row<y;row++){candidate[row*width+x]=0;confidence[row*width+x]=0}}}
 const minArea=Math.max(8,Math.ceil(regionCount*.003)),minHeight=Math.max(3,Math.round((maxY-minY)*.12)),queue=new Int32Array(size);
 for(let p=0;p<size;p++){if(!candidate[p]||seen[p])continue;let head=0,tail=1,top=height,bottom=0,left=width,right=0,strong=0;queue[0]=p;seen[p]=1;
 while(head<tail){const q=queue[head++],x=q%width,y=Math.floor(q/width);top=Math.min(top,y);bottom=Math.max(bottom,y);left=Math.min(left,x);right=Math.max(right,x);if(confidence[q]>190)strong++;for(const next of[q-width,q+width,x>0?q-1:-1,x<width-1?q+1:-1])if(next>=0&&next<size&&candidate[next]&&!seen[next]){seen[next]=1;queue[tail++]=next}}

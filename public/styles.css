@@ -48,3 +48,6 @@ html{overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-co
 @media(prefers-reduced-motion:reduce){.home-kpis .kpi{transition:none}}
 
 .sidebar .evolluna-brand small{font-size:10px;letter-spacing:1px;line-height:1.5}
+
+/* Títulos dos indicadores na cor principal da marca. */
+.kpi .kpi-top>span:first-child{color:var(--green);font-weight:600}

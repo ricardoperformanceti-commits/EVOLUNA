@@ -73,3 +73,6 @@ html{overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-co
 
 /* A foto enviada usa o mesmo comparador, sem ferramentas manuais. */
 .smile-stage.uploaded-photo-stage{aspect-ratio:3/2;background:#eef2eb}.uploaded-photo-stage .smile-before img,.uploaded-photo-stage .smile-after img{object-fit:contain}.simulation-result:has(+*){min-width:0}.simulation-result p{overflow-wrap:anywhere}.smile-planning-panel .button:disabled{cursor:progress}
+
+/* Antes e depois preenchem o comparador com o mesmo enquadramento. */
+.uploaded-photo-stage .smile-before img,.uploaded-photo-stage .smile-after img{width:100%;height:100%;object-fit:cover;object-position:center}

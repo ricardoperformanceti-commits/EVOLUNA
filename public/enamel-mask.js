@@ -2,15 +2,9 @@
    Exclui cores rosadas/avermelhadas e pequenas áreas de brilho isoladas. */
 (()=>{
 const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+function score(r,g,b){const luma=.2126*r+.7152*g+.0722*b;if(luma<85||g<r*.60||b<r*.23)return 0;const red=r-g,yellow=g-b;if(yellow<red*.55-2||b>g+4)return 0;const spread=Math.max(r,g,b)-Math.min(r,g,b),neutral=spread<32&&g>=r*.84&&b>=r*.73;const hue=spread===0?60:Math.max(r,g,b)===r?60*((g-b)/spread):Math.max(r,g,b)===g?60*(2+(b-r)/spread):60*(4+(r-g)/spread);if(!neutral&&(hue<27||hue>82))return 0;const margin=neutral?1:clamp((yellow-red*.55+2)/12),light=clamp((luma-85)/45),weight=margin*light;return weight<.40?0:Math.round(255*weight)}
 function build(pixels,region,width,height){const size=width*height,candidate=new Uint8Array(size),confidence=new Uint8Array(size),seen=new Uint8Array(size),result=new Uint8Array(size);let regionCount=0,minY=height,maxY=0;
-for(let p=width+1;p<size-width-1;p++){if(p%width===0||p%width===width-1)continue;const i=p*4;if(region[i]<240||region[i-4]<240||region[i+4]<240||region[i-width*4]<240||region[i+width*4]<240)continue;regionCount++;const py=Math.floor(p/width);minY=Math.min(minY,py);maxY=Math.max(maxY,py);const r=pixels[i],g=pixels[i+1],b=pixels[i+2],luma=.2126*r+.7152*g+.0722*b;
-if(luma<85||g<r*.60||b<r*.23)continue;
-// Esmalte amarelado tem componente verde/amarela; tecidos moles tendem ao vermelho/rosa.
-const red=r-g,yellow=g-b;if(yellow<red*.55-2||b>g+4)continue;
-const spread=Math.max(r,g,b)-Math.min(r,g,b),neutral=spread<32&&g>=r*.84&&b>=r*.73;
-const hue=spread===0?60:Math.max(r,g,b)===r?60*((g-b)/spread):Math.max(r,g,b)===g?60*(2+(b-r)/spread):60*(4+(r-g)/spread);
-if(!neutral&&(hue<27||hue>82))continue;
-const chromaMargin=neutral?1:clamp((yellow-red*.55+2)/12),light=clamp((luma-85)/45);const weight=chromaMargin*light;if(weight<.40)continue;candidate[p]=1;confidence[p]=Math.round(255*weight)}
+for(let p=width+1;p<size-width-1;p++){if(p%width===0||p%width===width-1)continue;const i=p*4;if(region[i]<240||region[i-4]<240||region[i+4]<240||region[i-width*4]<240||region[i+width*4]<240)continue;regionCount++;const py=Math.floor(p/width);minY=Math.min(minY,py);maxY=Math.max(maxY,py);const weight=score(pixels[i],pixels[i+1],pixels[i+2]);if(!weight)continue;candidate[p]=1;confidence[p]=weight}
 if(!regionCount)return result;
 // Uma faixa fina sobre o lábio pode ter cor clara, mas não a profundidade de um dente.
 // Remove esses trechos por coluna antes de unir as superfícies de esmalte.
@@ -31,5 +25,5 @@ if(tail<minArea||bottom-top+1<minHeight||right-left+1<2||strong<Math.max(3,tail*
 for(let k=0;k<tail;k++){const q=queue[k];result[q]=confidence[q]}}
 // A suavização é apenas para dentro da máscara: nunca expande a cor para tecidos vizinhos.
 const soft=result.slice();for(let p=width+1;p<size-width-1;p++){if(!result[p])continue;let neighbors=0;for(const q of[p-1,p+1,p-width,p+width])if(result[q])neighbors++;soft[p]=Math.round(result[p]*(neighbors===4?1:neighbors>=2?.55:.25))}return soft}
-window.TeethMask={build};
+window.TeethMask={build,score};
 })();

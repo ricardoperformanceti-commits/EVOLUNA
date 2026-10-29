@@ -38,16 +38,18 @@ html{overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-co
 .smile-procedure-options .smile-procedure-option input[type=radio]{width:15px!important;min-width:15px;max-width:15px;height:15px;flex:0 0 15px;border:0;box-shadow:none;background:transparent}.smile-procedure-option>span{white-space:nowrap;flex:0 0 auto}
 
 /* Destaque tecnológico dos indicadores da visão geral. */
-.home-kpis .kpi{position:relative;isolation:isolate;border:1.5px solid transparent;background:linear-gradient(135deg,#fff 68%,#f2faf5) padding-box,linear-gradient(125deg,#1d4e3d,#7bc9a4 36%,#d9eabd 63%,#429d7a) border-box;box-shadow:0 0 0 3px #53ac7e0a,0 5px 18px #1d4e3d0d,inset 0 1px 0 #fff;transition:box-shadow .2s ease}
-.home-kpis .kpi::before,.home-kpis .kpi::after{content:"";position:absolute;width:24px;height:12px;pointer-events:none;border-color:#50a783;border-style:solid;opacity:.7}
-.home-kpis .kpi::before{top:5px;right:5px;border-width:1px 1px 0 0;border-top-right-radius:6px}
-.home-kpis .kpi::after{bottom:5px;left:5px;border-width:0 0 1px 1px;border-bottom-left-radius:6px}
-.home-kpis .kpi:hover{box-shadow:0 0 0 3px #53ac7e12,0 6px 22px #1d4e3d16}
+:is(.home-kpis .kpi,.home-agenda>.tele-hero,.home-patients>.card){position:relative;isolation:isolate;border:1.5px solid transparent;background:linear-gradient(135deg,#fff 68%,#f2faf5) padding-box,linear-gradient(125deg,#1d4e3d,#7bc9a4 36%,#d9eabd 63%,#429d7a) border-box;box-shadow:0 0 0 3px #53ac7e0a,0 5px 18px #1d4e3d0d,inset 0 1px 0 #fff;transition:box-shadow .2s ease}
+:is(.home-kpis .kpi,.home-agenda>.tele-hero,.home-patients>.card)::before,:is(.home-kpis .kpi,.home-agenda>.tele-hero,.home-patients>.card)::after{content:"";position:absolute;width:24px;height:12px;pointer-events:none;border-color:#50a783;border-style:solid;opacity:.7}
+:is(.home-kpis .kpi,.home-agenda>.tele-hero,.home-patients>.card)::before{top:5px;right:5px;border-width:1px 1px 0 0;border-top-right-radius:6px}
+:is(.home-kpis .kpi,.home-agenda>.tele-hero,.home-patients>.card)::after{bottom:5px;left:5px;border-width:0 0 1px 1px;border-bottom-left-radius:6px}
+:is(.home-kpis .kpi,.home-agenda>.tele-hero,.home-patients>.card):hover{box-shadow:0 0 0 3px #53ac7e12,0 6px 22px #1d4e3d16}
 .home-kpis .kpi-icon{color:#2c7757;background:linear-gradient(135deg,#eef7e7,#e0f3ea);border:1px solid #b9d9c2}
 .home-kpis .kpi-top{color:#657c6d}.home-kpis .kpi-bottom{color:#758779}
-@media(prefers-reduced-motion:reduce){.home-kpis .kpi{transition:none}}
+@media(prefers-reduced-motion:reduce){:is(.home-kpis .kpi,.home-agenda>.tele-hero,.home-patients>.card){transition:none}}
 
 .sidebar .evolluna-brand small{font-size:10px;letter-spacing:1px;line-height:1.5}
 
 /* Títulos dos indicadores na cor principal da marca. */
 .kpi .kpi-top>span:first-child{color:var(--green);font-weight:600}
+
+.home-agenda>.tele-hero::before,.home-agenda>.tele-hero::after,.home-patients>.card::before,.home-patients>.card::after{z-index:2}

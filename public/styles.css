@@ -76,3 +76,5 @@ html{overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-co
 
 /* Antes e depois preenchem o comparador com o mesmo enquadramento. */
 .uploaded-photo-stage .smile-before img,.uploaded-photo-stage .smile-after img{width:100%;height:100%;object-fit:cover;object-position:center}
+
+.comparison-pending{visibility:hidden}.smile-photo-status{font-size:11px;color:#587650;margin:-6px 22px 18px;line-height:1.7}.smile-photo-error{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-5px 22px 18px;border:1px solid #efd5cc;background:#fff8f5;border-radius:8px;padding:12px;color:#a33d2d;font-size:11px;line-height:1.6}.smile-photo-error .button{flex-shrink:0;font-size:10px;background:white;border-color:#e9c9be;color:#a33d2d}.smile-range:disabled{cursor:wait}@media(max-width:600px){.smile-photo-error{flex-direction:column;align-items:flex-start;margin-inline:18px}.smile-photo-status{margin-inline:18px}}

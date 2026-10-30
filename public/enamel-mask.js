@@ -8,16 +8,11 @@ for(let p=width+1;p<size-width-1;p++){if(p%width===0||p%width===width-1)continue
 if(!regionCount)return result;
 // Uma faixa fina sobre o lábio pode ter cor clara, mas não a profundidade de um dente.
 // Remove esses trechos por coluna antes de unir as superfícies de esmalte.
-const minDepth=Math.max(3,Math.round((maxY-minY)*.13));
+const minDepth=Math.max(3,Math.round((maxY-minY)*.07));
 for(let x=1;x<width-1;x++){let y=minY;while(y<=maxY){if(!candidate[y*width+x]){y++;continue}const start=y;while(y<=maxY&&candidate[y*width+x])y++;if(y-start<minDepth)for(let row=start;row<y;row++){candidate[row*width+x]=0;confidence[row*width+x]=0}}}
-// Usa a faixa contínua com maior superfície de esmalte; áreas claras separadas no lábio ficam fora.
-const rowCounts=new Uint32Array(height);for(let y=minY;y<=maxY;y++)for(let x=1;x<width-1;x++)rowCounts[y]+=candidate[y*width+x];
-const radius=Math.max(1,Math.round((maxY-minY)*.015)),profile=new Float32Array(height);let peak=0;
-for(let y=minY;y<=maxY;y++){let sum=0,n=0;for(let row=Math.max(minY,y-radius);row<=Math.min(maxY,y+radius);row++){sum+=rowCounts[row];n++}profile[y]=sum/n;peak=Math.max(peak,profile[y])}
-let band=null;for(let y=minY;y<=maxY;){if(profile[y]<Math.max(3,peak*.12)){y++;continue}const top=y;let score=0;while(y<=maxY&&profile[y]>=Math.max(3,peak*.12)){score+=rowCounts[y];y++}if(!band||score>band.score)band={top,bottom:y-1,score}}
-if(!band)return result;
-for(let y=minY;y<=maxY;y++)if(y<band.top||y>band.bottom)for(let x=1;x<width-1;x++){candidate[y*width+x]=0;confidence[y*width+x]=0}
-const minArea=Math.max(8,Math.ceil(regionCount*.003)),minHeight=Math.max(3,Math.round((maxY-minY)*.12)),queue=new Int32Array(size);
+// As duas arcadas e os dentes laterais podem formar ilhas separadas.
+// Avalia cada superfície dentro da boca, sem descartar tudo fora da maior faixa.
+const minArea=Math.max(8,Math.ceil(regionCount*.0015)),minHeight=Math.max(3,Math.round((maxY-minY)*.07)),queue=new Int32Array(size);
 for(let p=0;p<size;p++){if(!candidate[p]||seen[p])continue;let head=0,tail=1,top=height,bottom=0,left=width,right=0,strong=0;queue[0]=p;seen[p]=1;
 while(head<tail){const q=queue[head++],x=q%width,y=Math.floor(q/width);top=Math.min(top,y);bottom=Math.max(bottom,y);left=Math.min(left,x);right=Math.max(right,x);if(confidence[q]>140)strong++;for(const next of[q-width,q+width,x>0?q-1:-1,x<width-1?q+1:-1])if(next>=0&&next<size&&candidate[next]&&!seen[next]){seen[next]=1;queue[tail++]=next}}
 // Reflexos puntuais na gengiva não têm uma superfície contínua de esmalte.

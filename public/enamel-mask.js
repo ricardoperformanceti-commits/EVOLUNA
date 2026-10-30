@@ -25,5 +25,6 @@ if(tail<minArea||bottom-top+1<minHeight||right-left+1<2||strong<Math.max(3,tail*
 for(let k=0;k<tail;k++){const q=queue[k];result[q]=confidence[q]}}
 // A suavização é apenas para dentro da máscara: nunca expande a cor para tecidos vizinhos.
 const soft=result.slice();for(let p=width+1;p<size-width-1;p++){if(!result[p])continue;let neighbors=0;for(const q of[p-1,p+1,p-width,p+width])if(result[q])neighbors++;soft[p]=Math.round(result[p]*(neighbors===4?1:neighbors>=2?.55:.25))}return soft}
-window.TeethMask={build,score};
+function feather(mask,width,height,radius=2){let current=Float32Array.from(mask);const step=Math.max(1,Math.round(radius));for(let pass=0;pass<3;pass++){const horizontal=new Float32Array(mask.length),next=new Float32Array(mask.length);for(let y=0;y<height;y++)for(let x=0;x<width;x++){const p=y*width+x;horizontal[p]=(current[y*width+Math.max(0,x-step)]+2*current[p]+current[y*width+Math.min(width-1,x+step)])/4}for(let y=0;y<height;y++)for(let x=0;x<width;x++){const p=y*width+x;next[p]=(horizontal[Math.max(0,y-step)*width+x]+2*horizontal[p]+horizontal[Math.min(height-1,y+step)*width+x])/4}current=next}return Uint8Array.from(mask,(value,p)=>value?Math.round(Math.min(value,current[p])):0)}
+window.TeethMask={build,score,feather};
 })();

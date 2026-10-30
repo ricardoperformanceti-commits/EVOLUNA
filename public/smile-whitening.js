@@ -1,9 +1,9 @@
 /* Clareamento ilustrativo do caso pronto: cor do esmalte, sem remodelar dentes. */
 (()=>{
 const prepared=new Map();
-const tones={BL1:{lift:42,chroma:.10,peak:246,warmth:0},BL2:{lift:34,chroma:.24,peak:241,warmth:2},A1:{lift:20,chroma:.52,peak:233,warmth:4}};
+const tones={BL1:{lightness:.30,chroma:.65,warmth:0},BL2:{lightness:.22,chroma:.75,warmth:1},A1:{lightness:.12,chroma:.88,warmth:2}};
 const smooth=(a,b,value)=>{const t=Math.max(0,Math.min(1,(value-a)/(b-a)));return t*t*(3-2*t)};
-function applyTone(pixels,mask,shade){const tone=tones[shade]||tones.BL1;let adjusted=0;for(let p=0;p<mask.length;p++){const weight=mask[p]/255;if(weight<.01)continue;const i=p*4,r=pixels[i],g=pixels[i+1],b=pixels[i+2],y=.2126*r+.7152*g+.0722*b;const targetY=Math.max(y,Math.min(252,y<=210?y+tone.lift:tone.peak+(y-210)*.12));for(let c=0;c<3;c++){const original=pixels[i+c],target=targetY+(original-y)*tone.chroma-(c===2?tone.warmth:0);pixels[i+c]=Math.round(original+(target-original)*weight)}adjusted++}return adjusted}
+function applyTone(pixels,mask,shade){const tone=tones[shade]||tones.BL1;let adjusted=0;for(let p=0;p<mask.length;p++){const weight=mask[p]/255;if(weight<.01)continue;const i=p*4,r=pixels[i],g=pixels[i+1],b=pixels[i+2],y=.2126*r+.7152*g+.0722*b;const targetY=y+Math.min(26,(255-y)*tone.lightness);for(let c=0;c<3;c++){const original=pixels[i+c],target=targetY+(original-y)*tone.chroma-(c===2?tone.warmth:0);pixels[i+c]=Math.round(original+(target-original)*weight)}adjusted++}return adjusted}
 const teeth=[
  'M358 316 Q367 315 378 318 L385 346 Q381 357 369 352 Q360 343 357 329 Z',
  'M381 315 Q392 315 402 321 L413 342 Q417 353 410 361 L398 367 Q386 363 383 351 L378 326 Z',

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --check public/app.js && node --check public/dr-help.js && node --check public/video-room.js && node --check public/clinical-record.js && node --check public/patient-photo.js && node --check public/header-search.js && node --check public/veneers.js && node --check public/enamel-mask.js && node --check public/document-actions.js && node --check public/session-notes.js && node --check public/smile-whitening.js && node --check public/home-analytics.js && node --check public/private-call.js && node --check public/rtc-guest.js && node --check rtc/engine.js && node --check teleconsult-server/server.mjs",
+    "test": "node --check public/app.js && node --check public/dr-help.js && node --check public/video-room.js && node --check public/clinical-record.js && node --check public/patient-photo.js && node --check public/header-search.js && node --check public/veneers.js && node --check public/enamel-mask.js && node --check public/document-actions.js && node --check public/session-notes.js && node --check public/smile-whitening.js && node --check public/home-analytics.js && node --check public/private-call.js && node --check public/rtc-guest.js && node --check rtc/engine.js && node --check teleconsult-server/server.mjs && node --check public/agenda.js",
     "dev": "python -m http.server 3001 --directory dist",
     "dev:rtc": "node teleconsult-server/server.mjs",
     "test:rtc": "node --test --test-force-exit tests/rtc-server.test.mjs"

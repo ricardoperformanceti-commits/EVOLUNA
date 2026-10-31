@@ -3,15 +3,17 @@
 (()=>{
 const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
 function smooth(a,b,v){const t=clamp((v-a)/(b-a));return t*t*(3-2*t)}
-function score(r,g,b){const y=.2126*r+.7152*g+.0722*b;if(y<70||g<r*.63||b<r*.26||b>g*1.12+6||g>r*1.18+12)return 0;const spread=Math.max(r,g,b)-Math.min(r,g,b),neutral=spread<24&&g>=r*.80&&b>=r*.68;let color;if(neutral)color=1;else if(r>=g&&r>=b){const redness=(r-g)/Math.max(12,r-b);if(redness>.78)return 0;color=1-smooth(.65,.78,redness)}else{if(spread>45||g<r*.9)return 0;color=.8}return Math.round(255*color*smooth(70,115,y))}
-function build(pixels,region,width,height){const size=width*height,candidate=new Uint8Array(size),confidence=new Uint8Array(size),seen=new Uint8Array(size),result=new Uint8Array(size);let regionCount=0,minY=height,maxY=0;
-for(let y=1;y<height-1;y++)for(let x=1;x<width-1;x++){const p=y*width+x,i=p*4;if(region[i]<240||region[i-4]<240||region[i+4]<240||region[i-width*4]<240||region[i+width*4]<240)continue;regionCount++;minY=Math.min(minY,y);maxY=Math.max(maxY,y);const weight=score(pixels[i],pixels[i+1],pixels[i+2]);confidence[p]=weight;if(weight>=42)candidate[p]=1}
+function score(r,g,b){const y=.2126*r+.7152*g+.0722*b;if(y<70||g<r*.58||b<r*.22||b>g*1.12+6||g>r*1.18+12)return 0;const spread=Math.max(r,g,b)-Math.min(r,g,b),neutral=spread<24&&g>=r*.80&&b>=r*.68;let color;if(neutral)color=1;else if(r>=g&&r>=b){const redness=(r-g)/Math.max(12,r-b);if(redness>.86)return 0;color=1-smooth(.72,.86,redness)}else{if(spread>45||g<r*.9)return 0;color=.8}return Math.round(255*color*smooth(70,115,y))}
+function build(pixels,region,width,height){const size=width*height,candidate=new Uint8Array(size),confidence=new Uint8Array(size),seen=new Uint8Array(size),result=new Uint8Array(size);let regionCount=0,minY=height,maxY=0,minX=width,maxX=0;
+for(let y=1;y<height-1;y++)for(let x=1;x<width-1;x++){const p=y*width+x,i=p*4;if(region[i]<240||region[i-4]<240||region[i+4]<240||region[i-width*4]<240||region[i+width*4]<240)continue;regionCount++;minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);const weight=score(pixels[i],pixels[i+1],pixels[i+2]);confidence[p]=weight;if(weight>=42)candidate[p]=1}
 if(!regionCount)return result;
 const mouthHeight=maxY-minY+1,minArea=Math.max(8,Math.ceil(regionCount*.0012)),minHeight=Math.max(3,Math.round(mouthHeight*.07)),queue=new Int32Array(size);
 // Cada ilha de esmalte é avaliada separadamente: arcadas inferior e superior e laterais.
 for(let p=0;p<size;p++){if(!candidate[p]||seen[p])continue;let head=0,tail=1,top=height,bottom=0,left=width,right=0,strong=0,totalConfidence=0,maxConfidence=0;queue[0]=p;seen[p]=1;
 while(head<tail){const q=queue[head++],x=q%width,y=Math.floor(q/width),weight=confidence[q];top=Math.min(top,y);bottom=Math.max(bottom,y);left=Math.min(left,x);right=Math.max(right,x);totalConfidence+=weight;maxConfidence=Math.max(maxConfidence,weight);if(weight>=145)strong++;for(const next of[q-width,q+width,x>0?q-1:-1,x<width-1?q+1:-1])if(next>=0&&next<size&&candidate[next]&&!seen[next]){seen[next]=1;queue[tail++]=next}}
-const seeded=strong>=Math.max(3,tail*.025),shaded=maxConfidence>=100&&totalConfidence/tail>=85&&bottom-top+1>=mouthHeight*.12;if(tail<minArea||bottom-top+1<minHeight||right-left+1<2||(!seeded&&!shaded))continue;
+// Dentes distais aparecem menores e mais sombreados por causa da perspectiva.
+const centerX=(left+right)/2,lateral=centerX<minX+(maxX-minX)*.28||centerX>minX+(maxX-minX)*.72;
+const seeded=strong>=Math.max(3,tail*.025),shaded=maxConfidence>=(lateral?75:100)&&totalConfidence/tail>=(lateral?60:85)&&bottom-top+1>=mouthHeight*(lateral?.07:.12),requiredArea=lateral?Math.max(8,Math.ceil(regionCount*.0006)):minArea,requiredHeight=lateral?Math.max(3,Math.round(mouthHeight*.045)):minHeight;if(tail<requiredArea||bottom-top+1<requiredHeight||right-left+1<2||(!seeded&&!shaded))continue;
 // Cor decide a seleção, não a intensidade: evita manchas brancas no centro dos dentes.
 for(let k=0;k<tail;k++)result[queue[k]]=255}
 // Fecha recortes estreitos dentro da silhueta, sem alargar o contorno externo.

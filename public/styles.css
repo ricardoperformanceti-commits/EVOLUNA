@@ -86,3 +86,6 @@ html{overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-co
 
 /* Card do paciente alinhado à coluna da chamada. */
 .live-call-main>.session-patient-top{padding:10px 14px;gap:10px;margin-bottom:10px;min-height:60px}.live-call-main>.session-patient-top .avatar{width:34px;height:34px}.live-call-main>.session-patient-top strong{font-size:13px}.live-call-main>.session-patient-top small{font-size:9px}.live-call-main>.session-patient-top .badge{font-size:8px;white-space:nowrap}@media(max-width:600px){.live-call-main>.session-patient-top{padding:10px 12px}.live-call-main>.session-patient-top .badge{margin-left:44px}}
+
+/* Foto circular no canto superior esquerdo de cada card de paciente. */
+.patient-card-top>.patient-card-photo{width:66px;height:66px;border:2px solid #8db59a;background:#f3f7ed;padding:3px;box-shadow:0 0 0 4px #6fa9840c}.patient-card-photo>.avatar{width:56px;height:56px;border-radius:50%;font-size:17px;overflow:hidden}.patient-card-photo .photo-camera{width:22px;height:22px;right:-3px;bottom:-2px;border-color:#fff}.patient-card-photo:focus-visible{outline:3px solid #7fae91;outline-offset:4px}.patient-card-top{align-items:flex-start}

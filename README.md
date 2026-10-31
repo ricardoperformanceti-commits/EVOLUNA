@@ -10,6 +10,7 @@ A chave em `public/cloud-config.js` é publicável. Nunca adicione uma chave de 
 ## Módulos
 
 - Pacientes, agenda, prontuários, documentos, financeiro, configurações e prévias salvos na conta.
+- Recuperação de senha por e-mail e preservação do paciente ao repetir um salvamento que falhou.
 - Salvamento com revisão: alterações de outra aba ou dispositivo não são sobrescritas silenciosamente.
 - Teleconsulta por WebRTC/PeerJS, com Jitsi como alternativa. TURN de produção ainda não configurado.
 - Sorriso IA: processamento fotográfico local de tonalidade, sem reconstrução generativa de facetas.

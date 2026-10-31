@@ -59,3 +59,25 @@ Não alteramos configurações de SMTP ou de confirmação de e-mail nesta integ
 Histórico remoto: `20261031083447_evoluna_private_workspaces` e
 `20261031084119_evoluna_cache_auth_policy_claims`.
 A definição SQL está em `supabase/workspace-schema.sql`.
+
+## Correções de acesso e salvamento
+
+A seleção de paciente é preservada por editor ao restaurar o estado depois de uma
+falha de salvamento. Uma nova tentativa não muda o destinatário do documento ou
+da simulação. O caso com dois pacientes foi reproduzido em navegador com dados
+fictícios antes da correção e validado novamente após ela.
+
+O login oferece recuperação de senha por e-mail. O retorno PASSWORD_RECOVERY abre
+um formulário com confirmação da nova senha, mínimo de 12 caracteres, e retorna
+ao login depois da alteração. Links expirados recebem mensagem específica. O fluxo
+HTTP foi validado com respostas simuladas, sem enviar e-mails reais nem alterar
+a senha de usuários existentes.
+
+A proteção nativa contra senhas vazadas continua pendente: a organização está no
+plano gratuito e o recurso exige Pro ou superior. Nenhuma assinatura foi contratada.
+O TURN de produção continua pendente de um serviço/servidor apropriado; o Jitsi
+segue disponível como alternativa.
+
+O compartilhamento entre profissionais ainda não está habilitado: a migração foi
+rejeitada pela revisão automática por ampliar o acesso a dados clínicos. A proposta
+está em `docs/PROPOSTA-ACESSO-EQUIPE.md`, aguardando autorização explícita.

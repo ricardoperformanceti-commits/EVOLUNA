@@ -1,6 +1,6 @@
 /* Videoconferência real via Jitsi Meet. Carregamento externo somente após clique. */
 (()=>{
-let api=null,preview=null,loadPromise=null,generation=0,joined=false,provider='jitsi';
+let api=null,preview=null,loadPromise=null,generation=0,joined=false,provider='webrtc';
 const apiUrl='https://meet.jit.si/external_api.js';
 const roomPattern=/^Sorriso[A-Fa-f0-9]{32}$/;
 function roomFor(appointment){if(!roomPattern.test(appointment.meetingRoom||'')){appointment.meetingRoom='Sorriso'+crypto.randomUUID().replaceAll('-','');save()}return appointment.meetingRoom}
@@ -17,7 +17,7 @@ async function testDevices(){if(!navigator.mediaDevices?.getUserMedia){toast('Us
 document.addEventListener('click',async e=>{const el=e.target.closest('[data-live]');if(!el||!callState)return;switch(el.dataset.live){case'connect':connect();break;case'test':testDevices();break;case'stop-test':cleanup();$('#live-stage').innerHTML='<div class="live-prejoin"><h2>Teste encerrado.</h2><p>A câmera e o microfone foram liberados.</p><button class="button lime" data-live="connect">Conectar vídeo nesta página</button></div>';status('Não conectado');break;case'copy':try{await navigator.clipboard.writeText(url());toast('Link da chamada copiado. Compartilhe apenas com o participante.')}catch{const field=$('#meeting-link');field.focus();field.select();toast('Selecione e copie o link exibido.')}break;case'mic':case'camera':case'screen':if(api&&joined)api.executeCommand({mic:'toggleAudio',camera:'toggleVideo',screen:'toggleShareScreen'}[el.dataset.live]);break;case'hangup':if(api)api.executeCommand('hangup');break}});
 window.addEventListener('pagehide',cleanup);
 function end(){if(api){try{api.executeCommand('hangup')}catch{}}cleanup()}
-function providerChoice(){return `<div class="call-provider-choice" role="group" aria-label="Tipo de chamada"><button type="button" data-call-provider="jitsi" aria-pressed="${provider==='jitsi'}">Jitsi atual</button><button type="button" data-call-provider="webrtc" aria-pressed="${provider==='webrtc'}">Nova chamada · teste</button></div>`}
+function providerChoice(){return `<div class="call-provider-choice" role="group" aria-label="Tipo de chamada"><button type="button" data-call-provider="webrtc" aria-pressed="${provider==='webrtc'}">Teleconsulta</button><button type="button" data-call-provider="jitsi" aria-pressed="${provider==='jitsi'}">Alternativa Jitsi</button></div>`}
 document.addEventListener('click',e=>{const button=e.target.closest('[data-call-provider]');if(!button||button.disabled||!callState||button.dataset.callProvider===provider)return;cleanup();provider=button.dataset.callProvider;$('#live-stage')?.remove();window.render()});
 window.VideoRoom={roomFor,render:()=>provider==='webrtc'?window.PrivateCall.render():liveBody(),cleanup,end,providerChoice,provider:()=>provider};
 })();

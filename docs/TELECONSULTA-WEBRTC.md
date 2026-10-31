@@ -1,4 +1,4 @@
-# Teleconsulta WebRTC — variante de teste
+# Teleconsulta WebRTC — chamada integrada
 
 Base: https://github.com/WebDevSimplified/Zoom-Clone-With-WebRTC
 Revisão consultada: `6312ec74addbf00ec006ef9e0e085723660db9aa`.
@@ -7,11 +7,11 @@ A adaptação reaproveita o fluxo PeerJS do exemplo (`getUserMedia`, `peer.call`
 
 ## Como testar
 
-1. Teleconsulta → preparar um atendimento → **Nova chamada · teste**.
-2. **Abrir sala de teste** e permitir câmera/microfone.
+1. Teleconsulta → **Abrir teleconsulta**. A chamada integrada é a opção inicial.
+2. **Iniciar teleconsulta** e permitir câmera/microfone.
 3. Copiar convite e abrir em outro aparelho/navegador. O convidado clica em entrar e autoriza seus dispositivos.
 4. Testar áudio, vídeo, microfone, câmera, compartilhamento de tela e encerramento. Os registros de sessão permanecem no painel existente.
-5. Voltar ao Jitsi somente após sair da chamada de teste. O Jitsi permanece como opção inicial.
+5. Se necessário, sair da chamada e escolher **Alternativa Jitsi**. Falhas de conexão também exibem acesso direto à alternativa.
 
 O convidado acessa `/teleconsulta.html`; essa página não importa o aplicativo clínico, não lê localStorage e não recebe nome, CPF, anotações ou documentos pelo sinalizador.
 
@@ -19,7 +19,7 @@ O convidado acessa `/teleconsulta.html`; essa página não importa o aplicativo 
 
 A variante estática utiliza a sinalização pública PeerJS Cloud e STUN do Google. O serviço público ajuda os participantes a trocarem informações de conexão; não foi implantado um servidor privado nesta publicação. Áudio e vídeo usam a conexão WebRTC entre os aparelhos, sem gravação pelo app.
 
-**TURN ainda não está configurado.** Redes restritivas ou NATs incompatíveis podem impedir a chamada. Não considerar esta variante pronta para atendimento ou validar confiabilidade entre redes diferentes apenas com os testes locais. Não há garantia/SLA do sinalizador público. A variante está explicitamente identificada como teste e o Jitsi foi preservado.
+**TURN ainda não está configurado.** Redes restritivas ou NATs incompatíveis podem impedir a chamada. Não considerar esta variante pronta para atendimento ou validar confiabilidade entre redes diferentes apenas com os testes locais. Não há garantia/SLA do sinalizador público. A compatibilidade em todas as redes ainda não foi validada; o Jitsi foi preservado como alternativa.
 
 Não foram feitas chamadas para pacientes reais. Os testes locais usam contextos independentes de navegador, mídia sintética, sinalizador PeerJS local real e relay TURN local TCP para respeitar a política de rede do ambiente; não simulam a conexão PeerJS nem RTCPeerConnection. O relay local é apenas um recurso de QA e não será publicado nem usado pelos visitantes. Estes testes não comprovam qualidade de câmera/microfone físicos, internet móvel ou dispositivos diferentes.
 
@@ -60,3 +60,9 @@ O backup não inclui dados locais dos usuários. Para desativar o teste sem roll
 - Fluxo Jitsi com provedor simulado: seis tipos de registros, PDFs, revisão/compartilhamento, recuperação de rascunho e falha de armazenamento passaram.
 - Layout verificado em 320, 390, 834 e 1340px na nova chamada; sem erros de JavaScript no teste final.
 - O sinalizador público e chamadas entre dois aparelhos em redes externas não foram validados neste ambiente. TURN de produção continua pendente; o usuário informou não possuir serviço ou hospedagem.
+
+## Atualização após o teste do usuário
+
+O usuário confirmou que a chamada funcionou. A chamada integrada passou a ser a opção principal; o Jitsi permanece como alternativa. Foi adicionada alternativa explícita em caso de falha e renovação do convite após encerrar uma sala. A confirmação do usuário não comprova compatibilidade em todas as redes.
+
+TURN de produção permanece bloqueado pela ausência de conta, serviço ou servidor para hospedá-lo. A hospedagem atual é estática e não executa o processo TURN. Nenhum serviço foi contratado, nenhuma credencial permanente foi publicada e o relay local de QA foi encerrado após os testes.

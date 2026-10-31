@@ -15,6 +15,7 @@ await mkdir('dist/licenses',{recursive:true});
 await copyFile('node_modules/peerjs/LICENSE','dist/licenses/peerjs-MIT.txt');
 await build({entryPoints:['rtc/engine.js'],bundle:true,format:'iife',platform:'browser',target:'es2022',outfile:'dist/rtc-engine.js',minify:true});
 
+await build({entryPoints:['cloud/client.js'],bundle:true,format:'iife',platform:'browser',target:'es2022',outfile:'dist/cloud-client.js',minify:true});
 // Cada versão pede os arquivos novos, sem reutilizar JavaScript ou CSS antigo do navegador.
 for(const page of ['index.html','teleconsulta.html']){
 let html=await readFile('dist/'+page,'utf8');

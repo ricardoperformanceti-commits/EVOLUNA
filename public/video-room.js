@@ -3,7 +3,7 @@
 let api=null,preview=null,loadPromise=null,generation=0,joined=false,provider='webrtc';
 const apiUrl='https://meet.jit.si/external_api.js';
 const roomPattern=/^Sorriso[A-Fa-f0-9]{32}$/;
-function roomFor(appointment){if(!roomPattern.test(appointment.meetingRoom||'')){appointment.meetingRoom='Sorriso'+crypto.randomUUID().replaceAll('-','');save()}return appointment.meetingRoom}
+function roomFor(appointment){if(!roomPattern.test(appointment.meetingRoom||'')){appointment.meetingRoom='Sorriso'+crypto.randomUUID().replaceAll('-','');window.EvolunaCloud.stageDraft(db)}return appointment.meetingRoom}
 function url(){return 'https://meet.jit.si/'+callState.room}
 function status(text,kind=''){const el=$('#live-room-status');if(el){el.textContent=text;el.className='live-room-status '+kind}}
 function stopPreview(){if(preview){preview.getTracks().forEach(track=>track.stop());preview=null}const video=$('#local-video');if(video)video.srcObject=null}

@@ -1,0 +1,7 @@
+// One private workspace per authenticated account. Revision checks prevent stale writes.
+export class WorkspaceStore{
+ constructor(client,userId){this.client=client;this.userId=userId;this.revision=null;this.busy=false;this.conflict=false}
+ async load(){const {data,error}=await this.client.from('evoluna_workspaces').select('state,revision').eq('user_id',this.userId).maybeSingle();if(error)throw error;this.revision=data?.revision??null;this.conflict=false;return data?.state??null}
+ async create(state){const {data,error}=await this.client.from('evoluna_workspaces').insert({user_id:this.userId,state}).select('revision').single();if(error){if(error.code==='23505')return this.load();throw error}this.revision=data.revision;return state}
+ async save(state){if(this.busy)throw Error('Aguarde o salvamento em andamento.');if(this.conflict)throw Error('Carregue a versão salva antes de continuar.');if(this.revision===null)throw Error('Entre novamente para carregar seus dados.');this.busy=true;try{const snapshot=JSON.parse(JSON.stringify(state));const {data,error}=await this.client.from('evoluna_workspaces').update({state:snapshot}).eq('user_id',this.userId).eq('revision',this.revision).select('revision').maybeSingle();if(error)throw error;if(!data){this.conflict=true;throw Error('Outra aba ou dispositivo atualizou os dados. Sua alteração não foi enviada.')}this.revision=data.revision;return true}finally{this.busy=false}}
+}

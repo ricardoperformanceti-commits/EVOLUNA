@@ -1,25 +1,26 @@
-# Sorriso com IA — demonstração de apresentação
+# Evoluna IA — Sorriso com IA Odonto
 
-Aplicação completa de demonstração em HTML, CSS e JavaScript. Sem login do aplicativo, sem chamadas ao Supabase e sem dados reais. Os dados ficam em localStorage no navegador. O acesso da hospedagem Sites permanece privado.
+Aplicação em HTML, CSS e JavaScript com Supabase Auth e persistência privada por conta.
+A hospedagem continua pública; dados da clínica exigem autenticação e são protegidos por RLS.
+
+Consulte [a documentação da integração Supabase](docs/SUPABASE.md) para configuração,
+primeiro acesso, importação da base antiga, estrutura do banco e limites da validação.
+A chave em `public/cloud-config.js` é publicável. Nunca adicione uma chave de serviço.
 
 ## Módulos
-- Painel com indicadores calculados a partir dos dados locais e gráfico histórico explicitamente ilustrativo.
-- Pacientes: cadastro, edição, busca, filtros e visualização em cartões ou lista.
-- Agenda: navegação por dia, cadastro, detecção de conflito de horário por profissional, confirmação, cancelamento e conclusão.
-- Prontuários: perfil, evolução, odontograma de 32 dentes interativo e plano de tratamento com valores.
-- Sorriso IA: ilustração comparativa, ajustes visuais, upload de referência local, geração simulada e galeria. Sem processamento de IA e sem previsão clínica.
-- Teleconsultas: integração real com Jitsi Meet, sala aleatória por agendamento, link compartilhável, teste local de câmera/microfone e anotações locais. Requer permissão do navegador e login do organizador no provedor externo.
-- Documentos: quatro modelos, edição, salvamento, impressão/PDF via navegador e download em texto. Sem validade clínica ou jurídica.
-- Financeiro: lançamentos de receitas e despesas, recebimento simulado, filtros e exportação CSV. Sem cobrança real.
-- Relatórios: indicadores locais, status dos agendamentos e exportações CSV.
-- Configurações: dados fictícios da clínica, preferências locais, tour em seis etapas, tela cheia e restauração dos exemplos.
 
-## Executar
-`npm run build` copia a aplicação para dist. `npm run dev` abre servidor local na porta 3001.
+- Pacientes, agenda, prontuários, documentos, financeiro, configurações e prévias salvos na conta.
+- Salvamento com revisão: alterações de outra aba ou dispositivo não são sobrescritas silenciosamente.
+- Teleconsulta por WebRTC/PeerJS, com Jitsi como alternativa. TURN de produção ainda não configurado.
+- Sorriso IA: processamento fotográfico local de tonalidade, sem reconstrução generativa de facetas.
+- PDFs para revisão e assinatura pelo profissional. Nenhuma cobrança financeira é processada.
+- Importação explícita dos dados antigos do navegador, sem apagar a cópia original.
 
-Todos os exemplos usam nomes e contatos fictícios. Não use dados reais de pacientes. Os gráficos históricos são ilustrativos e rotulados. Os demais indicadores derivam da base local.
+## Executar e verificar
 
-A identidade do Sites permanece em .openai/hosting.json. A pasta worker contém a implementação anterior com autenticação, que não é incluída na publicação estática atual. O projeto Next.js anterior continua separado em /workspace/sorriso-com-ia.
+`npm run build` prepara os arquivos em `dist/`; `npm run dev` inicia na porta 3001.
+`npm test`, `npm run test:cloud`, `npm run test:enamel` e `npm run test:rtc` executam as verificações.
+A pasta `worker/` contém uma implementação anterior que não é incluída na publicação estática.
 
 ## Dr. Help
 

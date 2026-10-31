@@ -1,4 +1,4 @@
-# Evoluna IA — Sorriso com IA Odonto
+# Evoluna Odonto — Sorriso com IA
 
 Aplicação em HTML, CSS e JavaScript com Supabase Auth e persistência privada por conta.
 A hospedagem continua pública; dados da clínica exigem autenticação e são protegidos por RLS.

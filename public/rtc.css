@@ -14,3 +14,5 @@
 
 /* Tipografia da página de entrada do participante. */
 .rtc-guest-card>p{font-size:16px;line-height:1.7}.rtc-guest-page .rtc-button{font-size:15px;min-height:44px}.rtc-guest-note{font-size:13px!important;line-height:1.75!important}.rtc-guest-page .rtc-test-badge,.rtc-guest-shell>footer{font-size:13px}.rtc-guest-page .rtc-placeholder p{font-size:14px}.rtc-guest-page .rtc-placeholder h2{font-size:21px}.rtc-guest-page .rtc-message{font-size:14px}
+
+.rtc-brand .brand-wordmark{display:flex;align-items:baseline;gap:7px;white-space:nowrap}.rtc-brand .brand-specialty{font-size:11px;font-weight:600;letter-spacing:0}

@@ -1,0 +1,28 @@
+{
+  "name": "sorriso-com-ia-hosted",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --check public/app.js && node --check public/dr-help.js && node --check public/video-room.js && node --check public/clinical-record.js && node --check public/patient-photo.js && node --check public/header-search.js && node --check public/veneers.js && node --check public/enamel-mask.js && node --check public/document-actions.js && node --check public/session-notes.js && node --check public/smile-whitening.js && node --check public/home-analytics.js && node --check public/private-call.js && node --check public/rtc-guest.js && node --check rtc/engine.js && node --check teleconsult-server/server.mjs && node --check public/agenda.js && node --check public/teleconsult-layout.js && node --check public/smile-finish.js && node --check cloud/client.js && node --check cloud/store.js",
+    "dev": "python -m http.server 3001 --directory dist",
+    "dev:rtc": "node teleconsult-server/server.mjs",
+    "test:workflow": "node --test tests/phase-one.test.cjs",
+    "test:rtc": "node --test --test-force-exit tests/rtc-server.test.mjs",
+    "test:enamel": "node --test tests/enamel-finish.test.cjs",
+    "test:cloud": "node --test tests/cloud-store.test.mjs"
+  },
+  "dependencies": {
+    "@mediapipe/face_mesh": "0.4.1633559619",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.118.0",
+    "jspdf": "4.2.1",
+    "peerjs": "1.5.5"
+  },
+  "devDependencies": {
+    "esbuild": "0.27.3",
+    "express": "5.3.0",
+    "peer": "1.0.2"
+  }
+}

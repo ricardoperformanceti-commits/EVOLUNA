@@ -54,4 +54,4 @@ Consulte também `docs/SUPABASE.md`, `docs/TELECONSULTA-WEBRTC.md` e `THIRD_PART
 ## Origem
 
 Versão oficial: **78**. Commit de origem: `52d6287e6ec49bc2bcd5ce678b7de227a2a6fd34`.
-As diferenças desta cópia são a documentação de instalação, os marcadores da configuração Supabase e a exclusão das propostas de equipe. Nenhum dado clínico foi transferido.
+As diferenças desta cópia são a documentação de instalação, os marcadores da configuração Supabase, a exclusão das propostas de equipe e o ajuste do relógio de teste para funcionar em qualquer fuso horário. Nenhum dado clínico foi transferido.

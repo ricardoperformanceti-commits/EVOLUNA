@@ -6,7 +6,7 @@ Código da versão oficial 78 do Evoluna Odonto, copiado do projeto em funcionam
 
 Cadastro de pacientes, agenda, prontuário odontológico, documentos PDF, registros financeiros, teleconsulta e prévia local de clareamento. Login e dados privados por conta com Supabase e políticas RLS.
 
-Esta cópia inclui as correções de revisão de atestados, fechamento do menu móvel e atualização da data. Não inclui a versão alternativa de colaboradores, dados de pacientes, backups privados ou credenciais de produção.
+Esta cópia inclui as correções de revisão de atestados, fechamento do menu móvel e atualização da data. Não inclui a versão alternativa de colaboradores, dados de pacientes, backups privados ou credenciais secretas. A URL e a chave publicável do Supabase são configurações públicas da aplicação.
 
 ## Instalação
 
@@ -25,7 +25,7 @@ Abra http://localhost:3001. O comando de build prepara `dist/`, que contém os a
 
 ## Configurar o Supabase
 
-Edite `public/cloud-config.js` com a URL e a chave **publicável** do seu projeto. Esses dois valores são usados pelo navegador; nunca use `service_role` ou outra chave secreta. A configuração de produção foi substituída por marcadores nesta cópia.
+`public/cloud-config.js` está configurado com a URL e a chave **publicável** do Supabase existente do Evoluna. Esses valores são públicos e não concedem acesso aos registros sem autenticação e RLS. Nunca use `service_role`, senha ou chave secreta. Para uma instalação independente, substitua ambos pelos valores do novo projeto.
 
 O esquema de referência está em `supabase/workspace-schema.sql`. Ele já está aplicado no projeto original; **não o execute novamente na base existente**. Para uma base nova, confira o esquema e as políticas antes de aplicá-los. A pasta `cloud/` contém o cliente e o salvamento com controle de revisão.
 
@@ -54,7 +54,7 @@ Consulte também `docs/SUPABASE.md`, `docs/TELECONSULTA-WEBRTC.md` e `THIRD_PART
 ## Origem
 
 Versão oficial: **78**. Commit de origem: `52d6287e6ec49bc2bcd5ce678b7de227a2a6fd34`.
-As diferenças desta cópia são a documentação de instalação, os marcadores da configuração Supabase, a exclusão das propostas de equipe e o ajuste do relógio de teste para funcionar em qualquer fuso horário. Nenhum dado clínico foi transferido.
+As diferenças desta cópia são a documentação de instalação, a exclusão das propostas de equipe e o ajuste do relógio de teste para funcionar em qualquer fuso horário. A configuração pública foi alinhada com a implantação na Cloudflare. Nenhum dado clínico foi transferido.
 
 ## Preparação da publicação pelo GitHub
 
@@ -62,4 +62,10 @@ O workflow **Verificar e preparar publicação** roda os testes e gera um pacote
 
 O GitHub Pages não permite hospedar serviços comerciais SaaS. O repositório pode guardar o código e preparar o pacote, mas a operação comercial precisa de hospedagem apropriada.
 
-Para configurar a compilação, cadastre as variáveis públicas `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` em **Settings → Secrets and variables → Actions → Variables**. O build usa essas variáveis quando fornecidas. Sem elas, permanece a configuração de exemplo; o pacote não está pronto para uso real.
+O build aceita as variáveis públicas `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` para substituir a configuração padrão. Na Cloudflare, elas já estão configuradas no projeto Pages `evoluna-odonto`. Sem variáveis, os builds e pacotes utilizam o mesmo Supabase existente configurado em `public/cloud-config.js`.
+
+## Instalação Cloudflare
+
+Endereço publicado: https://evoluna-odonto.pages.dev/
+
+O projeto Pages `evoluna-odonto` está conectado à branch `main`. Novos commits disparam testes, build e publicação. O domínio `app.smilesimulator.com.br` está associado e aguarda o registro DNS no Registro.br. A ativação do domínio e os fluxos de e-mail ainda precisam de validação. Consulte [o roteiro de integração](docs/HOSPEDAGEM.md).

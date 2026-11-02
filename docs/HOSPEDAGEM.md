@@ -30,11 +30,11 @@ No DNS autoritativo utilizado pelo Registro.br, adicionar somente:
 
 Após propagação, conferir domínio ativo e certificado HTTPS no Pages. Preservar os demais registros do domínio, inclusive e-mail. Não trocar nameservers para concluir este subdomínio.
 
-## Endereços do Supabase Auth pendentes de configuração/validação
+## Endereços do Supabase Auth configurados
 
 Painel: https://supabase.com/dashboard/project/frviuoafenrqnueglwnq/auth/url-configuration
 
-Enquanto o domínio próprio está pendente, usar como Site URL `https://evoluna-odonto.pages.dev`. Na lista de Redirect URLs, permitir explicitamente:
+Enquanto o domínio próprio está pendente, o Site URL foi configurado como `https://evoluna-odonto.pages.dev`. Foram cadastradas as seguintes Redirect URLs:
 
 - `https://evoluna-odonto.pages.dev/`
 - `https://app.smilesimulator.com.br/`
@@ -42,7 +42,7 @@ Enquanto o domínio próprio está pendente, usar como Site URL `https://evoluna
 
 Depois de ativar e testar o domínio próprio, ele pode se tornar o Site URL principal. Manter o endereço anterior durante a migração. Não utilizar curingas amplos para resolver o redirecionamento.
 
-O conjunto de ferramentas conectado permite consultar banco/logs, mas não editar as configurações Auth do projeto. Esses valores não foram alterados por esta integração e precisam ser conferidos no painel. Não modificar tabelas internas do Auth para tentar configurar esses endereços.
+A configuração foi salva e conferida no painel autenticado do Supabase. Esse ajuste não comprova entrega de e-mails: a configuração de SMTP e os testes de confirmação e recuperação continuam pendentes. Não modificar tabelas internas do Auth para configurar esses endereços.
 
 Fonte: https://supabase.com/docs/guides/auth/redirect-urls
 
@@ -58,7 +58,7 @@ Fonte: https://supabase.com/docs/guides/auth/auth-smtp
 
 ## Verificações
 
-O Pages registra build e publicação bem-sucedidos. Os testes automatizados verificam salvamento/conflitos, revisão de documentos, navegação e virada do dia. Acesso HTTP a este endereço é bloqueado pelo proxy do ambiente de trabalho, portanto não foi feita uma validação visual ou de login no navegador nesta integração. É necessário conferir login, recuperação, PDF e chamadas no endereço final.
+O Pages registra build e publicação bem-sucedidos. Os testes automatizados verificam salvamento/conflitos, revisão de documentos, navegação e virada do dia. A tela de login no endereço Pages foi aberta e conferida em navegador. Isso não substitui a validação dos fluxos autenticados de login, recuperação, PDF e chamadas no endereço final.
 
 O GitHub Actions também gera um pacote `evoluna-publicacao` por sete dias. Esse pacote agora contém a configuração pública do banco existente quando não há substituição por variáveis.
 

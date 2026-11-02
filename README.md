@@ -16,6 +16,7 @@ Requer Node.js 22 ou superior e npm. Para executar a prévia, o script atual usa
 npm ci
 npm test
 npm run test:cloud
+npm run test:database
 npm run test:workflow
 npm run build
 npm run dev
@@ -27,7 +28,7 @@ Abra http://localhost:3001. O comando de build prepara `dist/`, que contém os a
 
 `public/cloud-config.js` está configurado com a URL e a chave **publicável** do Supabase existente do Evoluna. Esses valores são públicos e não concedem acesso aos registros sem autenticação e RLS. Nunca use `service_role`, senha ou chave secreta. Para uma instalação independente, substitua ambos pelos valores do novo projeto.
 
-O esquema de referência está em `supabase/workspace-schema.sql`. Ele já está aplicado no projeto original; **não o execute novamente na base existente**. Para uma base nova, confira o esquema e as políticas antes de aplicá-los. A pasta `cloud/` contém o cliente e o salvamento com controle de revisão.
+O esquema inicial está em `supabase/workspace-schema.sql` e a separação dos módulos está na migração `supabase/migrations/*_normalize_clinical_modules.sql`. Na base original, o esquema inicial já existe e não deve ser repetido. Em uma base nova, aplique ambos nessa ordem. Veja o [mapa das tabelas e o fluxo de salvamento](docs/BANCO-DE-DADOS.md). A pasta `cloud/` contém o cliente com funções RPC e controle de revisão.
 
 Na mudança de domínio/hospedagem, ajuste no Supabase o Site URL e a lista de redirecionamentos de confirmação de cadastro e recuperação de senha. O GitHub não contém os usuários ou os registros do Supabase.
 

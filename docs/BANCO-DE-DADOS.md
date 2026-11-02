@@ -45,3 +45,9 @@ Em uma base nova, aplique primeiro `supabase/workspace-schema.sql` e depois a mi
 Os testes `npm run test:database` executam a migração em Postgres isolado (PGlite) e verificam preservação dos dados, criação, alteração, remoção, conflitos, compatibilidade, rollback e isolamento entre contas. Usam apenas registros fictícios. `npm run test:cloud` verifica a integração do cliente com as funções RPC.
 
 O retorno à versão anterior do cliente pode continuar usando a tabela original, que é sincronizada com as novas. Não apagar as tabelas nem reimportar backups sobre dados mais recentes para fazer esse retorno. Credenciais e dados privados não fazem parte do código versionado.
+
+## Verificação da migração aplicada
+
+A migração `normalize_clinical_modules` foi aplicada no Supabase na versão `20261102124539`. O arquivo local usa a mesma versão registrada no banco. A conferência confirmou 16 tabelas do Evoluna, incluindo a tabela anterior, 2 pacientes e 2 prontuários preservados, com RLS em todas as tabelas. A reconstrução a partir das tabelas novas foi comparada ao estado anterior sem divergência. O salvamento e o conflito de revisão foram testados na base real em uma transação revertida; nenhum registro de teste ficou na conta. Também foram verificados o isolamento entre contas e o bloqueio de usuários anônimos.
+
+Os advisors não apontaram problemas novos de segurança no esquema. Permanece um aviso anterior do Supabase Auth sobre [proteção contra senhas vazadas](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection). Os índices novos ainda sem uso se referem a módulos sem registros; foram mantidos para os vínculos e consultas previstos.

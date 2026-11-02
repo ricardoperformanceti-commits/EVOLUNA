@@ -55,3 +55,11 @@ Consulte também `docs/SUPABASE.md`, `docs/TELECONSULTA-WEBRTC.md` e `THIRD_PART
 
 Versão oficial: **78**. Commit de origem: `52d6287e6ec49bc2bcd5ce678b7de227a2a6fd34`.
 As diferenças desta cópia são a documentação de instalação, os marcadores da configuração Supabase, a exclusão das propostas de equipe e o ajuste do relógio de teste para funcionar em qualquer fuso horário. Nenhum dado clínico foi transferido.
+
+## Preparação da publicação pelo GitHub
+
+O workflow **Verificar e preparar publicação** roda os testes e gera um pacote dos arquivos estáticos. Consulte [Hospedagem e domínio](docs/HOSPEDAGEM.md). Ele não publica no GitHub Pages nem altera o site oficial.
+
+O GitHub Pages não permite hospedar serviços comerciais SaaS. O repositório pode guardar o código e preparar o pacote, mas a operação comercial precisa de hospedagem apropriada.
+
+Para configurar a compilação, cadastre as variáveis públicas `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KEY` em **Settings → Secrets and variables → Actions → Variables**. O build usa essas variáveis quando fornecidas. Sem elas, permanece a configuração de exemplo; o pacote não está pronto para uso real.

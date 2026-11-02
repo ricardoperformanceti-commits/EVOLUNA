@@ -35,6 +35,7 @@ jobs:
           npm test
           npm run test:cloud
           npm run test:database
+          npm run test:chat
           npm run test:workflow
           npm run test:enamel
           node --test tests/public-config.test.mjs

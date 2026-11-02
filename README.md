@@ -70,3 +70,8 @@ O build aceita as variáveis públicas `SUPABASE_URL` e `SUPABASE_PUBLISHABLE_KE
 Endereço publicado: https://evoluna-odonto.pages.dev/
 
 O projeto Pages `evoluna-odonto` está conectado à branch `main`. Novos commits disparam testes, build e publicação. O domínio `app.smilesimulator.com.br` está associado e aguarda o registro DNS no Registro.br. A ativação do domínio e os fluxos de e-mail ainda precisam de validação. Consulte [o roteiro de integração](docs/HOSPEDAGEM.md).
+
+
+## Atendimento com chat
+
+O atendimento reúne conversa e envio de documentos à esquerda, com prontuário e vídeo à direita. O paciente entra pelo convite e pode conversar sem câmera. O envio pelo WhatsApp abre a conversa para confirmação manual; PDFs podem ser compartilhados pelo dispositivo ou baixados para anexar. Consulte [CHAT-ATENDIMENTO.md](docs/CHAT-ATENDIMENTO.md) para limites, privacidade e testes.

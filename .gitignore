@@ -7,3 +7,5 @@ attachments/
 *.bundle
 *.tar.gz
 *.log
+
+supabase/.temp/

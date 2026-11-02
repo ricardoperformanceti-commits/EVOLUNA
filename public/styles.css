@@ -97,3 +97,6 @@ html{overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-co
 
 /* Perfil próximo ao menu, sem o espaço reservado ao antigo tour. */
 .sidebar-bottom .profile{margin-top:0;padding-top:10px}
+
+/* Toda a área do card funciona como acesso, inclusive pelo teclado. */
+.more-card{width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer}.more-card-content{display:block;min-width:0}.more-card-title{display:block;font-size:13px;line-height:1.5}.more-card-description{display:block;font-size:10px;line-height:1.6;color:#98a58a;margin-top:8px}.more-card:hover .more-card-title{color:var(--green)}

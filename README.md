@@ -100,3 +100,8 @@ A montagem vetorial opaca de dentes foi removida. A marcação da área fica vis
 A foto enviada recebe agora um ajuste gráfico localizado de tonalidade na área marcada, preservando textura. O filtro usa características simples de cor/luminosidade dentro da seleção e não constitui segmentação odontológica; deve ser revisado visualmente. Não reconstrói anatomia, fecha espaços ou produz previsão de facetas reais. A interface mantém essa limitação explícita. O nome do tratamento é usado apenas no caso sintético demonstrativo e no fluxo de apresentação, sem alegar transformação anatômica personalizada.
 
 Aplicar exige área calibrada; alterações invalidam o resultado anterior. O modo de apresentação fica livre de caixas e blocos. O atalho Caso pronto de facetas abre a imagem sintética comparativa pronta, separada da foto enviada. Verificado: exigência de marcação, diferença entre imagens, ausência de blocos e caixas, apresentação ampliada e caso pronto.
+
+
+## Banco de dados por módulos
+
+A migração e as funções RPC do salvamento estão documentadas em [docs/BANCO-DE-DADOS.md](docs/BANCO-DE-DADOS.md). Aplique o esquema inicial somente em bases novas; em bases existentes use apenas a migração. Execute `npm run test:database` para verificar preservação, vínculos e isolamento em Postgres isolado.

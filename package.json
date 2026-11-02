@@ -11,7 +11,8 @@
     "test:workflow": "node --test tests/phase-one.test.cjs",
     "test:rtc": "node --test --test-force-exit tests/rtc-server.test.mjs",
     "test:enamel": "node --test tests/enamel-finish.test.cjs",
-    "test:cloud": "node --test tests/cloud-store.test.mjs"
+    "test:cloud": "node --test tests/cloud-store.test.mjs",
+    "test:database": "node --test tests/database-schema.test.mjs"
   },
   "dependencies": {
     "@mediapipe/face_mesh": "0.4.1633559619",
@@ -21,6 +22,7 @@
     "peerjs": "1.5.5"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.14",
     "esbuild": "0.27.3",
     "express": "5.3.0",
     "peer": "1.0.2"

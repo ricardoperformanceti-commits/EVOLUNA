@@ -8,12 +8,9 @@ O convite de teleconsulta continua independente do login da clínica.
 
 ## Dados e isolamento
 
-`public.evoluna_workspaces`: uma linha privada por usuário do Supabase Auth.
-`state` guarda o estado dos módulos existentes (pacientes, agenda, prontuários,
-documentos, financeiro, imagens/prévias e configurações) em JSONB, atomicamente.
-É uma primeira integração por conta, sem compartilhamento entre profissionais.
-A separação em tabelas por entidade e imagens em Storage pode ser feita depois,
-conforme o volume. O limite atual do estado é 16 MiB por conta.
+O armazenamento foi separado em 15 tabelas por entidade, além da tabela original de controle. Pacientes, prontuários, evoluções, tratamentos, agenda, documentos, financeiro, simulações, sessões e configurações têm registros próprios. Consulte [BANCO-DE-DADOS.md](BANCO-DE-DADOS.md) para o mapa completo.
+
+As telas usam as funções RPC `evoluna_load_workspace`, `evoluna_create_workspace` e `evoluna_save_workspace`. A leitura vem das tabelas por entidade; a gravação é atômica e mantém a revisão esperada. A tabela `evoluna_workspaces` mantém uma cópia compatível sincronizada para abas antigas e retorno à versão anterior. O limite de 16 MiB do estado enviado continua vigente. A organização permanece por conta, sem ativação de colaboradores.
 
 RLS habilitada; `anon` sem acesso; usuários autenticados só podem selecionar,
 inserir e atualizar a própria linha. Usuários anônimos do Auth também são negados.

@@ -1,0 +1,23 @@
+{
+  "top": {
+    "patients": "evoluna_patients",
+    "appointments": "evoluna_appointments",
+    "documents": "evoluna_documents",
+    "transactions": "evoluna_financial_entries",
+    "simulations": "evoluna_smile_simulations",
+    "sessions": "evoluna_consultation_sessions"
+  },
+  "clinical": {
+    "history": "evoluna_clinical_entries",
+    "treatments": "evoluna_treatments",
+    "carePlans": "evoluna_care_plans"
+  },
+  "other": [
+    "evoluna_patient_records",
+    "evoluna_session_entries",
+    "evoluna_session_drafts",
+    "evoluna_clinic_settings",
+    "evoluna_activity_log",
+    "evoluna_workspace_metadata"
+  ]
+}

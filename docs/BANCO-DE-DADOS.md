@@ -19,11 +19,12 @@ O aplicativo lê os registros de tabelas por entidade e salva as alterações em
 | `evoluna_consultation_sessions` | Uma linha por sessão de atendimento; paciente e agendamento vinculados. |
 | `evoluna_session_entries` | Anotações/documentos vinculados a cada sessão. |
 | `evoluna_session_drafts` | Rascunho ainda em edição em cada sessão. |
+| `evoluna_session_messages` (migração preparada) | Tabela individual de mensagens; ainda não aplicada. O histórico atual fica no registro privado de cada sessão. |
 | `evoluna_clinic_settings` | Dados da clínica e preferências de cada conta. |
 | `evoluna_activity_log` | Atividades recentes da conta. Não é uma trilha de auditoria imutável. |
 | `evoluna_workspace_metadata` | Versão, campos adicionais e informação necessária para reconstruir fielmente os registros antigos. |
 
-São 15 tabelas novas além de `evoluna_workspaces`. Todas usam chaves que incluem o proprietário. Os vínculos de pacientes e agendamentos também incluem o proprietário para impedir referências entre contas. As listas preservam a ordem original. Campos extensíveis do aplicativo permanecem em JSONB por registro; não há descarte de campos desconhecidos, rascunhos ou imagens existentes.
+São 15 tabelas novas aplicadas além de `evoluna_workspaces`. Todas usam chaves que incluem o proprietário. Os vínculos de pacientes e agendamentos também incluem o proprietário para impedir referências entre contas. As listas preservam a ordem original. Campos extensíveis do aplicativo permanecem em JSONB por registro; não há descarte de campos desconhecidos, rascunhos ou imagens existentes.
 
 Não é necessário criar uma tabela para Relatórios, pois são consultas dos registros existentes. Documentos e PDFs são gerados dos dados salvos; o aplicativo não mantém um acervo separado de PDFs. Financiamento continua como recurso futuro. Contas e senhas continuam em `auth.users`, gerenciadas pelo Supabase Auth. Colaboradores, convites e permissões compartilhadas continuam fora desta etapa.
 
@@ -51,3 +52,8 @@ O retorno à versão anterior do cliente pode continuar usando a tabela original
 A migração `normalize_clinical_modules` foi aplicada no Supabase na versão `20261102124539`. O arquivo local usa a mesma versão registrada no banco. A conferência confirmou 16 tabelas do Evoluna, incluindo a tabela anterior, 2 pacientes e 2 prontuários preservados, com RLS em todas as tabelas. A reconstrução a partir das tabelas novas foi comparada ao estado anterior sem divergência. O salvamento e o conflito de revisão foram testados na base real em uma transação revertida; nenhum registro de teste ficou na conta. Também foram verificados o isolamento entre contas e o bloqueio de usuários anônimos.
 
 Os advisors não apontaram problemas novos de segurança no esquema. Permanece um aviso anterior do Supabase Auth sobre [proteção contra senhas vazadas](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection). Os índices novos ainda sem uso se referem a módulos sem registros; foram mantidos para os vínculos e consultas previstos.
+
+
+## Mensagens do atendimento
+
+A migração `consultation_messages` está preparada e ainda não foi aplicada. Quando aplicada, extrai a coleção `messages` de cada sessão para uma tabela privada própria. Nesta versão, o histórico é preservado em `evoluna_consultation_sessions.data.messages`, com a compatibilidade do carregamento e salvamento existente validada nos testes. Nenhum acesso anônimo ou compartilhamento entre contas foi concedido. O histórico contém mensagens e referências dos documentos, sem copiar os bytes dos PDFs. O convidado não acessa as tabelas nem o prontuário: recebe somente o que for enviado pelo chat autenticado pelo convite. Veja [CHAT-ATENDIMENTO.md](CHAT-ATENDIMENTO.md).

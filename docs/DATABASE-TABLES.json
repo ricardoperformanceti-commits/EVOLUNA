@@ -19,5 +19,8 @@
     "evoluna_clinic_settings",
     "evoluna_activity_log",
     "evoluna_workspace_metadata"
+  ],
+  "pending": [
+    "evoluna_session_messages"
   ]
 }

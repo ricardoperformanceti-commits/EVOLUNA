@@ -2,12 +2,11 @@
    Veja docs/TELECONSULTA-WEBRTC.md e THIRD_PARTY_NOTICES.md. */
 import {Peer} from 'peerjs';
 const STUN=[{urls:'stun:stun.l.google.com:19302'}];
-const validId=/^radix-[a-f0-9]{32}$/;
-const validKey=/^[a-f0-9]{64}$/;
-export function newInvitation(){return {room:'radix-'+crypto.randomUUID().replaceAll('-',''),key:Array.from(crypto.getRandomValues(new Uint8Array(32)),x=>x.toString(16).padStart(2,'0')).join(''),expires:Date.now()+4*60*60*1000}}
-export function validateInvitation(invitation){return !!invitation&&validId.test(invitation.room)&&validKey.test(invitation.key)&&Number.isSafeInteger(invitation.expires)&&invitation.expires>Date.now()&&invitation.expires<=Date.now()+4*60*60*1000+60000}
-export function inviteURL(invitation){const url=new URL('/teleconsulta.html',location.origin);url.hash=new URLSearchParams({room:invitation.room,key:invitation.key,expires:String(invitation.expires)}).toString();return url.href}
-export function parseInvitation(hash=location.hash){const p=new URLSearchParams(hash.replace(/^#/,'')),invitation={room:p.get('room'),key:p.get('key'),expires:Number(p.get('expires'))};if(!validateInvitation(invitation))throw Error('Este convite é inválido ou expirou. Peça um novo link ao profissional.');return invitation}
+import {newInvitation,validateInvitation,inviteURL,parseInvitation} from './invitations.js';
+import {MessageRoom as MessageRoomBase} from './messaging.js';
+class MessageRoom extends MessageRoomBase{constructor(options){super({...options,PeerClass:Peer})}}
+import {ChatTransfer,whatsappURL} from './chat-protocol.js';
+export {newInvitation,validateInvitation,inviteURL,parseInvitation};
 export function mediaError(error){return error?.name==='NotAllowedError'?'Autorize a câmera e o microfone no navegador para entrar.':error?.name==='NotFoundError'?'Não encontrei câmera e microfone disponíveis neste aparelho.':error?.name==='NotReadableError'?'Outro aplicativo pode estar usando a câmera ou o microfone.':error?.message||'Não foi possível conectar. Tente novamente.'}
 export class Call{
  constructor({role,invitation,config={},onState=()=>{},onLocal=()=>{},onRemote=()=>{},onControls=()=>{},onNotice=()=>{}}){Object.assign(this,{role,invitation,config,onState,onLocal,onRemote,onControls,onNotice});this.stopped=false;this.local=null;this.peer=null;this.call=null;this.connection=null;this.screen=null;this.attempts=0;this.timers=new Set();this.pending=new Set();this.guest=null;this.connected=false}
@@ -35,4 +34,4 @@ export class Call{
  async stopScreen(){const stream=this.screen;if(!stream)return;this.screen=null;stream.getTracks().forEach(t=>{t.onended=null;t.stop()});if(!this.stopped){const sender=this.call?.peerConnection?.getSenders().find(s=>s.track?.kind==='video');try{if(sender)await sender.replaceTrack(this.local?.getVideoTracks()[0]||null)}catch{}if(!this.stopped){this.onLocal(this.local,false);this.controls()}}}
  stop(notify=true){if(this.stopped)return;if(notify&&this.connection?.open){try{this.connection.send({type:'ended'})}catch{}}this.stopped=true;this.connected=false;this.timers.forEach(clearTimeout);this.timers.clear();this.screen?.getTracks().forEach(t=>{t.onended=null;t.stop()});this.local?.getTracks().forEach(t=>t.stop());this.pending.forEach(c=>c.close());this.pending.clear();this.call?.close();this.connection?.close();this.peer?.destroy();this.call=null;this.connection=null;this.peer=null;this.screen=null;this.onLocal(null,false);this.onRemote(null);this.controls()}
 }
-window.RadixRTC={Call,newInvitation,validateInvitation,inviteURL,parseInvitation};
+window.RadixRTC={Call,MessageRoom,ChatTransfer,whatsappURL,newInvitation,validateInvitation,inviteURL,parseInvitation};

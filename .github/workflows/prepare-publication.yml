@@ -39,6 +39,7 @@ jobs:
           npm run test:workflow
           npm run test:enamel
           npm run test:magic-hour
+          npm run test:smile-documents
           node --test tests/public-config.test.mjs
       - name: Gerar arquivos da publicação
         env:

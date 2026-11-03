@@ -27,3 +27,11 @@ Documentação oficial: https://docs.magichour.ai/api-reference/files/generate-a
 ## Compatibilidade de rede no Workers
 
 As requisições ao Supabase, à Magic Hour e ao armazenamento usam redirect: manual. Cloudflare Workers não implementa redirect: error; esse valor interrompe a chamada com TypeError antes do envio. Respostas 3xx são recusadas por status, sem seguir Location nem encaminhar Authorization a outro destino. Os testes simulam essa restrição do runtime e verificam a rejeição de redirecionamentos no upload.
+
+
+## Contas sem liberação de créditos
+A foto consulta primeiro `GET /v1/smile/access`, autenticado. O Worker valida a sessão e responde apenas `enabled`; não envia imagens à Magic Hour, não cria projetos e não consome o limitador de gerações nessa consulta. A lista privada `ALLOWED_EMAILS` continua sendo a autorização do servidor, mantendo a conta já autorizada habilitada.
+
+Sem permissão (ou se a consulta não estiver disponível), a foto segue automaticamente para a prévia local, usando a máscara de esmalte e preservando a anatomia original. O botão da Magic Hour fica oculto. A seleção assistida do sorriso continua disponível. Salvar em PNG nos documentos do paciente e enviar continuam usando o mesmo fluxo. O tratamento local uniformiza a tonalidade; não reconstrói dentes.
+
+A permissão também é conferida antes da confirmação e antes de enviar uma geração. Mudanças de conta invalidam a permissão visual e resultados antigos. A autorização definitiva de qualquer geração continua no Worker.

@@ -23,3 +23,7 @@ Trocar foto, conta ou sair da tela interrompe a incorporação de resultados ant
 Execute npm run test:magic-hour. Os testes simulam o provedor, autenticam os pedidos, validam o titular da geração, rejeitam consentimento ausente/formatos indevidos/origens não permitidas e verificam o comparador, a confirmação e a troca de foto. Não usam créditos reais nem fotos de pacientes. A geração real e a aparência do resultado dependem da chave ativa e de uma conferência no navegador.
 
 Documentação oficial: https://docs.magichour.ai/api-reference/files/generate-asset-upload-urls e https://docs.magichour.ai/api-reference/image-projects/ai-image-editor e https://docs.magichour.ai/api-reference/image-projects/get-image-details.
+
+## Compatibilidade de rede no Workers
+
+As requisições ao Supabase, à Magic Hour e ao armazenamento usam redirect: manual. Cloudflare Workers não implementa redirect: error; esse valor interrompe a chamada com TypeError antes do envio. Respostas 3xx são recusadas por status, sem seguir Location nem encaminhar Authorization a outro destino. Os testes simulam essa restrição do runtime e verificam a rejeição de redirecionamentos no upload.

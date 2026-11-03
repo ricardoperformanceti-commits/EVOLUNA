@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node --check public/app.js && node --check public/dr-help.js && node --check public/video-room.js && node --check public/clinical-record.js && node --check public/patient-photo.js && node --check public/header-search.js && node --check public/veneers.js && node --check public/enamel-mask.js && node --check public/document-actions.js && node --check public/session-notes.js && node --check public/smile-whitening.js && node --check public/home-analytics.js && node --check public/private-call.js && node --check public/rtc-guest.js && node --check rtc/engine.js && node --check teleconsult-server/server.mjs && node --check public/agenda.js && node --check public/teleconsult-layout.js && node --check public/smile-finish.js && node --check cloud/client.js && node --check cloud/store.js && node --check public/session-chat.js && node --check public/guest-chat.js && node --check rtc/messaging.js && node --check rtc/chat-protocol.js",
+    "test": "node --check public/app.js && node --check public/dr-help.js && node --check public/video-room.js && node --check public/clinical-record.js && node --check public/patient-photo.js && node --check public/header-search.js && node --check public/veneers.js && node --check public/enamel-mask.js && node --check public/document-actions.js && node --check public/session-notes.js && node --check public/smile-whitening.js && node --check public/home-analytics.js && node --check public/private-call.js && node --check public/rtc-guest.js && node --check rtc/engine.js && node --check teleconsult-server/server.mjs && node --check public/agenda.js && node --check public/teleconsult-layout.js && node --check public/smile-finish.js && node --check cloud/client.js && node --check cloud/store.js && node --check public/session-chat.js && node --check public/guest-chat.js && node --check rtc/messaging.js && node --check rtc/chat-protocol.js && node --check public/magic-hour.js && node --check magic-hour/worker.mjs",
     "dev": "python -m http.server 3001 --directory dist",
     "dev:rtc": "node teleconsult-server/server.mjs",
     "test:workflow": "node --test tests/phase-one.test.cjs",
@@ -13,7 +13,8 @@
     "test:enamel": "node --test tests/enamel-finish.test.cjs tests/smile-selection.test.mjs",
     "test:cloud": "node --test tests/cloud-store.test.mjs",
     "test:database": "node --test tests/database-schema.test.mjs",
-    "test:chat": "node --test tests/chat.test.mjs tests/consultation-layout.test.mjs"
+    "test:chat": "node --test tests/chat.test.mjs tests/consultation-layout.test.mjs",
+    "test:magic-hour": "node --test tests/magic-hour.test.mjs tests/magic-hour-client.test.mjs"
   },
   "dependencies": {
     "@mediapipe/face_mesh": "0.4.1633559619",

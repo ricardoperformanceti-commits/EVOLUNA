@@ -5,7 +5,7 @@ const vm=require('node:vm');
 const path=require('node:path');
 
 function fixture(){
- const events={},windowEvents={},nodes=new Map();let time=Date.parse('2026-11-01T23:59:00-03:00'),prints=0;
+ const events={},windowEvents={},nodes=new Map();let time=new Date(2026,10,1,23,59,0).getTime(),prints=0;
  class Clock extends Date{constructor(...args){super(...(args.length?args:[time]))}static now(){return time}}
  function node(selector){if(!nodes.has(selector))nodes.set(selector,{value:'',dataset:{},hidden:true,innerHTML:'',classList:{values:new Set(),add(v){this.values.add(v)},remove(v){this.values.delete(v)},contains(v){return this.values.has(v)},toggle(){}},setAttribute(){},removeAttribute(){},focus(){},querySelectorAll(){return[]}});return nodes.get(selector)}
  const ctx={Date:Clock,URLSearchParams,setTimeout:()=>0,clearTimeout(){},setInterval:()=>0,clearInterval(){},innerWidth:390,location:{hash:'#inicio'},document:{hidden:false,querySelector(s){if(s==='.modal'||s==='input:focus,textarea:focus,select:focus')return null;return node(s)},querySelectorAll:()=>[],getElementById:node,addEventListener(type,fn){(events[type]??=[]).push(fn)}},window:{addEventListener(type,fn){(windowEvents[type]??=[]).push(fn)},scrollTo(){},print(){prints++},EvolunaCloud:{ready:false,boot(){},save:async()=>true,stageDraft:()=>true,retainPatientSelections:(_,x)=>x},DocumentActions:{markup:()=>'<p>preview</p>',action:()=>''}}};

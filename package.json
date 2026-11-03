@@ -13,7 +13,7 @@
     "test:enamel": "node --test tests/enamel-finish.test.cjs",
     "test:cloud": "node --test tests/cloud-store.test.mjs",
     "test:database": "node --test tests/database-schema.test.mjs",
-    "test:chat": "node --test tests/chat.test.mjs"
+    "test:chat": "node --test tests/chat.test.mjs tests/consultation-layout.test.mjs"
   },
   "dependencies": {
     "@mediapipe/face_mesh": "0.4.1633559619",

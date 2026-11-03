@@ -103,3 +103,6 @@ html{overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-co
 
 /* Fotos de referência do comparativo antes e depois. */
 .smile-stage.photo-case-stage{aspect-ratio:1/1}.photo-case-stage .smile-before img,.photo-case-stage .smile-after img{object-fit:cover;object-position:center}.photo-case-stage.presentation-stage{width:min(100%,65dvh);margin-inline:auto;aspect-ratio:1/1}
+
+/* Foto de apresentação enviada para a página Sorriso IA. */
+.smile-presentation{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.85fr);gap:28px;align-items:center;margin-bottom:26px}.smile-presentation .page-heading{margin-bottom:0}.smile-presentation .page-heading p{max-width:560px}.smile-presentation-photo{margin:0;overflow:hidden;border-radius:16px;background:#183d42}.smile-presentation-photo img{display:block;width:100%;height:auto;aspect-ratio:2000/1121;object-fit:contain}@media(max-width:1000px){.smile-presentation{grid-template-columns:minmax(0,1fr);gap:18px}.smile-presentation-photo{width:100%;max-width:620px}}

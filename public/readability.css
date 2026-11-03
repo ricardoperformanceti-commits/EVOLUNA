@@ -1,0 +1,26 @@
+/* Legibilidade: texto de apoio entre 14 e 16 px; títulos mantêm a hierarquia. */
+:root{--readable-small:clamp(.875rem,.8rem + .2vw,1rem);--readable-body:clamp(1rem,.95rem + .2vw,1.125rem);--readable-muted:#526653}
+body{font-size:var(--readable-body);line-height:1.5;--muted:var(--readable-muted)}
+body :is(p,small,li,td,th,label,legend,figcaption){line-height:1.5}
+/* Os estilos inline antigos não podem reduzir os textos de apoio. */
+body :is([style*="font-size:8px"],[style*="font-size:9px"],[style*="font-size:10px"],[style*="font-size:11px"],[style*="font-size:12px"],[style*="font-size:13px"]):not(svg):not(svg *){font-size:var(--readable-small)!important}
+body :is(.muted,.card-header p,.person-cell small,.detail-field small,.kpi-bottom,.home-kpis .kpi-bottom,.overview-page .home-kpis .kpi-bottom,.overview-page>.page-heading p,.overview-page .home-agenda .card-header p,.overview-page .home-patients .card-header p,.appointment-info small,.patient-info small,.field>span,.form-section,.photo-case-note,.smile-reference-note,.smile-palette-note){color:var(--readable-muted)}
+body .kpi,body .overview-page .home-kpis>.kpi{height:auto;min-height:150px;padding:clamp(16px,1.5vw,24px);overflow-wrap:anywhere}
+body .kpi-top,body .overview-page .home-kpis .kpi-top{align-items:flex-start;gap:10px;line-height:1.5;font-size:var(--readable-small)}
+body .kpi-top>span:first-child{flex:1;min-width:0}
+body .kpi-value,body .overview-page .home-kpis .kpi-value{font-size:clamp(1.875rem,1.5rem + 1vw,2.5rem);line-height:1.2;margin:12px 0}
+body .kpi-bottom,body .overview-page .home-kpis .kpi-bottom{font-size:var(--readable-small);line-height:1.5;flex-wrap:wrap;align-items:center;gap:6px 10px}
+body .growth,body .overview-page .home-kpis .growth{font-size:var(--readable-small);line-height:1.5;color:#315c35;background:#edf5e7;padding:3px 7px}
+body .overview-page .home-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+body :is(.card-header,.session-paged-pane>header){flex-wrap:wrap}
+body :is(.clinic,.profile){height:auto;min-height:48px}
+body :is(.clinic>span,.profile>span,.person-cell>span,.appointment-info,.card-header>div){min-width:0;overflow-wrap:anywhere}
+body :is(.clinic small,.profile small,.nav-item span){white-space:normal;line-height:1.45}
+body .header-patient-search input[type=search]{font-size:var(--readable-small)!important}
+body :is(input,select,textarea){line-height:1.5}
+body .consultation-three-columns :is(.session-document-row,.session-timeline-entry){overflow-wrap:anywhere}
+body .consultation-three-columns .session-generated-item>.button{max-width:140px}
+body .consultation-three-columns .session-workspace-tabs button{white-space:normal;overflow-wrap:anywhere}
+@media(max-width:1100px){body .overview-page .home-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}body .overview-page .home-kpis>.kpi:last-child{grid-column:1/-1;display:block}}
+@media(max-width:480px){body .overview-page .home-kpis,body .kpi-grid:not(.home-kpis){grid-template-columns:minmax(0,1fr)}body .overview-page .home-kpis>.kpi:last-child{grid-column:auto}body .kpi,body .overview-page .home-kpis>.kpi{min-height:0}}
+@media(max-width:600px){body :is(input,select,textarea){font-size:1rem!important}body .overview-page .hero-text .eyebrow{letter-spacing:.08em}}

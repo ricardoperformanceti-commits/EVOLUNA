@@ -1,6 +1,10 @@
 # Chat e envio de documentos no atendimento
 
-Na tela de atendimento/teleconsulta, o menu lateral e a barra geral ficam ocultos. A conversa fica à esquerda; o paciente, o prontuário, as anotações e os documentos ficam à direita. O vídeo está no painel expansível da direita. Ocultar esse painel não desliga câmera e microfone: os controles da chamada continuam sendo o meio de encerrá-los. O botão de retorno à agenda permanece disponível.
+Na tela de atendimento/teleconsulta, o menu lateral e a barra geral ficam ocultos. O layout aprovado tem três colunas: paciente, anotações e documentos à esquerda; vídeo sempre visível no centro; conversa com o paciente à direita. O cabeçalho apresenta Evoluna Odonto, Atendimento e Voltar à agenda.
+
+A área ocupa a altura da janela, sem barra de rolagem da página. Históricos e documentos têm paginação; mensagens longas oferecem leitura completa em uma janela. Os campos de texto mantêm a edição de conteúdo longo com as barras visuais ocultas. Em janelas pequenas, abas alternam entre Anotações, Teleconsulta e Mensagens, preservando os elementos da chamada e o texto em edição. Em alturas muito reduzidas, os documentos continuam acessíveis na aba Documentos em vez de ocupar a área de edição.
+
+Os botões da chamada continuam sendo o meio de ativar e encerrar câmera e microfone. A indicação de conexão e o vídeo mostram o estado real do atendimento; a imagem de referência não é usada como um vídeo ou uma conversa simulados.
 
 ## Conversa pelo link
 

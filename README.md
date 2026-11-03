@@ -74,4 +74,4 @@ O projeto Pages `evoluna-odonto` está conectado à branch `main`. Novos commits
 
 ## Atendimento com chat
 
-O atendimento reúne conversa e envio de documentos à esquerda, com prontuário e vídeo à direita. O paciente entra pelo convite e pode conversar sem câmera. O envio pelo WhatsApp abre a conversa para confirmação manual; PDFs podem ser compartilhados pelo dispositivo ou baixados para anexar. Consulte [CHAT-ATENDIMENTO.md](docs/CHAT-ATENDIMENTO.md) para limites, privacidade e testes.
+O atendimento usa três colunas: paciente, anotações e documentos à esquerda; vídeo no centro; conversa com o paciente à direita. O menu fica oculto e a área ocupa a janela sem barra de rolagem da página. Listas longas são paginadas e, em telas pequenas, as áreas são alternadas por abas. O paciente entra pelo convite e pode conversar sem câmera. O envio pelo WhatsApp abre a conversa para confirmação manual; PDFs podem ser compartilhados pelo dispositivo ou baixados para anexar. Consulte [CHAT-ATENDIMENTO.md](docs/CHAT-ATENDIMENTO.md) para limites, privacidade e testes.

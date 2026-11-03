@@ -40,3 +40,7 @@ Os bytes dos PDFs não são gravados em links públicos nem adicionados à conve
 `npm run test:chat` verifica autenticação do convite, recusa de outro participante, expiração, texto, confirmação, deduplicação, integridade e limites dos PDFs, interrupção, telefone do WhatsApp e a troca de paciente durante um envio. Os testes usam conexões simuladas e registros fictícios. `npm run test:database` verifica a migração do histórico de mensagens e o isolamento por RLS junto aos demais módulos.
 
 Os testes automatizados não substituem uma conferência real em dois aparelhos/navegadores, incluindo as condições de rede e o aplicativo WhatsApp. Não houve envio de mensagens ou documentos a pacientes reais durante a implementação.
+
+## Documentos e retorno na consulta
+
+A aba Documentos mostra somente os arquivos vinculados à sessão atual; o arquivo permanente continua em Documentos no prontuário do paciente. A aba Histórico reúne os agendamentos presenciais e de teleconsulta e as sessões antigas sem agendamento vinculado. Agendar retorno abre data, horário, modalidade, duração, motivo e profissional, valida sobreposição, salva o agendamento e um comprovante no mesmo salvamento. Falhas desfazem ambos. O comprovante fica na sessão e nos documentos do paciente, com envio pelos canais existentes mediante ação do profissional. A chamada e a anotação em edição continuam abertas.

@@ -41,3 +41,13 @@ html:has(body.consultation-focus),body.consultation-focus{height:100dvh;overflow
 /* Contornos reforçados para separar os três painéis do atendimento. */
 .consultation-three-columns :is(.session-workspace,#consultation-video-panel,.consultation-chat){border:2px solid #7caf8a!important;box-shadow:0 0 0 1px #e1eddf,0 5px 14px #174d3324!important;background:#fffefa}
 .consultation-three-columns .session-notes-simple{background:linear-gradient(160deg,#f2f8ed 0%,#fffefa 45%)}
+
+/* O cabeçalho do chat ocupa espaço somente quando há um aviso de conexão. */
+.consultation-three-columns .consultation-chat-heading:has(> #consultation-chat-status[hidden]){display:none}
+
+.consultation-workspace-header .consultation-save{flex:0 0 auto;min-height:36px;padding:8px 14px;font-size:14px;gap:7px;margin-left:-18px}
+@media(max-width:950px){.consultation-workspace-header .consultation-save{margin-left:-5px;padding:7px 10px}}
+@media(max-width:600px){.consultation-workspace-header .consultation-save{margin-left:0;padding:6px 8px;min-height:32px;font-size:13px}.consultation-workspace-header:has(.consultation-save){gap:8px;flex-wrap:wrap;height:auto;min-height:56px;flex-basis:auto;padding-top:8px;padding-bottom:8px}.consultation-workspace-header:has(.consultation-save) .consultation-back{font-size:12px}.consultation-workspace-header:has(.consultation-save) .consultation-workspace-brand{font-size:17px}.consultation-workspace-header:has(.consultation-save) h1{padding-left:8px;font-size:17px}}
+
+/* Uma linha de respiro antes do título de anotações. */
+.session-notes-simple .session-note-editor>h3{margin-top:1lh}

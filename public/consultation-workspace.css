@@ -37,3 +37,7 @@ html:has(body.consultation-focus),body.consultation-focus{height:100dvh;overflow
 .consultation-three-columns .session-workspace-header h2{color:#fff}
 .consultation-three-columns .session-workspace-header small{color:#e4f1de}
 .consultation-three-columns .session-workspace-header .avatar{background:#e4f1de;color:#174e33}
+
+/* Contornos reforçados para separar os três painéis do atendimento. */
+.consultation-three-columns :is(.session-workspace,#consultation-video-panel,.consultation-chat){border:2px solid #7caf8a!important;box-shadow:0 0 0 1px #e1eddf,0 5px 14px #174d3324!important;background:#fffefa}
+.consultation-three-columns .session-notes-simple{background:linear-gradient(160deg,#f2f8ed 0%,#fffefa 45%)}

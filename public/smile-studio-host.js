@@ -1,0 +1,37 @@
+/* Same-origin studio: shares the authenticated client; patient files remain private. */
+(()=>{
+let syncing=Promise.resolve(),observer=null,scheduled=false;
+const app=()=>window.EvolunaApp,cloud=()=>window.EvolunaCloud;
+function currentPatient(id){return app().get().patients.find(p=>p.id===id)}
+function storage(record){if(record.user_id==null||!record.current_path?.startsWith(record.user_id+'/'+record.id+'/'))throw Error('Imagem incompatível com esta conta.');return {bucket:'evoluna-smile',path:record.current_path}}
+function documentID(record){const data=app().get();return record.source_id?data.simulations.find(s=>s.id===record.source_id)?.documentId||'smile-'+record.id:'smile-'+record.id}
+async function publish(record,user){
+ const {data,error}=await cloud().client.auth.getSession();if(error||data.session?.user?.id!==user||record.user_id!==user)throw Error('A conta foi alterada. Entre novamente.');
+ if(!await cloud().flush())throw Error('Há alterações pendentes. Salve ou baixe suas alterações antes de continuar.');
+ const workspace=app().get(),patient=currentPatient(record.patient_id);if(!patient)throw Error('Paciente não encontrado.');
+ const imageStorage=storage(record),id=documentID(record),existing=workspace.documents.find(d=>d.id===id),createdAt=record.created_at,date=createdAt.slice(0,10);
+ const document={...existing,id,patient:patient.id,patientName:patient.name,patientCpf:patient.cpf||'',type:'Prévia do sorriso',title:'Prévia do sorriso',date,createdAt,updatedAt:record.updated_at,time:new Date(createdAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}),professional:workspace.settings.doctor,clinic:workspace.settings.clinic,status:'Prévia ilustrativa',mime:'image/png',imageStorage,procedure:record.procedure,shade:record.shade,simulationId:record.source_id||'storage-'+record.id,storageGenerationId:record.id,text:'Prévia ilustrativa do sorriso para apresentação e revisão pelo profissional.'};
+ delete document.imageData;
+ if(existing)workspace.documents[workspace.documents.indexOf(existing)]=document;else workspace.documents.unshift(document);
+ const previous=workspace.simulations.find(s=>s.id===document.simulationId),simulation={id:document.simulationId,documentId:id,patient:patient.id,date,createdAt,procedure:record.procedure,shade:record.shade,mode:'photo',photo:null,storageGenerationId:record.id,imageStorage};
+ if(previous)workspace.simulations[workspace.simulations.indexOf(previous)]=simulation;else workspace.simulations.unshift(simulation);
+ if(!await cloud().save(workspace,{draft:true}))throw Error('Não foi possível sincronizar o prontuário. Use Salvar PNG para tentar novamente.');
+ return id;
+}
+const bridge={
+ get client(){return cloud().client},
+ get presentation(){return window.SMILE_PRESENTATION_SOURCE||'/assets/sorriso-apresentacao.jpg'},
+ patients:()=>app().get().patients.map(({id,name,phone})=>({id,name,phone})),
+ legacy:patient=>app().get().simulations.filter(s=>s.patient===patient&&!s.storageGenerationId).map(s=>({id:s.id,photo:s.photo,current:s.veneers?.afterImage,base:s.veneers?.aiBaseImage,baseShade:s.veneers?.aiBaseShade,procedure:s.procedure,shade:s.shade,intensity:s.veneers?.intensity,date:s.date,createdAt:s.createdAt})),
+ syncDocument(record,user){const task=syncing.then(()=>publish(record,user));syncing=task.catch(()=>{});return task},
+ async share(record,channel){const d=app().get().documents.find(d=>d.id===documentID(record));if(!d)throw Error('Salve a prévia antes de enviar.');await window.DocumentActions.share([d],channel)},
+ async shareLegacy(id,channel){const record=app().get().simulations.find(s=>s.id===id),document=app().get().documents.find(d=>d.id===record?.documentId);if(!document)throw Error('Abra a prévia e use Salvar PNG antes de enviar.');await window.DocumentActions.share([document],channel)},
+ async exit(){if(!await cloud().flush())throw Error('Salve ou baixe as alterações pendentes antes de sair.');location.hash='#inicio'}
+};
+window.EvolunaSmileBridge=bridge;
+function fit(){scheduled=false;const frame=document.getElementById('smile-studio-frame');if(!frame){observer?.disconnect();observer=null;return}const v=window.visualViewport,error=document.getElementById('cloud-error'),reserved=error&&!error.hidden?error.getBoundingClientRect().height+8:0;Object.assign(frame.style,{left:(v?.offsetLeft||0)+'px',top:(v?.offsetTop||0)+'px',width:(v?.width||innerWidth)+'px',height:Math.max(100,(v?.height||innerHeight)-reserved)+'px'})}
+function schedule(){if(!scheduled){scheduled=true;requestAnimationFrame(fit)}}
+function mount(){fit();observer?.disconnect();observer=new ResizeObserver(schedule);const banner=document.getElementById('cloud-error');if(banner)observer.observe(banner)}
+window.addEventListener('resize',schedule);window.visualViewport?.addEventListener('resize',schedule);window.visualViewport?.addEventListener('scroll',schedule);
+window.SmileStudioHost={render:()=>'<iframe id="smile-studio-frame" title="Estúdio Sorriso com IA" src="/smile-studio/index.html" allow="fullscreen; web-share" allowfullscreen></iframe>',mount};
+})();

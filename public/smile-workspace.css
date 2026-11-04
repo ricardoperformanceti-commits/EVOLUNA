@@ -114,3 +114,5 @@ html:has(body.smile-focus){scrollbar-gutter:auto}
 
 .smile-workspace:has(.smile-workspace-no-patient){grid-template-rows:auto minmax(0,1fr)}
 .smile-empty-generation{display:grid;justify-items:center;gap:8px;margin-top:20px}.smile-empty-generation small{font-size:.875rem;color:#586e53;max-width:360px;line-height:1.4}
+
+#smile-studio-frame{position:fixed;inset:0;width:100vw;height:100dvh;border:0;z-index:50;background:#f7f8f4;color-scheme:light}.smile-focus #cloud-error{z-index:90}

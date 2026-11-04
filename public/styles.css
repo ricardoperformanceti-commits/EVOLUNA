@@ -113,3 +113,11 @@ html{overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-co
 .smile-magic-controls{margin:0 22px 20px;padding:16px;border:1px solid #b8cdbb;border-radius:12px;background:#eef5ee;color:#244c36}.smile-magic-controls>strong{display:block;font-size:1rem}.smile-magic-controls p,.smile-magic-controls small{display:block;font-size:clamp(.875rem,.8rem + .2vw,1rem);line-height:1.5;margin:8px 0 12px}.smile-magic-controls .button{width:100%;white-space:normal}.smile-magic-controls small{margin-bottom:0}@media(max-width:600px){.smile-magic-controls{margin-inline:18px}}
 
 .saved-smile-png{display:block;max-width:100%;max-height:65dvh;width:auto;height:auto;object-fit:contain;margin:18px auto}
+
+/* Portal de financiamento do parceiro dentro da área de trabalho. */
+.financing-page{display:flex;flex-direction:column;min-width:0;gap:10px}
+.financing-page>.page-heading{margin-bottom:0;gap:16px;flex-wrap:wrap}
+.financing-login-note,.financing-fallback{margin:0;color:#526653;font-size:14px;line-height:1.5}
+.financing-portal{height:calc(100dvh - 235px);min-height:420px;overflow:hidden;border-radius:14px;padding:0}
+.financing-portal iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+@media(max-width:600px){.financing-page>.page-heading h1{font-size:23px}.financing-portal{height:calc(100dvh - 250px);min-height:400px}}

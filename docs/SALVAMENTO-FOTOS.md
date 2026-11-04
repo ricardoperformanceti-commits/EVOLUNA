@@ -9,3 +9,5 @@ No navegador, o erro de tempo limite ganha uma mensagem em português. O aviso p
 Antes de recarregar a página, baixar as alterações preserva o snapshot que falhou; carregar a versão salva descarta alterações locais. Não há confirmação de salvamento se o RPC retornar erro.
 
 Verificações: dados fictícios de 8 MiB, integridade de imagens e módulos, exclusões, conta sem acesso, anonimato, transações revertidas, revisão concorrente e recuperação após timeout. A implantação da migração exige a confirmação nativa do conector Supabase; o status real deve ser conferido em pg_proc.proconfig e na definição de sync_modules.
+
+Ativação confirmada no projeto: migração `20261104010831_optimize_workspace_image_sync`, com cache de IDs presente na função interna e `statement_timeout=30s` nos dois RPCs, mantendo `security_definer=false` nas entradas públicas. O horário da migração aplicada pelo conector foi refletido no nome do arquivo local. Os controles de recuperação foram publicados. O salvamento da imagem ainda aberta precisa ser repetido pelo usuário; não foram gravados dados reais de pacientes nos testes.

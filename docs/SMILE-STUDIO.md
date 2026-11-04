@@ -27,3 +27,9 @@ Prévias antigas continuam na galeria. Ao editar ou salvar uma antiga, o arquivo
 - Banco local: RLS entre contas, base da IA imutável, conflitos de revisão e vínculos do paciente.
 
 Os testes usam serviços simulados e pacientes fictícios; não fazem gerações pagas nem enviam mensagens reais.
+
+## Vínculo entre tratamento e prompt
+
+Clareamento usa exclusivamente `clareamento-bl1-v1`; Lentes usa exclusivamente `lentes-bl1-v1`. A seleção é capturada na confirmação e não pode mudar durante aquela requisição. A API bloqueia identificadores incompatíveis antes do envio de imagens, utiliza o texto fixo aprovado e nomeia as tarefas como Evoluna - Clareamento BL1 ou Evoluna - Lentes BL1, acompanhadas do identificador da geração. O ticket assinado e as respostas de criação/consulta carregam o mesmo tratamento, prompt e requisição. A página rejeita respostas incompatíveis. Tickets antigos continuam consultáveis sem criar outra imagem.
+
+O teste de navegador `tests/smile-studio.browser.cjs` passa do botão pelo handler real do Worker até um editor simulado e compara o prompt completo em sequência Clareamento, Lentes, Clareamento. Também muda a seleção com uma confirmação aberta e verifica que nenhuma geração seja enviada. Nenhum crédito real é usado.

@@ -11,7 +11,7 @@
     "test:workflow": "node --test tests/phase-one.test.cjs",
     "test:rtc": "node --test --test-force-exit tests/rtc-server.test.mjs",
     "test:enamel": "node --test tests/enamel-finish.test.cjs tests/smile-selection.test.mjs",
-    "test:cloud": "node --test tests/cloud-store.test.mjs",
+    "test:cloud": "node --test tests/cloud-store.test.mjs tests/save-recovery.test.mjs",
     "test:database": "node --test tests/database-schema.test.mjs",
     "test:chat": "node --test tests/chat.test.mjs tests/consultation-layout.test.mjs",
     "test:magic-hour": "node --test tests/magic-hour.test.mjs tests/magic-hour-client.test.mjs",

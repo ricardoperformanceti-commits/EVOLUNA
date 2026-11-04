@@ -12,3 +12,18 @@ html:has(body.consultation-focus),body.consultation-focus{height:100dvh;overflow
 /* Abas clínicas mais compactas, preservando a área de clique. */
 .consultation-three-columns .session-workspace-tabs button{font-size:clamp(12px,.65rem + .25vw,14px);line-height:1.35}
 .consultation-chat-heading #consultation-chat-status[hidden],.consultation-chat-composer #consultation-chat-channel-note[hidden]{display:none}
+
+/* Editor ampliado sem reconstruir o vídeo ou a conversa. */
+.session-note-content{position:relative}
+.session-expand-button{position:absolute;right:8px;top:7px;z-index:1;min-height:28px!important;padding:4px 8px!important;font-size:12px!important;background:#f3f7ef;border-color:#cbdcc7}
+.session-note-content:has(.session-expand-button) #call-notes{padding-top:44px!important}
+.modal:has(.session-expanded-editor){width:min(940px,calc(100vw - 24px));max-width:none;height:min(760px,calc(100dvh - 28px));max-height:calc(100dvh - 28px);display:flex;flex-direction:column}
+.modal:has(.session-expanded-editor) .modal-head,.modal:has(.session-expanded-editor) .modal-actions{flex:0 0 auto}
+.modal:has(.session-expanded-editor) .modal-body{display:flex;flex:1;min-height:0;overflow:auto}
+.session-expanded-editor{display:flex;flex-direction:column;gap:12px;flex:1;min-width:0;min-height:280px}
+.session-expanded-patient{margin:0;color:#526653;font-size:14px}
+.session-expanded-editor .session-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.session-expanded-editor #session-expanded-notes{width:100%;flex:1;min-height:180px;resize:none;padding:18px;font-size:16px;line-height:1.65;background:#fff;border:1px solid #cbd9c7;border-radius:10px}
+.session-expanded-editor #session-expanded-error{color:#a52b21;font-size:14px;margin:0}
+.session-expanded-editor #session-expanded-review[hidden]{display:none}
+@media(max-height:560px){.modal:has(.session-expanded-editor) .modal-head,.modal:has(.session-expanded-editor) .modal-actions{padding:10px 16px}.session-expanded-editor{min-height:240px}}

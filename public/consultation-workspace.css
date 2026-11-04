@@ -14,9 +14,8 @@ html:has(body.consultation-focus),body.consultation-focus{height:100dvh;overflow
 .consultation-chat-heading #consultation-chat-status[hidden],.consultation-chat-composer #consultation-chat-channel-note[hidden]{display:none}
 
 /* Editor ampliado sem reconstruir o vídeo ou a conversa. */
-.session-note-content{position:relative}
-.session-expand-button{position:absolute;right:8px;top:7px;z-index:1;min-height:28px!important;padding:4px 8px!important;font-size:12px!important;background:#f3f7ef;border-color:#cbdcc7}
-.session-note-content:has(.session-expand-button) #call-notes{padding-top:44px!important}
+.session-note-content{position:relative;flex:0 0 auto}
+.session-expand-button{position:static;width:100%;min-height:40px!important;padding:8px 12px!important;font-size:14px!important;background:#f3f7ef;border-color:#cbdcc7}
 .modal:has(.session-expanded-editor){width:min(940px,calc(100vw - 24px));max-width:none;height:min(760px,calc(100dvh - 28px));max-height:calc(100dvh - 28px);display:flex;flex-direction:column}
 .modal:has(.session-expanded-editor) .modal-head,.modal:has(.session-expanded-editor) .modal-actions{flex:0 0 auto}
 .modal:has(.session-expanded-editor) .modal-body{display:flex;flex:1;min-height:0;overflow:auto}

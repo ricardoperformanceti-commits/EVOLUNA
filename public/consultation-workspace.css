@@ -8,3 +8,7 @@ html:has(body.consultation-focus),body.consultation-focus{height:100dvh;overflow
 .consultation-focus .modal-body{overflow-wrap:anywhere;word-break:break-word}
 
 .session-return-actions{flex:0 0 auto;margin:0 0 12px}.session-return-actions .primary{width:100%;background:#0c6145;color:white;border-radius:9px;padding:9px;font-size:clamp(.875rem, .8rem + .2vw, 1rem)}
+
+/* Abas clínicas mais compactas, preservando a área de clique. */
+.consultation-three-columns .session-workspace-tabs button{font-size:clamp(12px,.65rem + .25vw,14px);line-height:1.35}
+.consultation-chat-heading #consultation-chat-status[hidden],.consultation-chat-composer #consultation-chat-channel-note[hidden]{display:none}

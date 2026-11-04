@@ -15,3 +15,15 @@
 /* Cards acompanham o conteúdo, sem rolagem interna. */
 .teleconsult-page.has-active-session .session-tab-content{height:auto;min-height:0;max-height:none;overflow:visible}.teleconsult-page .rtc-placeholder{overflow:visible;justify-content:center}.teleconsult-page .rtc-placeholder .live-camera-icon{margin-top:0}.teleconsult-page .session-editor-actions>.ghost{justify-self:end;font-size:clamp(.875rem, .8rem + .2vw, 1rem)!important}.teleconsult-page .session-workspace-tabs{overflow:visible;flex-wrap:wrap}.teleconsult-page .session-workspace-tabs button{white-space:normal;min-width:0;overflow-wrap:anywhere}
 @media(max-width:600px){.has-active-session .rtc-placeholder{padding:34px 10px 8px;gap:5px}.has-active-session .rtc-placeholder h2{font-size:17px;line-height:1.3}.has-active-session .rtc-placeholder p{font-size:clamp(.875rem, .8rem + .2vw, 1rem);line-height:1.4;max-width:none}.has-active-session .rtc-placeholder .button.lime{min-height:28px;padding:6px 10px;font-size:clamp(.875rem, .8rem + .2vw, 1rem)}}
+
+/* Cartão de apresentação compacto, com foto do atendimento. */
+.teleconsult-directory .page-heading{gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.teleconsult-directory .page-heading h1{font-size:clamp(22px,2.2vw,28px);line-height:1.25}
+.teleconsult-next-card{min-height:0;padding:18px 20px;gap:20px;align-items:center}
+.teleconsult-next-copy{flex:1}
+.teleconsult-next-copy>p{margin:8px 0 12px;line-height:1.5}
+.teleconsult-next-copy h2{font-size:24px;margin:8px 0 12px}
+.teleconsult-next-art{display:block;width:clamp(110px,16vw,190px);height:145px;border:0;border-radius:10px;overflow:hidden;align-self:center}
+.teleconsult-next-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:66% center}
+@media(max-width:600px){.teleconsult-next-card{padding:16px;gap:14px;align-items:flex-start}.teleconsult-next-art{width:100px;height:120px}.teleconsult-next-copy h2{font-size:21px}}
+@media(max-width:400px){.teleconsult-next-card{flex-wrap:wrap}.teleconsult-next-art{width:100%;height:115px;object-position:center}.teleconsult-next-copy{flex-basis:100%}}

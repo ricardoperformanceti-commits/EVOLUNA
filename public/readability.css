@@ -24,3 +24,14 @@ body .consultation-three-columns .session-workspace-tabs button{white-space:norm
 @media(max-width:1100px){body .overview-page .home-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}body .overview-page .home-kpis>.kpi:last-child{grid-column:1/-1;display:block}}
 @media(max-width:480px){body .overview-page .home-kpis,body .kpi-grid:not(.home-kpis){grid-template-columns:minmax(0,1fr)}body .overview-page .home-kpis>.kpi:last-child{grid-column:auto}body .kpi,body .overview-page .home-kpis>.kpi{min-height:0}}
 @media(max-width:600px){body :is(input,select,textarea){font-size:1rem!important}body .overview-page .hero-text .eyebrow{letter-spacing:.08em}}
+
+/* Cabeçalho e destaque da visão geral com proporções mais compactas. */
+body .overview-page>.page-heading{gap:16px;flex-wrap:wrap;margin-bottom:18px}
+body .overview-page>.page-heading>div:first-child{flex:1 1 340px;min-width:0}
+body .overview-page>.page-heading h1{font-size:clamp(20px,1.8vw,24px);line-height:1.25;overflow-wrap:anywhere}
+body .overview-page>.page-heading p{margin-top:6px}
+body .overview-page .date-chip{font-size:14px;line-height:1.35;white-space:nowrap;padding:10px 12px;min-height:0;height:auto}
+body .overview-page .hero-banner.with-smile-photo{min-height:190px;padding:20px 26px}
+body .overview-page .hero-text h2{font-size:clamp(22px,2vw,28px);line-height:1.2;margin:8px 0}
+body .overview-page .hero-text p{margin:6px 0 12px;line-height:1.5}
+@media(max-width:600px){body .overview-page>.page-heading>div:first-child{flex-basis:100%}body .overview-page .hero-banner.with-smile-photo{padding:18px 20px;min-height:210px}body .overview-page .hero-text h2{font-size:23px}}

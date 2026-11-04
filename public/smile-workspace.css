@@ -52,7 +52,7 @@ html:has(body.smile-focus),body.smile-focus{height:100dvh;overflow:hidden}
 .smile-adjustments-column{gap:16px}.smile-adjustments-column .smile-procedure-options{padding:0;margin:0;flex:0 0 auto}.smile-adjustments-column .smile-procedure-options>div{display:flex;flex-wrap:nowrap;gap:6px}.smile-adjustments-column .smile-procedure-option{padding:10px 5px;flex:1;justify-content:center;border-radius:9px;min-width:0;gap:0;font-size:1em;line-height:1.3}.smile-adjustments-column .smile-procedure-option input{position:absolute;opacity:0;width:1px;height:1px}.smile-adjustments-column .smile-procedure-option.selected{background:#0c6145;color:#fff;border-color:#0c6145}
 .smile-adjustments-column .smile-shade-field{padding:14px 0 0;margin:0;border:0;border-top:1px solid #dae3d5;min-width:0;flex:0 0 auto}.smile-adjustments-column .smile-shade-field legend{font-size:1em;font-weight:600;padding-top:10px;margin:0 0 6px}.smile-adjustments-column .smile-shade-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:0}.smile-adjustments-column .smile-shade-tile{padding:6px;border-radius:10px}.smile-adjustments-column .smile-shade-sample{height:46px;min-height:0}.smile-adjustments-column .smile-shade-tile strong{margin:5px 0 0;font-size:1em}.smile-adjustments-column .smile-shade-tile small,.smile-adjustments-column .smile-palette-note{display:none}
 .smile-adjustments-column .smile-local-controls{padding:0;margin:0;border:0;border-radius:0;background:none;flex:0 0 auto;color:#244c37}.smile-adjustments-column .smile-local-controls>label{font-size:1em}.smile-adjustments-column .smile-local-controls input{margin:3px 0 0;min-height:30px;height:30px}.smile-adjustments-column .smile-local-controls>p,.smile-adjustments-column .smile-local-controls>button{display:none}.smile-adjustments-column .smile-local-controls>label{font-size:0}.smile-adjustments-column .smile-local-controls>label::before{content:'Intensidade';font-size:clamp(.875rem,.8rem + .2vw,1rem)}.smile-adjustments-column .smile-local-controls output{font-size:clamp(.875rem,.8rem + .2vw,1rem)}
-.smile-adjustments-column #simulation-progress:empty{display:none}.smile-adjustments-column .smile-magic-controls{padding:0;margin:0;border:0;background:none;flex:0 0 auto}.smile-adjustments-column .smile-magic-controls>strong,.smile-adjustments-column .smile-magic-controls>small,.smile-adjustments-column .smile-magic-controls>p:not([role=status]){display:none}.smile-adjustments-column .smile-magic-controls .button{width:100%;background:#fafcf7;color:#1c5538;border:1px solid #a5bca0}.smile-adjustments-column .smile-magic-controls p[role=status]{margin:0;font-size:1em;color:#4c6e45}
+.smile-adjustments-column #simulation-progress:empty{display:none}
 .smile-send-section{margin-top:auto;flex:0 0 auto;border-top:1px solid #dbe3d4;padding-top:16px}.smile-send-section h3{margin:0 0 10px;font-size:1.1em}.smile-send-section>div{display:flex;gap:10px}.smile-send-section .button{flex:1}.smile-workspace-disclaimer{font-size:.875rem;line-height:1.4;color:#5b7056;flex:0 0 auto}
 .smile-workspace-mobile-tabs{display:none}.smile-workspace-no-patient{margin:auto;text-align:center;padding:24px}.smile-workspace-no-patient p{margin:12px 0 20px}
 /* Uma grade única segue a largura e altura do viewport visual, sem empilhar remendos por resolução. */
@@ -69,15 +69,15 @@ html:has(body.smile-focus){scrollbar-gutter:auto}
 .smile-image-area{flex:1 1 0;min-height:0;overflow:hidden}.smile-compare-column>header,.smile-photo-actions,.smile-save-png,.smile-stage-footer,.smile-region-controls{flex-shrink:0}
 .smile-workspace .smile-stage{max-width:100%;max-height:100%}
 .smile-workspace .smile-local-controls{margin:0}.smile-workspace .smile-local-controls>label{font-size:0}.smile-workspace .smile-local-controls>label::before{content:'Intensidade';font-size:.875rem}.smile-workspace .smile-local-controls output{font-size:.875rem}
-.smile-tuning-settings{display:flex;flex-direction:column;gap:12px;min-width:0;flex:0 0 auto}.smile-tuning-ai{min-width:0;flex:0 0 auto}
+.smile-tuning-settings{display:flex;flex-direction:column;gap:12px;min-width:0;flex:0 0 auto}
 .smile-adjustments-column .smile-procedure-option{font-size:.875rem;min-height:36px;padding:8px 4px;overflow-wrap:anywhere}
 .smile-adjustments-column .smile-shade-field{padding-top:0}.smile-adjustments-column .smile-shade-field legend{padding-top:0;margin-bottom:5px}.smile-adjustments-column .smile-shade-sample{height:40px}
-.smile-adjustments-column .smile-magic-controls{margin:0}.smile-adjustments-column .smile-magic-controls>strong,.smile-adjustments-column .smile-magic-controls>small,.smile-adjustments-column .smile-magic-controls>p:not([role=status]){display:none}
+
 .smile-adjustment-tabs{display:none}
 .smile-workspace[data-split-adjust=true] .smile-adjustment-tabs{display:flex;align-items:stretch;gap:4px;flex:0 0 34px;padding:3px;border-radius:9px;background:#edf2e7}
 .smile-adjustment-tabs button{flex:1;min-width:0;border:0;border-radius:6px;background:none;color:#315a3f;cursor:pointer;font-size:.875rem;padding:4px 7px;line-height:1.3}
 .smile-adjustment-tabs button[aria-pressed=true]{background:#0c6145;color:#fff}
-.smile-workspace[data-split-adjust=true] .smile-adjustments-column[data-section=settings]>.smile-tuning-ai,.smile-workspace[data-split-adjust=true] .smile-adjustments-column[data-section=settings]>.smile-send-section,.smile-workspace[data-split-adjust=true] .smile-adjustments-column[data-section=ai]>.smile-tuning-settings,.smile-workspace[data-split-adjust=true] .smile-adjustments-column[data-section=ai]>.smile-send-section,.smile-workspace[data-split-adjust=true] .smile-adjustments-column[data-section=send]>.smile-tuning-settings,.smile-workspace[data-split-adjust=true] .smile-adjustments-column[data-section=send]>.smile-tuning-ai{display:none}
+.smile-workspace[data-split-adjust=true] .smile-adjustments-column[data-section=settings]>.smile-send-section,.smile-workspace[data-split-adjust=true] .smile-adjustments-column[data-section=send]>.smile-tuning-settings{display:none}
 .smile-workspace[data-split-adjust=true] .smile-send-section{margin-top:0}.smile-workspace[data-split-adjust=true] .smile-workspace-disclaimer{margin-top:auto}
 .smile-workspace[data-layout=tabs] .smile-workspace-mobile-tabs{display:flex;align-items:stretch;gap:5px;padding:4px;margin:0 10px;border-radius:10px;background:#edf2e7;min-height:36px}
 .smile-workspace-mobile-tabs button{flex:1;min-width:0;background:none;border:0;border-radius:7px;font-size:.875rem;line-height:1.3;color:#315a3f;padding:5px;cursor:pointer}
@@ -104,3 +104,13 @@ html:has(body.smile-focus){scrollbar-gutter:auto}
 @container smile-view (max-height:480px){
  .smile-workspace[data-layout=tabs] .smile-adjustments-column>h2{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%)}
 }
+/* Gerar com IA fica junto da foto e do PNG, independente da aba de ajustes. */
+.smile-generation-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;min-width:0;flex:0 0 auto}
+.smile-generation-actions>.button{width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere;line-height:1.3}
+.smile-generation-actions .smile-generate-ai{background:#0c6145;border-color:#0c6145;color:#fff;font-weight:600}
+.smile-generation-actions .smile-save-png{background:#fffefa;border-color:#8aa98c;color:#175238}
+.smile-ai-access-feedback{margin:0;font-size:.875rem;line-height:1.4;color:#586e53;flex:0 0 auto;overflow-wrap:anywhere}
+@container smile-view (max-width:600px){.smile-generation-actions{gap:6px}.smile-generation-actions>.button{padding-inline:7px;font-size:.875rem}}
+
+.smile-workspace:has(.smile-workspace-no-patient){grid-template-rows:auto minmax(0,1fr)}
+.smile-empty-generation{display:grid;justify-items:center;gap:8px;margin-top:20px}.smile-empty-generation small{font-size:.875rem;color:#586e53;max-width:360px;line-height:1.4}

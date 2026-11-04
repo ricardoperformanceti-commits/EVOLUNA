@@ -9,3 +9,6 @@ O botão Aplicar ajustes locais usa o processamento existente no navegador. O bo
 Salvar prévia mantém o PNG, documento privado e planejamento vinculado. Chat e WhatsApp abrem a revisão do envio, criando o PNG antes se necessário. O chat exige que o paciente esteja conectado no atendimento; WhatsApp exige anexar o arquivo e confirmar o envio. Não há envio automático de mensagens.
 
 Os testes cobrem isolamento por paciente, paginação e busca, troca de painel, ajuste sem API, envio do documento correto, mudança de paciente durante salvamento e preservação da prévia original da galeria. A verificação visual em navegador autenticado deve ser feita no dispositivo de uso.
+
+## Ajuste à área útil
+A altura do estúdio acompanha a visualViewport quando disponível e desconta o aviso de recuperação. O aviso fica numa faixa inferior reservada, sem cobrir os botões da fotografia. A grade tem uma única linha limitada à altura disponível; a imagem mantém sua proporção. O comparador recebe uma parcela maior da largura. As listas usam uma página menor quando a altura útil diminui. Abertura e fechamento do aviso, redimensionamento e teclado móvel recalculam o espaço sem gerar imagens, trocar o paciente ou refazer a foto. Painéis viram abas abaixo de 660 px úteis ou 1100 px de largura.

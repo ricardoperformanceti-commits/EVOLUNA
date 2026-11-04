@@ -23,3 +23,9 @@ Keep the lips, gums, tongue, skin, face, expression, background, lighting, frami
 
 Return one photorealistic image matching the original composition, with changes confined strictly to the visible teeth. No text, borders or before-and-after collage.`
 };
+
+// Explicit keys: treatment order in the UI or in a gallery never selects a prompt.
+export const TREATMENT_PROMPTS=Object.freeze({
+ clareamento:Object.freeze({id:'clareamento-bl1-v1',name:'Clareamento',prompt:PROMPTS.clareamento}),
+ lentes:Object.freeze({id:'lentes-bl1-v1',name:'Lentes',prompt:PROMPTS.lentes})
+});

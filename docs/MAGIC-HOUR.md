@@ -1,6 +1,6 @@
 # Integração Magic Hour
 
-A integração usa POST /v1/files/upload-urls, PUT no endereço assinado, POST /v1/ai-image-editor e GET /v1/image-projects/{id}. Modelo definido no servidor por tratamento: qwen-image-2.1 para Lentes e flux-2-klein para Clareamento; resolução 640px e uma imagem por pedido. O texto de edição é definido no servidor com base em clareamento, lentes ou facetas e tonalidades BL1, BL2 e A1. Não aceita prompts arbitrários nem modelos mais caros enviados pelo navegador.
+A integração usa POST /v1/files/upload-urls, PUT no endereço assinado, POST /v1/ai-image-editor e GET /v1/image-projects/{id}. Modelo definido no servidor por tratamento: qwen-image-2.1 para Lentes e Clareamento; resolução 640px e uma imagem por pedido. O texto de edição é definido no servidor com base em clareamento, lentes ou facetas e tonalidades BL1, BL2 e A1. Não aceita prompts arbitrários nem modelos mais caros enviados pelo navegador.
 
 ## Ativação
 
@@ -39,3 +39,6 @@ A permissão também é conferida antes da confirmação e antes de enviar uma g
 ## Prompts aprovados em 07/11/2026
 
 Os textos em magic-hour/prompts.mjs são enviados literalmente, sem prefixos ou complementos. Lentes: Apply the best veneers to the upper and lower teeth in shade white. Clareamento: referência #FFF8F0 e preservação da anatomia, conforme o texto aprovado. A geração continua explícita, uma imagem por solicitação; consultar ou ajustar tonalidade não gera outro pedido pago. Aplicar ajustes sem alterações não reenvia o PNG. Sincronizar novamente o mesmo documento e caminho não repete o salvamento do prontuário. O salvamento compacto do workspace permanece ativo.
+
+## Briefing aprovado
+Ambos os tratamentos usam qwen-image-2.1, 640px e uma imagem. Lentes usa o prompt curto aprovado sem ponto final; clareamento usa o texto integral aprovado. MAGIC_HOUR_LENTES_API_KEY e MAGIC_HOUR_CLAREAMENTO_API_KEY são segredos separados do Worker. A chave legada permanece apenas como compatibilidade quando um segredo específico não está configurado. Tickets assinados mantêm o tratamento durante as consultas; as chaves nunca são enviadas ao navegador. A geração concluída é salva automaticamente e sincronizada no paciente; falhas permitem retomar o salvamento sem gerar outra imagem. Ajustes posteriores permanecem locais e atualizam a mesma prévia.

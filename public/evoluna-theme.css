@@ -1,0 +1,84 @@
+/* Approved Evoluna theme. Existing header layout and controls are retained. */
+:root{--green:#1c493c;--green-dark:#123b31;--lime:#d3e4bb;--bg:#f7f5ef;--ink:#183e32;--muted:#738076;--border:#e4e6da;--orange:#c29b50;--shadow:0 10px 30px #183e3209}
+body{background:var(--bg)}
+.sidebar{background:linear-gradient(155deg,#194e40 0%,#123e33 58%,#0e332c 100%);color:#f8faf4;border-right:1px solid #163e33;padding-top:24px;overflow-x:hidden;scrollbar-color:#8baf94 #123e33;box-shadow:8px 0 28px #153b3108}
+.sidebar::after{content:"";position:absolute;pointer-events:none;z-index:0;bottom:72px;left:35%;width:240px;height:130px;border-top:1px solid #caa35d;border-radius:100% 0 0 0;transform:rotate(-12deg);opacity:.8}
+.sidebar>*{position:relative;z-index:1}
+.sidebar .brand.evolluna-brand{display:flex;flex-direction:column;align-items:center;text-align:center;color:#fff;margin:0 0 22px;letter-spacing:-.7px;font-size:30px;line-height:1.15}
+.sidebar .brand.evolluna-brand::before{content:"";display:block;width:47px;height:47px;margin-bottom:9px;background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 54' fill='none' stroke='%23d4af65' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 8C13 0 3 7 6 20l6 25c2 9 6 8 8-3l2-11c1-5 3-5 4 0l2 11c2 11 6 12 8 3l6-25C45 7 35 0 24 8Z'/%3E%3C/svg%3E")}
+.sidebar .brand.evolluna-brand>.brand-wordmark{display:flex;flex-direction:column;align-items:center;gap:1px;white-space:normal}
+.sidebar .brand.evolluna-brand .brand-specialty{font-size:23px;font-weight:450;letter-spacing:.15px}
+.sidebar .brand.evolluna-brand small{color:#e2c58d;letter-spacing:1.5px;font-size:10px;font-weight:500;margin-top:8px}
+.sidebar>.clinic{color:#f8faf4;border:1px solid #85a8976b;background:#ffffff05;border-radius:13px;padding:11px 12px;gap:10px;margin-bottom:9px;min-height:59px}
+.sidebar>.clinic:hover,.sidebar>.clinic.active{background:#ffffff12;border-color:#b7d0a4}
+.sidebar>.clinic small{font-size:11px;color:#d1dfd1;line-height:1.35;margin-top:3px}
+.sidebar>.clinic .clinic-icon{background:transparent;color:#e5cf97;border:0;width:29px;min-width:29px}
+.sidebar>.clinic .smile-shortcut-arrow{color:#bfd2b7}
+.sidebar>.teleconsulta-shortcut{margin-bottom:20px}
+.sidebar nav{border-top:1px solid #b1c9b352;padding-top:16px}
+.sidebar .nav-item{color:#edf3e8;min-height:45px;height:auto;padding:10px 12px;margin-bottom:5px;border-radius:12px;line-height:1.4;font-size:14px;gap:12px;font-weight:450}
+.sidebar .nav-item svg{width:21px;height:21px}
+.sidebar .nav-item span{white-space:normal}
+.sidebar .nav-item:hover{background:#ffffff0e;color:#fff}
+.sidebar .nav-item.active{background:linear-gradient(110deg,#d9e8bf,#bfd8a9);color:#143c30;box-shadow:none;font-weight:650}
+.sidebar .sidebar-bottom{margin-top:auto;padding-top:22px;padding-bottom:4px}
+.sidebar .profile{background:transparent;border-top-color:#b1c9b352;color:#fff;margin-top:0;padding-top:16px;line-height:1.4}
+.sidebar .profile small,.sidebar .profile>span:last-child{color:#d2dfcf}
+.sidebar .avatar.doctor{background:#e4edcf;color:#28543f}
+#content :is(.card,.kpi,.patient-card,.module-card,.report-box,.insight-card,.profile-header,.clinical-patient-bar,.session-patient-top){border:1px solid #dfe5d5;background:#fffefb;box-shadow:0 4px 18px #183e3206;border-radius:15px}
+#content :is(.card,.kpi,.patient-card,.module-card,.report-box,.insight-card,.profile-header,.clinical-patient-bar,.session-patient-top)::before,#content :is(.card,.kpi,.patient-card,.module-card,.report-box,.insight-card,.profile-header,.clinical-patient-bar,.session-patient-top)::after{display:none}
+#content :is(.card,.kpi,.patient-card,.module-card,.report-box,.insight-card):hover{box-shadow:0 6px 22px #183e320b}
+#content .page-heading h1{color:#173e31;font-weight:750;letter-spacing:-.7px}
+#content .page-heading p{color:#748072}
+#content .button{border-radius:10px}
+#content .button.primary{background:var(--green);border-color:var(--green);box-shadow:0 3px 8px #173e3110}
+#content .button.lime{background:linear-gradient(110deg,#d8e6ba,#bad19c);border-color:#bfd3a6;color:#173e31}
+#content :is(input,select,textarea){border-radius:9px}
+#content .hero-banner{background:linear-gradient(120deg,#164737,#255e48);border-radius:17px}
+#content .kpi-value{color:#184832}
+#content table th{background:#f3f5eb;color:#60745d}
+#content table td{border-color:#edf0e5}
+#content .tabs{border-color:#dbe2d2}
+#content .tabs button.active{color:#234c37;border-color:#bda05d;background:#eff3e5}
+.financing-sales{gap:22px;padding-bottom:12px}
+.financing-hero{position:relative;isolation:isolate;overflow:hidden;min-height:600px;border-radius:20px;background:#faf7ef;border:1px solid #ece7da}
+.financing-photo{position:absolute;z-index:-2;inset:0;overflow:hidden}
+.financing-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center right}
+.financing-hero::after{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,#faf7efff 0%,#faf7effc 25%,#faf7efe6 39%,#faf7efb0 49%,#faf7ef00 68%)}
+.financing-copy{padding:37px 34px 30px;width:65%;position:relative;z-index:1}
+.financing-eyebrow{display:inline-flex;align-items:center;gap:9px;color:#204c39;background:#e7eddd;border-radius:30px;padding:9px 14px;font-size:13px;font-weight:600}
+.financing-copy h1{font-size:clamp(30px,3.1vw,49px);line-height:1.15;letter-spacing:-1.7px;max-width:575px;color:#123e30;margin-top:24px;font-weight:800}
+.financing-gold-line{display:block;height:8px;width:140px;border-top:3px solid #c49b4c;border-radius:60%;margin:12px 0 18px;transform:rotate(-2deg)}
+.financing-intro{font-size:17px;line-height:1.65;max-width:430px;color:#536153;margin-bottom:25px}
+.financing-benefits{list-style:none;display:flex;gap:14px;margin:27px 0 29px;padding:0;max-width:555px}
+.financing-benefits li{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:550;line-height:1.4;color:#234a37;flex:1;min-width:0}
+.financing-benefits li+li{border-left:1px solid #d6d8c6;padding-left:14px}
+.financing-benefits svg{width:25px;height:25px;flex-shrink:0}
+.financing-cta-row{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+#content .financing-cta{min-height:58px;white-space:normal;background:linear-gradient(110deg,#d0e2ae,#b5cf96);border:1px solid #b8ce9d;border-radius:13px;color:#133a2b;font-weight:750;font-size:18px;padding:15px 22px;box-shadow:0 5px 14px #234b3710;gap:14px}
+#content .financing-cta:hover{background:linear-gradient(110deg,#c5dba0,#a7c585);border-color:#a0ba86}
+.financing-next{border-left:1px solid #d8d4bb;padding-left:15px;font-size:12px;line-height:1.6;color:#52634d}
+.financing-next strong{display:block;font-size:13px;color:#204a36}
+.financing-caption{font-size:12px;color:#5c6858;max-width:450px;margin-top:15px;line-height:1.6}
+.financing-terms{font-size:11px;color:#69735f;max-width:470px;border-top:1px solid #dfe0d0;padding-top:16px;margin-top:22px;line-height:1.6}
+.financing-steps{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:0;margin:0}
+.financing-steps li{display:flex;align-items:center;gap:18px;background:linear-gradient(125deg,#f0f2e4,#e8eedb);border:1px solid #e2e6d5;border-radius:18px;padding:25px 23px;color:#214b37;min-width:0}
+.financing-step-number{width:33px;height:33px;border-radius:50%;background:#345c40;color:white;display:grid;place-items:center;flex-shrink:0;font-weight:650}
+.financing-steps li>svg{width:30px;height:30px}
+.financing-steps strong{font-size:17px;line-height:1.35;border-left:1px solid #c5cfb9;padding-left:17px}
+@media(max-width:1200px){.financing-copy{width:72%;padding:30px 25px}.financing-copy h1{font-size:37px;max-width:435px}.financing-intro{font-size:16px}.financing-benefits{gap:9px}.financing-benefits li{gap:7px;font-size:12px}.financing-benefits li+li{padding-left:9px}.financing-next{border:0;padding:0}.financing-steps li{padding:20px 15px;gap:12px}.financing-steps strong{font-size:15px;padding-left:12px}}
+@media(min-width:801px) and (max-width:1000px){.sidebar .brand.evolluna-brand{font-size:26px}.sidebar .brand.evolluna-brand .brand-specialty{font-size:20px}.sidebar>.clinic{padding:10px 8px;gap:7px}.sidebar>.clinic small{font-size:10px}.sidebar .nav-item{font-size:13px;padding:10px;gap:9px}.financing-copy{width:84%}.financing-hero::after{background:linear-gradient(90deg,#faf7efff,#faf7eff5 40%,#faf7efb0 65%,#faf7ef20)}.financing-benefits{max-width:450px}.financing-steps li>svg{display:none}}
+@media(max-width:800px){.sidebar{box-shadow:10px 0 60px #173b3124}.financing-copy{width:74%}.financing-copy h1{font-size:36px}.financing-hero{min-height:570px}.financing-steps li{gap:12px}.financing-steps li>svg{display:none}}
+@media(max-width:600px){.financing-sales{gap:16px}.financing-hero{display:flex;flex-direction:column;border-radius:16px;min-height:0}.financing-photo{position:relative;order:0;inset:auto;z-index:0;height:245px}.financing-photo img{object-position:right 38%;object-fit:cover}.financing-hero::after{display:none}.financing-copy{width:100%;padding:23px 21px 25px;order:1}.financing-copy h1{font-size:32px;letter-spacing:-1px;margin-top:19px}.financing-intro{font-size:15px;margin-bottom:20px}.financing-benefits{flex-wrap:wrap;gap:13px;margin:23px 0}.financing-benefits li{flex:1 1 100%;font-size:13px}.financing-benefits li br{display:none}.financing-benefits li+li{border:0;padding-left:0}.financing-cta-row{gap:12px}#content .financing-cta{width:100%;font-size:17px}.financing-next{padding:0}.financing-caption{font-size:12px}.financing-terms{font-size:11px}.financing-steps{grid-template-columns:1fr;gap:10px}.financing-steps li{padding:19px 21px}.financing-steps li>svg{display:block}.financing-steps strong{font-size:16px}.financing-steps br{display:none}}
+@media(prefers-reduced-motion:reduce){.sidebar,.sidebar .nav-item,#content .button{transition:none}}
+@media print{.sidebar{display:none!important}.financing-hero{min-height:0}.financing-photo,.financing-next{display:none}.financing-copy{width:100%}.financing-hero::after{display:none}.financing-steps{grid-template-columns:repeat(3,1fr)}}
+
+/* Shared visual language inside the smile studio and the patient invitation. */
+.evoluna-studio .panel,.rtc-guest-page .rtc-guest-card{background:#fffefb;border-color:#dfe5d5;box-shadow:0 4px 18px #183e3206}
+.evoluna-studio .primary,.evoluna-studio button[aria-pressed=true],.evoluna-studio button[aria-selected=true],.evoluna-studio .tabs button[aria-selected=true],.rtc-guest-page .rtc-button.primary{background:#1c493c;color:#fff;border-color:#1c493c}
+.evoluna-studio .primary:hover:enabled,.rtc-guest-page .rtc-button.primary:hover{background:#153b31}
+.evoluna-studio .badge{background:#e6eddb;color:#32533b}
+.evoluna-studio .tooth{color:#bc9a54}
+.evoluna-studio .preview-row.active{border-color:#a7bd8f;background:#f3f6e9}
+.evoluna-studio .tabs,.evoluna-studio .settings-nav{background:#eef1e5}
+@media print{body{background:#fff}}

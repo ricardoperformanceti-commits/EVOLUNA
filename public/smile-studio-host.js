@@ -12,8 +12,10 @@ async function publish(record,user){
  const imageStorage=storage(record),id=documentID(record),existing=workspace.documents.find(d=>d.id===id),createdAt=record.created_at,date=createdAt.slice(0,10);
  const document={...existing,id,patient:patient.id,patientName:patient.name,patientCpf:patient.cpf||'',type:'Prévia do sorriso',title:'Prévia do sorriso',date,createdAt,updatedAt:record.updated_at,time:new Date(createdAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}),professional:workspace.settings.doctor,clinic:workspace.settings.clinic,status:'Prévia ilustrativa',mime:'image/png',imageStorage,procedure:record.procedure,shade:record.shade,simulationId:record.source_id||'storage-'+record.id,storageGenerationId:record.id,text:'Prévia ilustrativa do sorriso para apresentação e revisão pelo profissional.'};
  delete document.imageData;
- if(existing)workspace.documents[workspace.documents.indexOf(existing)]=document;else workspace.documents.unshift(document);
  const previous=workspace.simulations.find(s=>s.id===document.simulationId),simulation={id:document.simulationId,documentId:id,patient:patient.id,date,createdAt,procedure:record.procedure,shade:record.shade,mode:'photo',photo:null,storageGenerationId:record.id,imageStorage};
+ const same=(a,b)=>!!a&&Object.keys(a).length===Object.keys(b).length&&Object.entries(b).every(([key,value])=>JSON.stringify(a[key])===JSON.stringify(value));
+ if(same(existing,document)&&same(previous,simulation))return id;
+ if(existing)workspace.documents[workspace.documents.indexOf(existing)]=document;else workspace.documents.unshift(document);
  if(previous)workspace.simulations[workspace.simulations.indexOf(previous)]=simulation;else workspace.simulations.unshift(simulation);
  if(!await cloud().save(workspace,{draft:true}))throw Error('Não foi possível sincronizar o prontuário. Use Salvar PNG para tentar novamente.');
  return id;

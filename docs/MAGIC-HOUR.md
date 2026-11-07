@@ -35,3 +35,7 @@ A foto consulta primeiro `GET /v1/smile/access`, autenticado. O Worker valida a 
 Sem permissão (ou se a consulta não estiver disponível), a foto segue automaticamente para a prévia local, usando a máscara de esmalte e preservando a anatomia original. O botão Gerar com IA permanece identificável; a geração só avança se o servidor autorizar. Falhas de consulta mostram uma mensagem e permitem nova tentativa, sem trocar um pedido explícito de IA por uma edição local. A seleção assistida do sorriso continua disponível. Salvar em PNG nos documentos do paciente e enviar continuam usando o mesmo fluxo. O tratamento local uniformiza a tonalidade; não reconstrói dentes.
 
 A permissão também é conferida antes da confirmação e antes de enviar uma geração. Mudanças de conta invalidam a permissão visual e resultados antigos. A autorização definitiva de qualquer geração continua no Worker.
+
+## Prompts aprovados em 07/11/2026
+
+Os textos em magic-hour/prompts.mjs são enviados literalmente, sem prefixos ou complementos. Lentes: Apply the best veneers to the upper and lower teeth in shade bl1. Clareamento: referência #FFF8F0 e preservação da anatomia, conforme o texto aprovado. A geração continua explícita, uma imagem por solicitação; consultar ou ajustar tonalidade não gera outro pedido pago. Aplicar ajustes sem alterações não reenvia o PNG. Sincronizar novamente o mesmo documento e caminho não repete o salvamento do prontuário. O salvamento compacto do workspace permanece ativo.

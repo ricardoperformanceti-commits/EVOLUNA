@@ -1,7 +1,7 @@
 /* Approved Evoluna theme. Existing header layout and controls are retained. */
 :root{--green:#1c493c;--green-dark:#123b31;--lime:#d3e4bb;--bg:#f7f5ef;--ink:#183e32;--muted:#738076;--border:#e4e6da;--orange:#c29b50;--shadow:0 10px 30px #183e3209}
 body{background:var(--bg)}
-.sidebar{background:linear-gradient(155deg,#194e40 0%,#123e33 58%,#0e332c 100%);color:#f8faf4;border-right:1px solid #163e33;padding-top:24px;scrollbar-color:#8baf94 #123e33;box-shadow:8px 0 28px #153b3108}
+.sidebar{background:linear-gradient(155deg,#194e40 0%,#123e33 58%,#0e332c 100%);color:#f8faf4;border-right:1px solid #163e33;padding-top:24px;overflow-x:hidden;scrollbar-color:#8baf94 #123e33;box-shadow:8px 0 28px #153b3108}
 .sidebar::after{content:"";position:absolute;pointer-events:none;z-index:0;bottom:72px;left:35%;width:240px;height:130px;border-top:1px solid #caa35d;border-radius:100% 0 0 0;transform:rotate(-12deg);opacity:.8}
 .sidebar>*{position:relative;z-index:1}
 .sidebar .brand.evolluna-brand{display:flex;flex-direction:column;align-items:center;text-align:center;color:#fff;margin:0 0 22px;letter-spacing:-.7px;font-size:30px;line-height:1.15}

@@ -1,4 +1,4 @@
-export const shades={BL1:{name:'Branco intenso',rgb:[255,248,240]},BL2:{name:'Branco suave',rgb:[250,241,231]},A1:{name:'Natural claro',rgb:[243,229,220]}};
+export const shades={BL1:{name:'Branco intenso',rgb:[255,248,240]},BL2:{name:'Branco suave',rgb:[250,241,231]},A1:{name:'Natural claro',rgb:[213,209,175]}};
 export const treatments={clareamento:'Clareamento',lentes:'Lentes'};
 export function freshCase(patient=null){return {patient,photo:null,base:null,after:null,record:null,mouth:null,shade:null,procedure:null,intensity:55,compare:50,dirty:false}}
 export function sameContext(a,b){return a.user===b.user&&a.epoch===b.epoch&&a.patient===b.patient}

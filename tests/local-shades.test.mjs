@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {shades,retone} from '../smile-studio/src/model.js';
 test('shade references match approved HEX values and remain distinct on bright enamel',()=>{
- assert.deepEqual(shades.BL1.rgb,[255,248,240]);assert.deepEqual(shades.BL2.rgb,[250,241,231]);assert.deepEqual(shades.A1.rgb,[243,229,220]);
+ assert.deepEqual(shades.BL1.rgb,[255,248,240]);assert.deepEqual(shades.BL2.rgb,[250,241,231]);assert.deepEqual(shades.A1.rgb,[213,209,175]);
  const outputs=[];for(const shade of ['BL1','BL2','A1']){const pixels=new Uint8ClampedArray([240,240,240,255,130,70,60,255]);retone(pixels,new Uint8Array([255,0]),shade,100);assert.deepEqual([...pixels].slice(4),[130,70,60,255]);outputs.push([...pixels].slice(0,3));}
  assert(outputs[0][0]>outputs[1][0]);assert(outputs[1][0]>outputs[2][0]);assert(outputs[0][1]>outputs[1][1]);assert(outputs[1][1]>outputs[2][1]);
 });

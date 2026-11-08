@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {shades,retone} from '../smile-studio/src/model.js';
 test('shade references match approved HEX values and remain distinct on bright enamel',()=>{
- assert.deepEqual(shades.BL1.rgb,[255,248,240]);assert.deepEqual(shades.BL2.rgb,[250,241,231]);assert.deepEqual(shades.A1.rgb,[211,190,170]);
+ assert.deepEqual(shades.BL1.rgb,[251,242,233]);assert.deepEqual(shades.BL2.rgb,[250,241,231]);assert.deepEqual(shades.A1.rgb,[211,190,170]);
  const outputs=[];for(const shade of ['BL1','BL2','A1']){const pixels=new Uint8ClampedArray([240,240,240,255,130,70,60,255]);retone(pixels,new Uint8Array([255,0]),shade,100);assert.deepEqual([...pixels].slice(4),[130,70,60,255]);outputs.push([...pixels].slice(0,3));}
  assert(outputs[0][0]>outputs[1][0]);assert(outputs[1][0]>outputs[2][0]);assert(outputs[0][1]>outputs[1][1]);assert(outputs[1][1]>outputs[2][1]);
 });
@@ -58,3 +58,11 @@ test('A1 changes the broad bright tooth body while preserving isolated specular 
 });
 
 test('a shade click reveals the result when the comparison had been showing only the original',async()=>{const f=fixture();f.state.compare=100;await f.click();assert.equal(f.state.compare,50);assert.equal(f.saved(),0)});
+
+test('BL1 moves 10 percent from BL2 toward white while keeping masked tissue and alpha unchanged',()=>{
+ const source=Uint8ClampedArray.from([180,175,165,255,225,220,210,255,245,242,238,255,130,70,60,255]),mask=Uint8Array.from([255,255,255,0]),bl1=source.slice(),bl2=source.slice();
+ retone(bl1,mask,'BL1',100);retone(bl2,mask,'BL2',100);
+ for(let p=0;p<3;p++){for(let c=0;c<3;c++){const i=p*4+c;assert.equal(bl1[i],Math.round(bl2[i]+(255-bl2[i])*.1))}assert.equal(bl1[p*4+3],255)}
+ assert.deepEqual(bl1.slice(12),source.slice(12));assert.ok(bl1[8]>bl1[0],'contrast retained');
+ const off=source.slice();retone(off,mask,'BL1',0);assert.deepEqual(off,source);
+});

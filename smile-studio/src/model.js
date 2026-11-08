@@ -1,6 +1,6 @@
 export const shades={BL1:{name:'Branco intenso',rgb:[255,248,240]},BL2:{name:'Branco suave',rgb:[250,241,231]},A1:{name:'Natural claro',rgb:[243,229,220]}};
 export const treatments={clareamento:'Clareamento',lentes:'Lentes'};
-export function freshCase(patient=null){return {patient,photo:null,base:null,after:null,record:null,mouth:null,shade:'BL1',procedure:null,intensity:55,compare:50,dirty:false}}
+export function freshCase(patient=null){return {patient,photo:null,base:null,after:null,record:null,mouth:null,shade:null,procedure:null,intensity:55,compare:50,dirty:false}}
 export function sameContext(a,b){return a.user===b.user&&a.epoch===b.epoch&&a.patient===b.patient}
 export function replaceGeneration(records,record){return [record,...records.filter(r=>r.id!==record.id)].sort((a,b)=>b.created_at.localeCompare(a.created_at))}
 // Every edit starts from the immutable AI base. Zero leaves every byte unchanged.

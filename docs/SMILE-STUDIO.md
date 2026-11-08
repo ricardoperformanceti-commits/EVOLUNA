@@ -22,3 +22,5 @@ A1 natural: referência de matiz RGB(211,190,170), #D3BEAA, inspirada no teste a
 A proteção dos reflexos A1 usa a luminosidade mediana dos pixels da máscara dos dentes. Dentes uniformemente brancos continuam recebendo a cor; apenas reflexos acima da luminosidade do corpo do esmalte são protegidos. O corpo recebe correção de luminosidade limitada a -32/+8 antes da mistura para manter o contraste. Testes incluem facetas RGB 245–255 e reflexos isolados.
 
 BL1: calculado a partir do resultado BL2, avançando 10% da distância restante até o branco RGB(255,255,255), com a mesma máscara e proteção de sombras. A referência do botão passa a RGB(251,242,233), #FBF2E9. A porcentagem descreve aproximação ao branco, não multiplicação dos canais por 1,1.
+
+Layout de celular: fluxo único com comparação, Trocar foto, serviço/tonalidade, comando livre, Executar comando e Aplicar ajustes. Histórico e envio ficam em detalhes recolhíveis abaixo; os controles mantêm seus identificadores e ações. Busca e Dr. Help permanecem no topo do sistema. Campos de texto usam 16px e botões 44px ou mais para toque.

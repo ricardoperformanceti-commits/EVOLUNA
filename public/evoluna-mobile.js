@@ -43,5 +43,6 @@
  })}
  if(content)new MutationObserver(labelTables).observe(content,{childList:true,subtree:true});
  document.addEventListener('input',e=>{if(!e.target.matches('[data-mobile-document-search]'))return;const query=e.target.value.trim().toLocaleLowerCase('pt-BR');content.querySelectorAll('.documents-list-page tbody tr').forEach(row=>{row.hidden=!row.textContent.toLocaleLowerCase('pt-BR').includes(query)})});
+ document.addEventListener('click',e=>{const button=e.target.closest('[data-mobile-patient-tab]');if(!button)return;const card=button.closest('.reference-patient-detail');card.querySelectorAll('[data-mobile-patient-tab]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));card.querySelectorAll('[data-mobile-patient-pane]').forEach(p=>p.hidden=p.dataset.mobilePatientPane!==button.dataset.mobilePatientTab)});
  labelTables();sync();
 })();

@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {shades,retone} from '../smile-studio/src/model.js';
 test('shade references match approved HEX values and remain distinct on bright enamel',()=>{
- assert.deepEqual(shades.BL1.rgb,[255,248,240]);assert.deepEqual(shades.BL2.rgb,[250,241,231]);assert.deepEqual(shades.A1.rgb,[213,209,175]);
+ assert.deepEqual(shades.BL1.rgb,[255,248,240]);assert.deepEqual(shades.BL2.rgb,[250,241,231]);assert.deepEqual(shades.A1.rgb,[211,190,170]);
  const outputs=[];for(const shade of ['BL1','BL2','A1']){const pixels=new Uint8ClampedArray([240,240,240,255,130,70,60,255]);retone(pixels,new Uint8Array([255,0]),shade,100);assert.deepEqual([...pixels].slice(4),[130,70,60,255]);outputs.push([...pixels].slice(0,3));}
  assert(outputs[0][0]>outputs[1][0]);assert(outputs[1][0]>outputs[2][0]);assert(outputs[0][1]>outputs[1][1]);assert(outputs[1][1]>outputs[2][1]);
 });
@@ -29,4 +29,17 @@ test('all veneer shades switch on the same AI base and revisiting one reuses its
 });
 test('previews from a different AI result are never reused',async()=>{
  const f=fixture();f.state.shadePreviewBase='different-ai-base';f.state.previewShade='A1';f.state.afterBlob=new Blob(['old-result']);f.state.shadePreviews={A1:{blob:f.state.afterBlob,mouth:null}};await f.click();assert.equal(await f.state.afterBlob.text(),'local-png');assert.equal(f.state.shadePreviewBase,'saved-ai-base');
+});
+
+test('natural A1 retains photographic brightness differences, neutral highlights and deep shadows',()=>{
+ const values=[45,80,125,160,190,215,235,252,255],pixels=new Uint8ClampedArray(values.flatMap(y=>[y,y,y,255])),mask=new Uint8Array(values.length).fill(255),original=pixels.slice();retone(pixels,mask,'A1',100);
+ for(const p of [0,1,7,8])assert.deepEqual(pixels.slice(p*4,p*4+4),original.slice(p*4,p*4+4));
+ for(let p=2;p<=6;p++){assert.ok(pixels[p*4]>pixels[p*4+1]);assert.ok(pixels[p*4+1]>pixels[p*4+2]);assert.equal(pixels[p*4+3],255);if(p>2)assert.ok(pixels[p*4]>pixels[(p-1)*4])}
+ assert.ok(pixels[6*4]-pixels[3*4]>55,'enamel shading and contrast remain visible');
+ const off=original.slice();retone(off,mask,'A1',0);assert.deepEqual(off,original);
+});
+test('natural A1 leaves tissue and the immutable source untouched while adapting warm and cool enamel',()=>{
+ const source=Uint8ClampedArray.from([215,205,190,255,230,235,240,255,170,80,70,255]),mask=Uint8Array.from([255,255,0]);
+ const first=source.slice(),second=source.slice();retone(first,mask,'A1',100);retone(second,mask,'A1',100);assert.deepEqual(first,second);assert.deepEqual(first.slice(8),source.slice(8));assert.deepEqual([...source].slice(0,3),[215,205,190]);
+ for(const p of [0,1])assert.ok(first[p*4]>first[p*4+2],'natural warm ivory chroma');
 });

@@ -6,12 +6,17 @@ export function replaceGeneration(records,record){return [record,...records.filt
 // Natural A1 uses the reference's warm chroma while retaining each photo's luminance.
 // Deep inter-tooth shadows and specular reflections are protected independently.
 function naturalA1(pixels,mask,strength){
- const target=shades.A1.rgb,referenceY=.2126*target[0]+.7152*target[1]+.0722*target[2];let count=0;
+ const target=shades.A1.rgb,referenceY=.2126*target[0]+.7152*target[1]+.0722*target[2],histogram=new Float64Array(256);let total=0,count=0;
+ // Estimate exposure from masked tooth enamel, not skin, lips or the background.
+ for(let p=0;p<mask.length;p++){if(mask[p]<48)continue;const i=p*4,y=.2126*pixels[i]+.7152*pixels[i+1]+.0722*pixels[i+2];if(y<=85)continue;histogram[Math.round(y)]+=mask[p];total+=mask[p]}
+ if(!total)return 0;let median=0,weight=0;for(;median<255;median++){weight+=histogram[median];if(weight>=total/2)break}
+ const shift=Math.max(-32,Math.min(8,referenceY+(median-200)*.35-median)),highlightStart=Math.max(240,median+8);
+ // Bright uniform veneers are enamel; only outliers above the body get reflection protection.
  for(let p=0;p<mask.length;p++){
   const i=p*4,y=.2126*pixels[i]+.7152*pixels[i+1]+.0722*pixels[i+2],coverage=mask[p]/255;
-  const shadow=Math.max(0,Math.min(1,(y-85)/65)),h=Math.max(0,Math.min(1,(y-238)/12)),highlight=1-h*h*(3-2*h),amount=coverage*strength*shadow*highlight*.8;
+  const shadow=Math.max(0,Math.min(1,(y-85)/65)),h=Math.max(0,Math.min(1,(y-highlightStart)/4)),highlight=1-h*h*(3-2*h),amount=coverage*strength*shadow*highlight*.8;
   if(coverage<.015||amount<=0)continue;
-  const luminance=y-Math.max(0,Math.min(6,(y-190)*.12));
+  const luminance=y+shift;
   for(let c=0;c<3;c++){
    const desired=luminance+(target[c]-referenceY)*.7+(pixels[i+c]-y)*.25;
    pixels[i+c]=Math.round(Math.max(0,Math.min(255,pixels[i+c]+(desired-pixels[i+c])*amount)));

@@ -43,3 +43,18 @@ test('natural A1 leaves tissue and the immutable source untouched while adapting
  const first=source.slice(),second=source.slice();retone(first,mask,'A1',100);retone(second,mask,'A1',100);assert.deepEqual(first,second);assert.deepEqual(first.slice(8),source.slice(8));assert.deepEqual([...source].slice(0,3),[215,205,190]);
  for(const p of [0,1])assert.ok(first[p*4]>first[p*4+2],'natural warm ivory chroma');
 });
+
+test('A1 changes very bright veneer enamel instead of classifying the whole tooth as a reflection',()=>{
+ for(const value of [245,250,252,255]){
+  const pixels=new Uint8ClampedArray([value,value,value,255]),before=pixels.slice();
+  assert.ok(retone(pixels,new Uint8Array([255]),'A1',100)>0);
+  assert.notDeepEqual(pixels,before);assert.ok(pixels[0]>pixels[1]&&pixels[1]>pixels[2]);
+  assert.ok(pixels[1]<=value-12,'visible natural body tone on bright veneers');assert.equal(pixels[3],255);
+ }
+});
+test('A1 changes the broad bright tooth body while preserving isolated specular highlights',()=>{
+ const values=[...Array(60).fill(240),...Array(30).fill(220),...Array(8).fill(190),252,255],pixels=new Uint8ClampedArray(values.flatMap(y=>[y,y,y,255])),before=pixels.slice();retone(pixels,new Uint8Array(values.length).fill(255),'A1',100);
+ assert.ok(pixels[1]<before[1]-12);assert.ok(pixels[61*4]>pixels[91*4],'body texture keeps its contrast');assert.deepEqual(pixels.slice(-8),before.slice(-8));
+});
+
+test('a shade click reveals the result when the comparison had been showing only the original',async()=>{const f=fixture();f.state.compare=100;await f.click();assert.equal(f.state.compare,50);assert.equal(f.saved(),0)});

@@ -19,7 +19,7 @@ const context=()=>({user:session?.user.id,epoch,patient:s.patient});
 const live=c=>sameContext(c,context());
 const objectURL=b=>{const url=URL.createObjectURL(b);urls.push(url);return url};
 function clearImages(){urls.forEach(URL.revokeObjectURL);urls=[]}
-const freeEditor=createFreeEditor({modal,getContext:()=>({...context(),photoBlob:s.photoBlob,procedure:s.procedure,shade:s.shade,store}),getHost:()=>host,api:call,setBusy:value=>{busy=value;render()},onComplete:({record,blob,original})=>{if(record.user_id!==session?.user.id||record.patient_id!==s.patient||record.procedure!==s.procedure||record.shade!==s.shade)return;const row=freeEditRow(record);if(!row)return;clearImages();s={...freshCase(s.patient),photo:objectURL(original),photoBlob:original,base:objectURL(blob),baseBlob:blob,after:objectURL(blob),afterBlob:blob,record:row,procedure:row.procedure,shade:row.shade,previewShade:row.shade,intensity:0};records=replaceGeneration(records,row);pending=null;unsaved=null;documentPending=false;page=0;pane='compare';close();render();toast('Edição concluída. Arraste a régua para comparar antes e depois.');return true}});
+const freeEditor=createFreeEditor({modal,getContext:()=>({...context(),photoBlob:s.photoBlob,procedure:s.procedure,shade:s.shade,store}),getHost:()=>host,api:call,setBusy:value=>{busy=value;render()},onComplete:({record,blob,original})=>{if(record.user_id!==session?.user.id||record.patient_id!==s.patient||record.procedure!==s.procedure||record.shade!==s.shade)return;const row=freeEditRow(record);if(!row)return;clearImages();s={...freshCase(s.patient),photo:objectURL(original),photoBlob:original,base:objectURL(blob),baseBlob:blob,after:objectURL(blob),afterBlob:blob,record:row,procedure:row.procedure,shade:row.shade,intensity:0};records=replaceGeneration(records,row);pending=null;unsaved=null;documentPending=false;page=0;pane='compare';close();render();toast('Edição concluída. Arraste a régua para comparar antes e depois.');return true}});
 function toast(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('visible'),6500)}
 function close(){delete modal.dataset.freeEditor;confirmation=null;modal.close();modal.innerHTML=''}
 function dialog(title,body,buttons=''){delete modal.dataset.freeEditor;modal.innerHTML=`<header><h2>${esc(title)}</h2><button data-action="close" class="icon-button" aria-label="Fechar">×</button></header>${body}<footer>${buttons||'<button data-action="close">Fechar</button>'}</footer>`;modal.showModal()}
@@ -54,10 +54,10 @@ async function persistGenerated(repo,c){if(!unsaved)return;const {row,png}=unsav
 async function previewShade(shade){
  if(busy||loading||!shades[shade])return;
  if(!s.base){s.shade=shade;render();return}
- if(s.previewShade===shade&&s.afterBlob)return;
+ if(s.shadePreviewBase===s.base&&s.previewShade===shade&&s.shadePreviews?.[shade]?.blob===s.afterBlob)return;
  const c=context(),base=s.base,previous={shade:s.shade,after:s.after,afterBlob:s.afterBlob,mouth:s.mouth,dirty:s.dirty,previewShade:s.previewShade};
  s.shade=shade;busy=true;render();
- try{const adjusted=await adjust(base,shade,100,s.mouth);if(!live(c)||s.base!==base)return;s.afterBlob=adjusted.blob;s.after=objectURL(adjusted.blob);s.mouth=adjusted.mouth;s.previewShade=shade;s.dirty=true}
+ try{const cached=s.shadePreviewBase===base?s.shadePreviews?.[shade]:null,adjusted=cached||await adjust(base,shade,100,s.mouth);if(!live(c)||s.base!==base)return;s.shadePreviews={...(s.shadePreviewBase===base?s.shadePreviews:{}),[shade]:adjusted};s.shadePreviewBase=base;s.afterBlob=adjusted.blob;s.after=objectURL(adjusted.blob);s.mouth=adjusted.mouth;s.previewShade=shade;s.dirty=true}
  catch(error){if(live(c)&&s.base===base){Object.assign(s,previous);fail(error)}}
  finally{if(live(c)){busy=false;render()}}
 }

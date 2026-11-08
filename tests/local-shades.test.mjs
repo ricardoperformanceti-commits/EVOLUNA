@@ -18,3 +18,15 @@ test('shade selection changes only the local preview without saving or calling t
 test('failed adjustment keeps the original preview and does not save an old or partial result',async()=>{const f=fixture(true);await f.click();assert.equal(f.saved(),0);assert.equal(f.state.after,'previous');assert.equal(f.state.shade,'BL1');assert.equal(f.context.busy,false)});
 
 test('selecting the already previewed shade does not recalculate or save again',async()=>{const f=fixture();await f.click();f.context.adjust=()=>{throw Error('Must reuse preview')};await f.click();assert.equal(f.saved(),0);assert.equal(f.state.previewShade,'A1')});
+
+test('the shade selected before AI generation still performs its first local adjustment',async()=>{
+ const f=fixture();f.state.shade='A1';f.state.previewShade='A1';f.state.afterBlob=new Blob(['unadjusted-ai-result']);await f.click();assert.equal(f.state.after,'adjusted-preview');assert.equal(await f.state.afterBlob.text(),'local-png');assert.equal(f.state.dirty,true);assert.equal(f.saved(),0);
+});
+test('all veneer shades switch on the same AI base and revisiting one reuses its PNG without saving',async()=>{
+ const f=fixture(),calls=[];f.context.adjust=async(base,shade,intensity,mouth)=>{assert.equal(base,'saved-ai-base');assert.equal(intensity,100);calls.push(shade);return {blob:new Blob([shade]),mouth}};
+ for(const shade of ['BL1','BL2','A1','BL1','BL2','A1']){await vm.runInContext(`previewShade('${shade}')`,f.context);assert.equal(await f.state.afterBlob.text(),shade);assert.equal(f.state.shade,shade);assert.equal(f.state.previewShade,shade)}
+ assert.deepEqual(calls,['BL1','BL2','A1']);assert.equal(f.saved(),0);assert.equal(f.state.base,'saved-ai-base');
+});
+test('previews from a different AI result are never reused',async()=>{
+ const f=fixture();f.state.shadePreviewBase='different-ai-base';f.state.previewShade='A1';f.state.afterBlob=new Blob(['old-result']);f.state.shadePreviews={A1:{blob:f.state.afterBlob,mouth:null}};await f.click();assert.equal(await f.state.afterBlob.text(),'local-png');assert.equal(f.state.shadePreviewBase,'saved-ai-base');
+});

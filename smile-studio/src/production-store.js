@@ -1,3 +1,4 @@
+import {freeEditRow} from './free-edit-record.js';
 import {TrialStore} from './store.js';
 const image=value=>/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(value||'');
 export class ProductionStore extends TrialStore{
@@ -10,7 +11,8 @@ export class ProductionStore extends TrialStore{
    const row={id,source_id:record.id,user_id:this.user,patient_id:patient,procedure:record.procedure==='clareamento'?'clareamento':'lentes',shade:['BL1','BL2','A1'].includes(record.shade)?record.shade:'BL1',base_shade:record.baseShade||record.shade||'BL1',intensity:record.intensity||0,status:'complete',original_path:id+':original',base_path:id+':base',current_path:id+':current',created_at:record.createdAt||record.date+'T12:00:00.000Z',revision:0};
    this.legacy.set(id,{row,original:record.photo,base,current});old.push(row);
   }
-  return [...saved,...old].sort((a,b)=>b.created_at.localeCompare(a.created_at));
+  const edits=(this.host.freeEdits?.(patient)||[]).filter(e=>e.user_id===this.user&&e.patient_id===patient).map(freeEditRow).filter(Boolean);
+  return [...saved,...old,...edits].sort((a,b)=>b.created_at.localeCompare(a.created_at));
  }
  async blob(path){if(!path.startsWith('legacy-'))return super.blob(path);const split=path.lastIndexOf(':'),item=this.legacy.get(path.slice(0,split)),data=item?.[path.slice(split+1)];if(!image(data))throw Error('Imagem antiga indisponível.');const [header,encoded]=data.split(','),bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0));return new Blob([bytes],{type:header.match(/data:([^;]+)/)[1]})}
  async signed(path,expires){if(path.startsWith('legacy-')){const split=path.lastIndexOf(':'),item=this.legacy.get(path.slice(0,split));return item?.[path.slice(split+1)]||''}return super.signed(path,expires)}
@@ -22,6 +24,7 @@ export class ProductionStore extends TrialStore{
    row=await this.update(row,{base_path:base,current_path:current,status:'complete'});return row;
   }catch(error){if(!inserted)await this.remove(paths);throw error}
  }
- async syncDocument(record){return this.host.syncDocument(record,this.user)}
- async share(record,channel){if(record.id.startsWith('legacy-'))return this.host.shareLegacy(record.source_id,channel);return this.host.share(record,channel)}
+ async update(record,patch){if(!record.free_edit)return super.update(record,patch);if(record.user_id!==this.user)throw Error('A edição não pertence a esta conta.');const edit={...record.free_edit_record,base_path:record.base_path,base_shade:record.base_shade,current_path:patch.current_path||record.current_path,shade:patch.shade||record.shade,intensity:patch.intensity??record.intensity,mouth:patch.mouth??record.mouth};await this.host.syncFreeEdit(edit,this.user);return freeEditRow(edit)}
+ async syncDocument(record){if(record.free_edit)return true;return this.host.syncDocument(record,this.user)}
+ async share(record,channel){if(record.free_edit)return this.host.shareFreeEdit(record.id,channel);if(record.id.startsWith('legacy-'))return this.host.shareLegacy(record.source_id,channel);return this.host.share(record,channel)}
 }

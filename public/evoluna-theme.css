@@ -240,3 +240,6 @@ body{background:var(--bg)}
 
 /* Financing follows Teleconsulta in the right-hand column. */
 @media(min-width:601px){.desktop-overview-bottom:has(.desktop-agenda-stack)>.desktop-overview-shortcuts{grid-template-rows:auto auto auto;gap:12px}.desktop-overview-shortcuts>.overview-financing-banner{margin-top:0}.desktop-agenda-stack{align-content:start}}
+/* Compact five-card desktop summary with stronger borders. */
+@media(min-width:601px){.desktop-summary{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.desktop-summary article{min-height:96px;padding:11px 9px;gap:4px;border:2px solid #88a88c;border-radius:13px;background:#fffdf7;box-shadow:0 3px 9px #1743310c}.desktop-summary article>svg{width:22px;height:22px}.desktop-summary strong{font-size:28px}.desktop-summary span{font-size:12px;text-align:center;line-height:1.35}.desktop-summary article:hover{border-color:#275c40}}
+@media(min-width:601px) and (max-width:1000px){.desktop-summary{gap:8px}.desktop-summary article{min-height:94px;padding:10px 6px}.desktop-summary span{font-size:11px}.desktop-summary strong{font-size:25px}}

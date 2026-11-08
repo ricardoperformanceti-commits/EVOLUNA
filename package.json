@@ -18,7 +18,7 @@
     "test:smile-documents": "node --test tests/smile-documents.test.mjs",
     "test:smile-workspace": "node --test tests/smile-workspace.test.mjs",
     "test:magic-hour-mcp": "node --test tests/magic-hour-mcp.test.mjs tests/smile-free-edit.test.mjs tests/smile-free-comparison.test.mjs",
-    "test:smile-command": "node --test tests/smile-command.test.mjs tests/smile-entry-flow.test.mjs"
+    "test:smile-command": "node --test tests/smile-command.test.mjs tests/smile-entry-flow.test.mjs tests/smile-mobile-layout.test.mjs"
   },
   "dependencies": {
     "@mediapipe/face_mesh": "0.4.1633559619",

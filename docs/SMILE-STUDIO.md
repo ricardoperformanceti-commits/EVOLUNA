@@ -12,3 +12,5 @@
 As imagens antigas continuam no histórico. Ajustes locais das imagens já salvas continuam disponíveis.
 
 Verificação: npm test, npm run test:magic-hour, npm run test:smile-command, npm run test:cloud e npm run test:workflow. Os antigos roteiros de navegador dependiam da geração por prompts fixos e foram substituídos pelos testes do fluxo de comando/MCP. A validação visual em navegador continua pendente.
+
+Ao concluir um comando, o estúdio recebe a foto original e o PNG salvo, fecha o modal e abre o painel de comparação com a régua ao centro. Edições concluídas também aparecem no histórico; abrir, ajustar tonalidade, salvar e compartilhar continuam usando o mesmo documento privado e preservam a base original da IA, sem nova geração. Falhas de salvamento mantêm o modal disponível para tentar salvar o mesmo resultado.

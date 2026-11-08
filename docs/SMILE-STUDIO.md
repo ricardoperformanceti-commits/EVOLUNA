@@ -24,3 +24,6 @@ A proteção dos reflexos A1 usa a luminosidade mediana dos pixels da máscara d
 BL1: calculado a partir do resultado BL2, avançando 10% da distância restante até o branco RGB(255,255,255), com a mesma máscara e proteção de sombras. A referência do botão passa a RGB(251,242,233), #FBF2E9. A porcentagem descreve aproximação ao branco, não multiplicação dos canais por 1,1.
 
 Layout de celular: fluxo único com comparação, Trocar foto, serviço/tonalidade, comando livre, Executar comando e Aplicar ajustes. Histórico e envio ficam em detalhes recolhíveis abaixo; os controles mantêm seus identificadores e ações. Busca e Dr. Help permanecem no topo do sistema. Campos de texto usam 16px e botões 44px ou mais para toque.
+
+Digitação no celular: eventos de resize/scroll da viewport atualizam medidas CSS sem reconstruir o estúdio enquanto um input, textarea, select ou campo editável está focado. O campo se chama Descreva seu sorriso com IA. Salvar imagem permanece visível abaixo de Aplicar ajustes no celular e salva/baixa o PNG atual.
+Mudanças apenas de altura na visualização de celular não recriam o formulário, inclusive durante a transição de foco ao abrir o teclado.

@@ -355,3 +355,8 @@ body{background:var(--bg)}
  .evoluna-studio .workspace>.reference-studio-disclaimer{margin:2px 0 0;font-size:11px;flex:none;line-height:1.5}
 }
 @media(max-width:340px){.evoluna-studio .reference-studio-fields{grid-template-columns:1fr}.evoluna-studio .reference-studio-fields .treatments button,.evoluna-studio .reference-studio-fields .shades button{font-size:14px}.evoluna-studio #app>.workspace{padding-inline:12px}}
+
+@media(max-width:600px){
+ .evoluna-studio .compare-panel>.main-actions{gap:10px}
+ .evoluna-studio .compare-panel>.main-actions>.mobile-save-image{display:flex;width:100%;min-height:49px;align-items:center;justify-content:center;border:1px solid #174733;border-radius:12px;background:#fffdf8;color:#174733;font-size:16px;font-weight:650}
+}

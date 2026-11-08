@@ -82,3 +82,48 @@ body{background:var(--bg)}
 .evoluna-studio .preview-row.active{border-color:#a7bd8f;background:#f3f6e9}
 .evoluna-studio .tabs,.evoluna-studio .settings-nav{background:#eef1e5}
 @media print{body{background:#fff}}
+
+/* Approved mobile experience: shared shell and vertical cards. Desktop retained. */
+.mobile-drawer-close,.mobile-menu-backdrop{display:none}
+@media(max-width:800px){
+ html{scrollbar-gutter:auto}body.mobile-menu-open{overflow:hidden}
+ .sidebar{width:min(84vw,320px);height:100dvh;max-height:100dvh;padding:22px 20px max(18px,env(safe-area-inset-bottom));z-index:110;visibility:hidden}
+ .sidebar.open{visibility:visible}.sidebar .brand.evolluna-brand{font-size:30px;margin-bottom:20px}
+ .sidebar .nav-item{min-height:48px;font-size:16px}.sidebar>.clinic{min-height:60px}.sidebar .sidebar-bottom{padding-top:30px}
+ .mobile-drawer-close{display:grid;place-items:center;position:absolute;right:12px;top:10px;width:44px;height:44px;border:0;background:transparent;color:#fff;font-size:30px;z-index:2}
+ .mobile-menu-backdrop:not([hidden]){display:block;position:fixed;inset:0;z-index:105;border:0;background:#122d2766;backdrop-filter:blur(2px);padding:0}
+ .topbar{position:sticky;top:0;z-index:60;height:68px;grid-template-columns:36px minmax(0,1fr) auto;gap:8px;padding:10px 12px;background:#fffdf7;border-bottom:1px solid #e4e6da}
+ .topbar .breadcrumb,.topbar .notification{display:none}.topbar .mobile-menu{width:36px;min-height:44px;color:#1c493c}
+ .topbar .header-patient-search{padding:9px;gap:6px;border-radius:24px;background:#faf8f1;min-width:0}
+ .topbar .header-patient-search input{min-width:0;width:100%;font-size:16px;background:transparent}
+ .topbar .dr-help-trigger{display:flex;align-items:center;gap:4px;border:1px solid #c29b50;border-radius:24px;padding:7px 9px;min-height:42px;color:#1c493c;background:transparent}
+ .topbar .dr-help-trigger span:not(:first-child){display:block}.topbar .dr-help-trigger strong{font-size:12px;white-space:nowrap}.topbar .dr-help-trigger small,.topbar .dr-help-trigger kbd{display:none}.topbar .dr-help-trigger #search-icon{padding:0;width:20px;height:22px}.topbar .top-actions{min-width:0}
+ main#content{padding:20px 14px 28px}.page-heading{flex-wrap:wrap;gap:14px}.page-heading h1{font-size:24px;line-height:1.25}.page-heading p{max-width:none;line-height:1.5}.heading-actions{flex-wrap:wrap;gap:8px}
+ #content :is(.button,.icon-button),#content .tabs button{min-height:44px}#content :is(input,select,textarea){font-size:16px}
+ #content .tabs{display:flex;overflow-x:auto;gap:6px;max-width:100%}#content .tabs button{flex-shrink:0;white-space:nowrap}
+ .dashboard-grid,.lower-grid,.two-columns,.patient-grid,.module-grid,.detail-grid{grid-template-columns:minmax(0,1fr)}
+ .home-kpis{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.home-kpis .kpi{padding:12px 9px}.home-kpis .kpi-top{font-size:12px;line-height:1.4;flex-wrap:wrap}.home-kpis .kpi-value{font-size:27px}.home-kpis .kpi-bottom{font-size:11px;line-height:1.4}
+ .appointment-row{flex-wrap:wrap;gap:9px}.appointment-info{min-width:100px;flex:1}.appointment-row .badge{font-size:11px}
+ .patient-card{padding:18px}.patient-card-footer{flex-wrap:wrap;gap:10px}.profile-header{flex-wrap:wrap}.section-toolbar{flex-wrap:wrap;gap:12px}.filters{overflow-x:auto;justify-content:flex-start;gap:6px}.filters button{flex-shrink:0;min-height:40px}
+ .table-wrap:has(.mobile-card-table){overflow:visible}.mobile-card-table,.mobile-card-table tbody{display:block;width:100%;min-width:0!important}.mobile-card-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ .mobile-card-table tbody tr{display:grid;gap:8px;padding:16px;margin:10px;border:1px solid #e1e6d9;border-radius:14px;background:#fffefa}
+ #content .mobile-card-table td{display:block;border:0;padding:0;white-space:normal;overflow-wrap:anywhere;text-align:left;width:auto}
+ .mobile-card-table td[data-label]:not([data-label=""])::before{content:attr(data-label);display:block;font-size:11px;font-weight:600;color:#738076;margin-bottom:3px}.mobile-card-table td:empty{display:none}
+ .session-record-actions{display:flex;flex-wrap:wrap;gap:8px}.session-record-actions button{min-height:44px}
+ .agenda-board,.agenda-aside{grid-template-columns:minmax(0,1fr)}.agenda-entry{padding:17px;gap:12px;flex-direction:column;align-items:stretch}.agenda-entry-actions{max-width:none;justify-content:flex-start;flex-wrap:wrap}.agenda-entry h3{line-height:1.5}.agenda-heading-controls{gap:12px}.agenda-next-body{flex-wrap:wrap}.agenda-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .teleconsult-directory-layout{grid-template-columns:minmax(0,1fr)}.teleconsult-appointment{flex-wrap:wrap;gap:12px}.teleconsult-appointment-info{min-width:120px;flex:1}.teleconsult-appointment-action{width:100%;flex-direction:row;flex-wrap:wrap;justify-content:flex-start}.teleconsult-directory-aside{min-width:0}
+ .modal-overlay{padding:10px}.modal{width:100%;max-height:calc(100dvh - 20px)}.modal-actions .button{min-height:44px}.paper{padding:20px}.paper-top{flex-wrap:wrap;gap:10px}
+ footer{flex-wrap:wrap;padding:16px;font-size:12px;gap:8px}.financing-copy{padding:22px 18px}.financing-copy h1{font-size:30px}
+ /* Keep the global search and help available while the studio is open. */
+ .smile-focus .topbar{display:grid!important}.smile-focus #smile-studio-frame{top:68px;height:calc(100dvh - 68px);z-index:50}
+ .evoluna-studio .workspace{margin-left:0}.evoluna-studio .panel{border-radius:16px;background:#fffefa}.evoluna-studio .mobile-nav button{min-height:44px}.evoluna-studio .photo-tools button,.evoluna-studio .main-actions button,.evoluna-studio .treatments button,.evoluna-studio .apply{min-height:44px}.evoluna-studio .photo-stage{border-radius:14px}.evoluna-studio .shades button[aria-pressed=true]{border-color:#1c493c;background:#eff3e5}
+}
+@media(max-width:360px){.topbar{padding-inline:8px;gap:5px}.topbar .dr-help-trigger{padding-inline:7px}.topbar .dr-help-trigger #search-icon{display:none}.home-kpis{grid-template-columns:1fr}.home-kpis .kpi{padding:14px}.financing-copy h1{font-size:27px}}
+@media(max-width:800px){
+ .smile-focus .sidebar,.consultation-focus .sidebar{display:flex!important}
+ .consultation-focus .topbar{display:grid!important;flex-shrink:0}
+ .consultation-focus main#content{height:calc(100dvh - 68px);padding:0}
+ .consultation-focus .consultation-workspace-header{padding-inline:12px}
+ .consultation-focus .rtc-controls .button{min-height:44px}
+ .consultation-focus .workspace>footer{display:none}
+}

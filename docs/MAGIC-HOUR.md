@@ -11,3 +11,5 @@ Pool de credenciais: MAGIC_HOUR_MCP_API_KEY (ou MAGIC_HOUR_API_KEY para compatib
 Preservar JOB_SIGNING_KEY, autenticação, ALLOWED_ORIGINS, configuração de acesso e GENERATE_LIMITER em deploys. Fotos: JPEG/PNG até 4 MB. Resultado: até 8 MB. Modelo qwen-image-2.1, 640px e image_count=1. O acesso ao resultado exige sessão e ticket do mesmo usuário. HTTPS, host de mídia permitido, limites de resposta e redirecionamentos restritos permanecem ativos.
 
 O projeto e seu ticket são guardados nos documentos privados do usuário. Não repetir criação quando o recebimento ficar incerto; consultar o projeto ou conferir a Magic Hour. Testes usam respostas simuladas, sem gerações pagas.
+
+O cliente encapsula fetch em uma função sem receiver: o fetch nativo do Workers rejeita a chamada como método de uma instância (Illegal invocation). Os testes verificam que nenhum cliente é passado como this ao fetch.

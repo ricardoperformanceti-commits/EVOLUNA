@@ -42,5 +42,6 @@
   }));
  })}
  if(content)new MutationObserver(labelTables).observe(content,{childList:true,subtree:true});
+ document.addEventListener('input',e=>{if(!e.target.matches('[data-mobile-document-search]'))return;const query=e.target.value.trim().toLocaleLowerCase('pt-BR');content.querySelectorAll('.documents-list-page tbody tr').forEach(row=>{row.hidden=!row.textContent.toLocaleLowerCase('pt-BR').includes(query)})});
  labelTables();sync();
 })();

@@ -386,3 +386,11 @@ body{background:var(--bg)}
  #content .profile-header .avatar{width:44px;height:44px;min-width:44px;font-size:16px}
  .patients-reference-page .patient-grid>#mobile-patient-detail{grid-column:1/-1;width:100%;margin:4px 0 12px;box-sizing:border-box}
 }
+
+/* Patient photos: resize the outer circle as well as the initials/image inside. */
+#content .patients-reference-page .patient-card-top>.patient-card-photo,#content .profile-header .profile-photo-button{width:44px;height:44px;min-width:44px;min-height:44px;padding:4px;border:1px solid #8dab94;box-shadow:none;border-radius:50%;flex:0 0 44px}
+#content .patients-reference-page .patient-card-photo>.avatar{width:34px;height:34px;min-width:34px;min-height:34px;flex:0 0 34px;font-size:13px}
+#content .patients-reference-page .patient-card-photo .photo-camera{width:16px;height:16px;right:-2px;bottom:-2px;border-width:1px}
+#content .patients-reference-page .patient-card-photo .photo-camera svg{width:10px;height:10px}
+#content .patients-reference-page .reference-patient-detail>header .avatar{width:34px;height:34px;min-width:34px;flex:0 0 34px;font-size:13px}
+#content .profile-header .avatar{width:34px;height:34px;min-width:34px;flex:0 0 34px;font-size:14px}

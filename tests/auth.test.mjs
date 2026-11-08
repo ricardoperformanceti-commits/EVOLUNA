@@ -1,58 +1,30 @@
-import { test } from 'node:test';
-import assert from 'node:assert/strict';
-import { createHandler } from '../dist/server/index.js';
-const env = {SUPABASE_URL:'https://example.supabase.co',SUPABASE_PUBLISHABLE_KEY:'test'};
-const req = (path, options) => new Request('https://app.example'+path,options);
-const mock = (auth) => () => ({auth});
-test('páginas públicas abrem sem sessão',async()=>{
-  const handle=createHandler(()=>{throw Error('cliente não necessário')});
-  for(const path of ['/','/cadastro']) assert.equal((await handle(req(path),env)).status,200);
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
+const source=fs.readFileSync(new URL('../cloud/client.js',import.meta.url),'utf8').replace(/^import[^\n]*\n/gm,'');
+function deferred(){let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve}}
+function fixture(){
+ const nodes=new Map(),events={},timers=[],loaded=[],created=[],displayed=[];let account={id:'A'},authListener,getUser=async()=>({data:{user:account},error:null}),load=async owner=>({owner,patients:[]});const classes=new Set();
+ const node=id=>{if(!nodes.has(id))nodes.set(id,{hidden:true,innerHTML:'',textContent:'',dataset:{},classList:{add(){},remove(){}}});return nodes.get(id)};
+ const client={auth:{getUser:()=>getUser(),onAuthStateChange:fn=>authListener=fn,signOut:async()=>({error:null})}};
+ class WorkspaceStore{constructor(_client,owner){this.owner=owner;this.revision=1}async load(){loaded.push(this.owner);return load(this.owner)}async create(state){created.push(this.owner);return state}}
+ const ctx={URLSearchParams,JSON,console,location:{hash:'',origin:'https://app.example',pathname:'/'},document:{getElementById:node,querySelector:()=>null,addEventListener:(type,fn)=>(events[type]??=[]).push(fn),body:{classList:{add:c=>classes.add(c),remove:c=>classes.delete(c)}}},window:{EVOLUNA_SUPABASE:{url:'https://example.supabase.co',key:'public-key'},EvolunaApp:{empty:()=>({patients:[]}),set:state=>displayed.push(state),get:()=>displayed.at(-1),render(){},stop(){}},addEventListener(){}},createClient:()=>client,WorkspaceStore,retainPatientSelections:(_,s)=>s,localStorage:{getItem:()=>null,removeItem(){}},clearTimeout(){},setTimeout:fn=>{timers.push(fn);return timers.length}};
+ vm.createContext(ctx);vm.runInContext(source,ctx);return {ctx,cloud:ctx.window.EvolunaCloud,loaded,created,displayed,node,classes,events,timers,setAccount:value=>account=value,setLoad:fn=>load=fn,setGetUser:fn=>getUser=fn,event:(type,session)=>authListener(type,session)};
+}
+test('current hosted auth gate blocks missing sessions and remote validation failures before loading patient data',async()=>{
+ for(const result of [{data:{user:null},error:null},{data:{user:null},error:Error('invalid')}]){const f=fixture();f.setGetUser(async()=>result);await f.cloud.boot();assert.equal(f.loaded.length,0);assert.equal(f.cloud.ready,false);assert.ok(f.classes.has('auth-required'));assert.match(f.node('auth-root').innerHTML,/Entre na sua clínica/)}
 });
-test('painel e subrotas bloqueiam sessão ausente ou inválida',async()=>{
-  const handle=createHandler(mock({getUser:async()=>({data:{user:null},error:Error('invalid')})}));
-  for(const path of ['/painel','/painel/dados']) {
-    const r=await handle(req(path,{headers:{cookie:'sb-auth-token=falso'}}),env);
-    assert.equal(r.status,303);assert.equal(r.headers.get('location'),'/');
-  }
+test('confirmed session loads only the authenticated owner and displays the workspace after loading succeeds',async()=>{const f=fixture();await f.cloud.boot();assert.deepEqual(f.loaded,['A']);assert.equal(f.cloud.ready,true);assert.equal(f.displayed.at(-1).owner,'A');assert.ok(!f.classes.has('auth-required'))});
+test('logout during workspace loading cannot reveal a late result or create another workspace',async()=>{
+ const f=fixture(),wait=deferred();f.setLoad(()=>wait.promise);const opening=f.cloud.boot();await Promise.resolve();await Promise.resolve();f.event('SIGNED_OUT',null);wait.resolve(null);await opening;assert.equal(f.cloud.ready,false);assert.equal(f.created.length,0);assert.ok(!f.displayed.some(s=>s.owner==='A'));assert.ok(f.classes.has('auth-required'));
 });
-test('painel valida usuário no servidor e escapa HTML',async()=>{
-  const handle=createHandler(mock({getUser:async()=>({data:{user:{email:'<script>alert(1)</script>'}},error:null})}));
-  const r=await handle(req('/painel'),env);const html=await r.text();
-  assert.equal(r.status,200);assert.ok(html.includes('&lt;script&gt;'));assert.ok(!html.includes('<script>'));
+test('switching account while the previous workspace loads never renders the previous patient data',async()=>{
+ const f=fixture(),wait=deferred();f.setLoad(owner=>owner==='A'?wait.promise:Promise.resolve({owner,patients:[]}));const first=f.cloud.boot();await Promise.resolve();await Promise.resolve();f.setAccount({id:'B'});f.event('SIGNED_IN',{user:{id:'B'}});await f.timers.shift()();wait.resolve({owner:'A',patients:[]});await first;assert.equal(f.cloud.ready,true);assert.equal(f.displayed.at(-1).owner,'B');assert.ok(!f.displayed.some(s=>s.owner==='A'));
 });
-test('POST de outra origem é bloqueado antes de autenticar',async()=>{
-  const handle=createHandler(()=>{throw Error('não deve chamar')});
-  const r=await handle(req('/auth/logout',{method:'POST',headers:{origin:'https://attacker.example'}}),env);
-  assert.equal(r.status,403);
+test('password recovery while loading remains on password form even after an old workspace response arrives',async()=>{
+ const f=fixture(),wait=deferred();f.setLoad(()=>wait.promise);const opening=f.cloud.boot();await Promise.resolve();await Promise.resolve();f.event('PASSWORD_RECOVERY',{user:{id:'A'}});wait.resolve({owner:'A',patients:[]});await opening;assert.equal(f.cloud.ready,false);assert.match(f.node('auth-root').innerHTML,/Escolha sua nova senha/);assert.ok(!f.displayed.some(s=>s.owner==='A'));
 });
-test('login bem-sucedido preserva cookie e redireciona',async()=>{
-  const handle=createHandler((url,key,options)=>({auth:{signInWithPassword:async()=>{
-    options.cookies.setAll([{name:'sb-test',value:'session',options:{path:'/',secure:true,httpOnly:true,sameSite:'lax'}}]);return {error:null};
-  }}}));
-  const r=await handle(req('/auth/login',{method:'POST',headers:{origin:'https://app.example'},body:new URLSearchParams({email:'test@example.com',password:'long-password'})}),env);
-  assert.equal(r.status,303);assert.equal(r.headers.get('location'),'/painel');assert.ok(r.headers.get('set-cookie').includes('HttpOnly'));
+test('an old failed identity lookup cannot replace a newer successful login with an error gate',async()=>{
+ const f=fixture(),wait=deferred();f.setGetUser(()=>wait.promise);const first=f.cloud.boot();f.setAccount({id:'B'});f.setGetUser(async()=>({data:{user:{id:'B'}},error:null}));await f.cloud.boot();wait.resolve({data:{user:null},error:Error('expired')});await first;assert.equal(f.cloud.ready,true);assert.equal(f.displayed.at(-1).owner,'B');assert.ok(!f.classes.has('auth-required'));
 });
-test('cadastro exige confirmação e usa callback no domínio hospedado',async()=>{
-  const handle=createHandler(mock({signUp:async({options})=>{
-    assert.equal(options.emailRedirectTo,'https://app.example/auth/callback');return {data:{session:null},error:null};
-  }}));
-  const r=await handle(req('/auth/signup',{method:'POST',headers:{origin:'https://app.example'},body:new URLSearchParams({email:'test@example.com',password:'long-password'})}),env);
-  assert.equal(r.status,200);assert.ok((await r.text()).includes('Confira seu e-mail'));
-});
-test('callbacks incompletos não autenticam e eliminam token do destino',async()=>{
-  const handle=createHandler(()=>{throw Error('não deve chamar')});
-  for(const path of ['/auth/callback','/auth/confirm?token_hash=secret&type=admin']){
-    const r=await handle(req(path),env);assert.equal(r.headers.get('location'),'/auth/erro');
-  }
-});
-test('logout não usa GET e mantém erro remoto visível',async()=>{
-  const handle=createHandler(mock({signOut:async()=>({error:Error('network')})}));
-  assert.equal((await handle(req('/auth/logout'),env)).status,404);
-  assert.equal((await handle(req('/auth/logout',{method:'POST',headers:{origin:'https://app.example'}}),env)).status,502);
-});
+test('auth messages escape markup and never include executable HTML',()=>{const f=fixture();vm.runInContext(`gate('login','<script>alert(1)</script>')`,f.ctx);const html=f.node('auth-root').innerHTML;assert.ok(html.includes('&lt;script&gt;'));assert.ok(!html.includes('<script>'))});
 
-test('login redireciona ao início e início não oferece formulário de acesso',async()=>{
- const handle=createHandler(()=>{throw Error('não deve autenticar')});
- const r=await handle(req('/login'),env);assert.equal(r.status,303);assert.equal(r.headers.get('location'),'/');
- const home=await handle(req('/'),env);const html=await home.text();assert.equal(home.status,200);assert.ok(!html.includes('href="/login"'));assert.ok(!html.includes('type="password"'));
-});
+test('session expiry during identity lookup cannot reopen a previous account',async()=>{const f=fixture(),wait=deferred();f.setGetUser(()=>wait.promise);const opening=f.cloud.boot();f.event('TOKEN_REFRESHED',null);wait.resolve({data:{user:{id:'A'}},error:null});await opening;assert.equal(f.cloud.ready,false);assert.equal(f.loaded.length,0);assert.ok(f.classes.has('auth-required'))});

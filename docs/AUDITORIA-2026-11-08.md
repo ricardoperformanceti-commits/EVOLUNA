@@ -4,7 +4,7 @@ Endereços: https://app.smilesimulator.com.br e https://sorriso-com-ia-clinica.r
 
 ## Resultado
 
-- 150 testes automatizados aprovados, sem falhas: acesso, isolamento entre contas, salvamento e recuperação, documentos, agenda, chat, protocolo de teleconsulta, comandos de IA, tonalidades, comparação, teclado e layout móvel.
+- 156 testes automatizados aprovados, sem falhas: acesso, isolamento entre contas, salvamento e recuperação, documentos, agenda, chat, protocolo de teleconsulta, comandos de IA, tonalidades, comparação, teclado e layout móvel.
 - 48 verificações de renderização sem erros: 12 rotas × larguras de 390 e 1460 pixels × contas vazias e exemplos fictícios. Cobrem início, agenda, pacientes, prontuários, Sorriso IA, teleconsultas, documentos, financiamento, financeiro, relatórios, configurações e Mais.
 - 137 verificações de arquivos públicos concluídas: 68 arquivos na hospedagem Cloudflare e 69 no Sites. Os inventários diferem pela foto de apresentação de cada variante. Nenhum arquivo esperado falhou ou retornou HTML no lugar de script/imagem; nenhum segredo Magic Hour foi encontrado nesses arquivos.
 - As consultas sem login ao usuário autenticado, tabela de pacientes e RPC de carregamento do espaço foram bloqueadas com HTTP 401.
@@ -26,3 +26,16 @@ O teste antigo de autenticação importava um servidor SSR removido do projeto. 
 4. **Verificação visual e autenticada no navegador pendente.** O ambiente informa desktop habilitado com estado `unknown`, mas não disponibiliza `cua_repl.js` nem outra ferramenta de controle do desktop. Ambiente: `ccarenv_b64_Y2NhcmVudl8wYzI4ZDYwMzk2NmM4MTkxYjVlZmZiMzYxNjMxMjE2Nw`. As verificações de renderização são executadas em ambiente de testes e não substituem screenshots nem gestos num aparelho físico. Geração paga de imagens e entregas externas não foram executadas.
 
 A revisão usou dados fictícios nos testes. Nenhum registro de paciente foi alterado, nenhum convite foi enviado e nenhuma geração paga foi solicitada.
+
+## Ajustes visuais solicitados durante a revisão
+
+- Bordas verdes mais definidas nos cartões de próximas consultas, gráfico e financiamento.
+- Em telas largas, financiamento na coluna esquerda e gráfico na direita, mantendo a mesma linha; em largura intermediária, o banner vem antes do gráfico.
+- Atalhos Sorriso IA e Teleconsulta com entrada suave e resposta ao passar o mouse, foco por teclado e pressionamento. A preferência de movimento reduzido desativa as animações.
+
+- Círculos de pacientes menores no celular: 34px na lista/ficha resumida e 44px no perfil, preservando a área dos botões.
+- Ver ficha passa a abrir o resumo imediatamente após o cartão clicado no celular, sem rolagem automática até o final da lista.
+
+## Nome de acesso solicitado
+
+O nome de acesso admin é resolvido no servidor para o mesmo usuário existente. O Supabase continua verificando a senha e emitindo a sessão; o servidor confere o identificador do titular antes de retornar tokens. O e-mail e o identificador do apelido são configurações privadas do Worker. O acesso por e-mail continua disponível. Nenhuma credencial é gravada no frontend ou neste relatório. A mudança de credenciais mantém o proprietário dos registros.

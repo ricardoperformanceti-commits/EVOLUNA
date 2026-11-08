@@ -360,3 +360,29 @@ body{background:var(--bg)}
  .evoluna-studio .compare-panel>.main-actions{gap:10px}
  .evoluna-studio .compare-panel>.main-actions>.mobile-save-image{display:flex;width:100%;min-height:49px;align-items:center;justify-content:center;border:1px solid #174733;border-radius:12px;background:#fffdf8;color:#174733;font-size:16px;font-weight:650}
 }
+
+/* Overview: defined card borders, financing on the left and subtle shortcut motion. */
+@media(min-width:601px){
+ .desktop-overview .desktop-today,.desktop-overview .overview-consultation-chart,.desktop-overview .overview-financing-banner{border:2px solid #89a78d;border-radius:15px;box-shadow:0 3px 10px #173e320b}
+ .desktop-overview-bottom>.desktop-agenda-stack{order:0}.desktop-overview-bottom>.desktop-overview-shortcuts{order:1}
+ .desktop-overview-bottom>.overview-financing-banner{order:2}.desktop-overview-bottom>.overview-consultation-chart{order:3}
+ .desktop-overview-shortcuts>button{transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;animation:overview-shortcut-in .45s ease-out backwards}
+ .desktop-overview-shortcuts>button:nth-child(2){animation-delay:.08s}
+ .desktop-overview-shortcuts>button>svg{transition:transform .2s ease}
+ .desktop-overview-shortcuts>button:hover,.desktop-overview-shortcuts>button:focus-visible{transform:translateY(-3px);box-shadow:0 9px 22px #173e3226}
+ .desktop-overview-shortcuts>button:hover>svg:first-child,.desktop-overview-shortcuts>button:focus-visible>svg:first-child{transform:scale(1.08)}
+ .desktop-overview-shortcuts>button:hover>svg:last-child,.desktop-overview-shortcuts>button:focus-visible>svg:last-child{transform:translateX(4px)}
+ .desktop-overview-shortcuts>button:active{transform:translateY(-1px)}
+}
+@media(min-width:1101px){
+ .desktop-overview-bottom>.overview-financing-banner{grid-column:1;grid-row:2}
+ .desktop-overview-bottom>.overview-consultation-chart{grid-column:2;grid-row:2}
+}
+@keyframes overview-shortcut-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.desktop-overview-shortcuts>button,.desktop-overview-shortcuts>button>svg{animation:none!important;transition:none!important;transform:none!important}}
+
+@media(max-width:600px){
+ .patients-reference-page .patient-card .avatar,.patients-reference-page #mobile-patient-detail .avatar{width:34px;height:34px;min-width:34px;flex:0 0 34px;font-size:12px}
+ #content .profile-header .avatar{width:44px;height:44px;min-width:44px;font-size:16px}
+ .patients-reference-page .patient-grid>#mobile-patient-detail{grid-column:1/-1;width:100%;margin:4px 0 12px;box-sizing:border-box}
+}

@@ -18,7 +18,7 @@ await build({entryPoints:['rtc/engine.js'],bundle:true,format:'iife',platform:'b
 await build({entryPoints:['cloud/client.js'],bundle:true,format:'iife',platform:'browser',target:'es2022',outfile:'dist/cloud-client.js',minify:true});
 await build({entryPoints:['smile-studio/src/app.js'],bundle:true,format:'esm',platform:'browser',target:'es2022',outfile:'dist/smile-studio/app.js',minify:true});
 // Cada versão pede os arquivos novos, sem reutilizar JavaScript ou CSS antigo do navegador.
-for(const page of ['smile-studio/index.html','index.html','teleconsulta.html']){
+for(const page of ['smile-studio/index.html','index.html','sistema.html','teleconsulta.html']){
 let html=await readFile('dist/'+page,'utf8');
 for(const match of [...html.matchAll(/(?:src|href)="(\/[^"?]+\.(?:js|css))"/g)]){const path=match[1],hash=createHash('sha256').update(await readFile('dist'+path)).digest('hex').slice(0,12);html=html.replaceAll('"'+path+'"','"'+path+'?v='+hash+'"')}
 await writeFile('dist/'+page,html);

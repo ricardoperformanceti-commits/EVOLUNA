@@ -6,7 +6,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "test": "node --check public/app.js && node --check public/dr-help.js && node --check public/video-room.js && node --check public/clinical-record.js && node --check public/patient-photo.js && node --check public/header-search.js && node --check public/veneers.js && node --check public/enamel-mask.js && node --check public/document-actions.js && node --check public/session-notes.js && node --check public/smile-whitening.js && node --check public/home-analytics.js && node --check public/private-call.js && node --check public/rtc-guest.js && node --check rtc/engine.js && node --check teleconsult-server/server.mjs && node --check public/agenda.js && node --check public/teleconsult-layout.js && node --check public/smile-finish.js && node --check cloud/client.js && node --check cloud/store.js && node --check public/session-chat.js && node --check public/guest-chat.js && node --check rtc/messaging.js && node --check rtc/chat-protocol.js && node --check public/magic-hour.js && node --check magic-hour/worker.mjs && node --check public/smile-documents.js && node --check public/smile-workspace.js && node --check public/smile-studio-host.js && node --check smile-studio/src/app.js && node --check magic-hour/mcp.mjs && node --check smile-studio/src/free-edit.js && node --check smile-studio/src/free-edit-record.js && node --check smile-studio/src/production-store.js",
-    "dev": "python -m http.server 3001 --directory dist",
+    "dev": "node scripts/dev-server.mjs",
     "dev:rtc": "node teleconsult-server/server.mjs",
     "test:workflow": "node --test tests/phase-one.test.cjs",
     "test:rtc": "node --test --test-force-exit tests/rtc-server.test.mjs",

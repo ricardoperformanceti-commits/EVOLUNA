@@ -1,6 +1,633 @@
-<!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#1c493c"><meta name="description" content="Evoluna Odonto · Sorriso com IA — plataforma de gestão odontológica"><title>Evoluna Odonto · Sorriso com IA</title><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=ev-green-1"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/cloud.css"><script src="/cloud-config.js" defer></script><script src="/cloud-client.js" defer></script><link rel="stylesheet" href="/rtc.css"><link rel="stylesheet" href="/teleconsult.css"><script src="/rtc-config.js" defer></script><script src="/rtc-engine.js" defer></script><script src="/private-call.js" defer></script><script src="/video-room.js" defer></script><script src="/clinical-record.js" defer></script><script src="/enamel-mask.js" defer></script><script src="/smile-finish.js" defer></script><script src="/veneers.js" defer></script><script src="/magic-hour-config.js" defer></script><script src="/magic-hour.js" defer></script><script src="/smile-whitening.js" defer></script><script src="/document-actions.js" defer></script><script src="/smile-documents.js" defer></script><script src="/session-notes.js" defer></script><script src="/session-chat.js" defer></script><script src="/home-analytics.js" defer></script><link rel="stylesheet" href="/agenda.css"><script src="/agenda.js" defer></script><script src="/teleconsult-layout.js" defer></script><script src="/smile-workspace.js" defer></script><script src="/smile-studio-host.js" defer></script><script src="/app.js" defer></script><script src="/evoluna-mobile.js" defer></script><script src="/dr-help.js" defer></script><script src="/patient-photo.js" defer></script><script src="/header-search.js" defer></script><link rel="stylesheet" href="/consultation-chat.css"><link rel="stylesheet" href="/consultation-workspace.css"><link rel="stylesheet" href="/readability.css"><link rel="stylesheet" href="/smile-workspace.css"><link rel="stylesheet" href="/evoluna-theme.css"></head><body class="auth-required"><div id="auth-root"><section class="auth-card"><h1>Evoluna Odonto</h1><p>Conectando à sua clínica…</p></section></div><div id="cloud-error" role="alert" hidden></div>
-<aside class="sidebar" id="sidebar"><a class="brand evolluna-brand" href="#inicio" aria-label="Evoluna Odonto · Sorriso com IA — página inicial"><span class="brand-wordmark">Evoluna <span class="brand-specialty">Odonto</span></span><small>Sorriso com IA</small></a><button class="clinic smile-shortcut" data-route="sorriso"><span class="clinic-icon">✦</span><span>Sorriso IA<small>Planejamento de sorrisos</small></span><span class="smile-shortcut-arrow">↗</span></button><button class="clinic smile-shortcut teleconsulta-shortcut" data-route="teleconsultas"><span class="clinic-icon"></span><span>Teleconsulta<small>Atendimento a distância</small></span><span class="smile-shortcut-arrow">↗</span></button><nav id="navigation"></nav><div class="sidebar-bottom"><button class="profile" data-route="mais"><span class="avatar doctor">HC</span><span>Dra. Helena Costa<small>Administradora · Demo</small></span><span>⚙</span></button></div></aside>
-<div class="workspace"><header class="topbar"><button class="icon-button mobile-menu" data-action="menu" aria-label="Abrir menu">☰</button><nav class="breadcrumb" aria-label="Caminho da página"><a href="#inicio">Sua clínica</a><span aria-hidden="true">/</span><a id="breadcrumb-title" href="#inicio" aria-current="page">Visão geral</a></nav><div class="header-patient-search" id="header-search"><span class="header-patient-search-icon">⌕</span><input id="header-patient-input" type="search" autocomplete="off" placeholder="Buscar pacientes..." aria-label="Buscar pacientes" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="header-patient-results"><div id="header-patient-results" class="header-patient-results" role="listbox" aria-label="Pacientes encontrados" hidden></div></div><div class="top-actions"><button class="search-trigger dr-help-trigger" data-action="search" aria-label="Abrir Dr. Help, consulta de medicamentos"><span id="search-icon"></span><span><strong>Dr. Help</strong><small>Medicamentos e bulas</small></span><kbd>⌘ K</kbd></button><button class="icon-button notification" data-action="notifications" aria-label="Notificações"><span id="bell-icon"></span><i></i></button></div></header><main id="content" tabindex="-1"></main><footer><span>© 2026 Evoluna Odonto · Sorriso com IA</span><span>Registros salvos na sua conta</span><span id="cloud-status" role="status">Conectando…</span></footer></div>
-<div id="modal-root"></div><div id="toast" class="toast" role="status" aria-live="polite"></div><div id="tour-root"></div>
-</body></html>
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evoluna Odonto — Sistema Odontológico com IA, Teleconsulta e Financiamento</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            deep: '#0b3b2c',
+                            dark: '#0d4a38',
+                            DEFAULT: '#10634c',
+                            light: '#1e8a6c',
+                            mint: '#e6f4f0'
+                        },
+                        gold: {
+                            DEFAULT: '#d4af37',
+                            light: '#f3e5ab',
+                            dark: '#aa8c2c',
+                            champagne: '#fbf7ee'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .glass-nav {
+            background: rgba(11, 59, 44, 0.94);
+            backdrop-filter: blur(12px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0b3b2c 0%, #06241b 100%);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -10px rgba(11, 59, 44, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-800 font-sans antialiased selection:bg-gold selection:text-emerald-deep">
+
+    <!-- Toast Notification Box -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-deep text-white px-6 py-4 rounded-xl shadow-2xl flex items-center space-x-3 border border-gold/30">
+        <i data-lucide="check-circle" class="text-gold w-6 h-6"></i>
+        <div>
+            <p id="toast-title" class="font-semibold text-sm">Sucesso!</p>
+            <p id="toast-desc" class="text-xs text-stone-300">Ação realizada com êxito.</p>
+        </div>
+    </div>
+
+    <!-- Barra Superior de Navegação -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav border-b border-emerald-dark/30 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logomarca Oficial Fiel -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 p-1.5 border border-gold/40 flex items-center justify-center group-hover:border-gold transition-colors">
+                    <svg viewBox="0 0 200 200" class="w-full h-full fill-gold">
+                        <path d="M100 25C70 25 50 45 50 70C50 85 60 100 70 110C75 115 80 125 80 140C80 155 90 165 100 165C110 165 120 155 120 140C120 125 125 115 130 110C140 100 150 85 150 70C150 45 130 25 100 25Z" fill="none" stroke="#d4af37" stroke-width="14" stroke-linecap="round"/>
+                        <path d="M60 178C90 193 110 193 140 178" fill="none" stroke="#d4af37" stroke-width="12" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-wide text-white block leading-none">Evoluna</span>
+                    <span class="text-xs tracking-widest text-gold uppercase font-semibold">Odonto</span>
+                </div>
+            </a>
+
+            <!-- Menu de Navegação Solicitado -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-stone-200">
+                <a href="#sorriso-ia" class="hover:text-gold transition-colors">Sorriso com IA</a>
+                <a href="#teleconsulta" class="hover:text-gold transition-colors">Teleconsulta</a>
+                <a href="#financiamento" class="hover:text-gold transition-colors">Simulado de Financiamento</a>
+                <a href="#precos" class="hover:text-gold transition-colors">Planos & Preços</a>
+            </nav>
+
+            <!-- Botões de Ação -->
+            <div class="flex items-center space-x-4">
+                <button onclick="location.href='/sistema.html'" class="text-stone-200 hover:text-white font-medium text-sm px-4 py-2 rounded-lg transition-colors">
+                    Entrar
+                </button>
+                <button onclick="location.href='/sistema.html?cadastro=1'" class="gold-gradient text-emerald-deep font-bold text-sm px-5 py-2.5 rounded-xl shadow-lg hover:opacity-95 transition-all transform hover:-translate-y-0.5">
+                    Cadastrar-se
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden text-white p-2">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Menu Mobile -->
+        <div id="mobileMenu" class="hidden md:hidden bg-emerald-deep border-b border-emerald-dark px-6 py-6 space-y-4">
+            <a href="#sorriso-ia" onclick="toggleMobileMenu()" class="block text-stone-200 hover:text-gold font-medium">Sorriso com IA</a>
+            <a href="#teleconsulta" onclick="toggleMobileMenu()" class="block text-stone-200 hover:text-gold font-medium">Teleconsulta</a>
+            <a href="#financiamento" onclick="toggleMobileMenu()" class="block text-stone-200 hover:text-gold font-medium">Simulado de Financiamento</a>
+            <a href="#precos" onclick="toggleMobileMenu()" class="block text-stone-200 hover:text-gold font-medium">Planos & Preços</a>
+            <div class="pt-4 border-t border-emerald-dark/50 flex flex-col space-y-3">
+                <button onclick="location.href='/sistema.html'" class="w-full py-2.5 text-center text-white border border-stone-600 rounded-xl font-medium">Entrar</button>
+                <button onclick="location.href='/sistema.html?cadastro=1'" class="w-full py-2.5 text-center gold-gradient text-emerald-deep font-bold rounded-xl shadow">Cadastrar-se</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient text-white pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+        <!-- Efeitos de Fundo -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+                <!-- Conteúdo Esquerdo -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 bg-emerald-dark/80 border border-gold/30 px-4 py-1.5 rounded-full text-xs font-semibold text-gold tracking-wide uppercase">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                        <span>Tecnologia Oficial BL1 & Prontuário Supabase</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                        Revolucione sua Clínica Odontológica com <span class="text-transparent bg-clip-text gold-gradient">Inteligência Artificial e Teleatendimento</span>
+                    </h1>
+
+                    <p class="text-lg text-stone-300 max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        Simulações de clareamento e lentes em BL1 com esmalte preservado, portal Parcelex incorporado para financiamento instantâneo, teleconsulta integrada e gestão completa de atendimento.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                        <button onclick="location.href='/sistema.html?cadastro=1'" class="w-full sm:w-auto gold-gradient text-emerald-deep font-bold px-8 py-4 rounded-xl shadow-xl hover:opacity-95 transition-all text-base flex items-center justify-center space-x-2">
+                            <span>Começar Gratuitamente</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                        <a href="#precos" class="w-full sm:w-auto bg-white/10 hover:bg-white/25 border border-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all text-center flex items-center justify-center space-x-2">
+                            <i data-lucide="credit-card" class="w-5 h-5 text-gold"></i>
+                            <span>Ver Planos</span>
+                        </a>
+                    </div>
+
+                    <!-- Métricas -->
+                    <div class="grid grid-cols-3 gap-6 pt-8 border-t border-emerald-dark/60 max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <p class="text-2xl lg:text-3xl font-extrabold text-gold">+85%</p>
+                            <p class="text-xs text-stone-300 mt-0.5">Aprovação Orçamentária</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl lg:text-3xl font-extrabold text-white">BL1</p>
+                            <p class="text-xs text-stone-300 mt-0.5">Padrão Exclusivo</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl lg:text-3xl font-extrabold text-gold">100%</p>
+                            <p class="text-xs text-stone-300 mt-0.5">Seguro Supabase</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Direita -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none bg-emerald-dark/60 p-4 rounded-3xl border border-gold/30 shadow-2xl backdrop-blur-md">
+                        <div class="bg-emerald-deep rounded-2xl p-4 border border-emerald-light/30">
+                            <div class="flex items-center justify-between mb-4 pb-3 border-b border-emerald-dark">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                </div>
+                                <span class="text-xs text-stone-400 font-mono">Evoluna Studio v120</span>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="relative rounded-xl overflow-hidden shadow-inner bg-stone-900 aspect-[4/3] flex items-center justify-center group">
+                                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80" alt="Simulação Sorriso" class="w-full h-full object-cover transition-all duration-500 filter brightness-95" id="heroSimImg">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex flex-col justify-end p-4">
+                                        <div class="flex items-center justify-between text-white">
+                                            <div>
+                                                <p class="text-xs font-semibold text-gold uppercase tracking-wider">Simulação BL1</p>
+                                                <p class="text-sm font-bold">Clareamento & Lentes IA</p>
+                                            </div>
+                                            <span class="px-2.5 py-1 bg-emerald-light text-white text-xs font-bold rounded-md">Ativo</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-2 pt-1">
+                                    <button onclick="switchHeroSim('clareamento')" id="btnClareamento" class="py-2 px-3 rounded-lg text-xs font-semibold bg-gold text-emerald-deep transition-all shadow">
+                                        Clareamento BL1
+                                    </button>
+                                    <button onclick="switchHeroSim('lentes')" id="btnLentes" class="py-2 px-3 rounded-lg text-xs font-semibold bg-emerald-dark text-white hover:bg-emerald-light transition-all">
+                                        Lentes de Porcelana
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Credibilidade / Parceiros -->
+    <section class="py-10 bg-white border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xs uppercase tracking-widest text-stone-500 font-semibold mb-6">Tecnologia homologada para clínicas de excelência</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-75">
+                <div class="flex items-center space-x-2 font-bold text-lg text-emerald-deep"><i data-lucide="shield-check" class="text-gold"></i><span>Supabase Secure DB</span></div>
+                <div class="flex items-center space-x-2 font-bold text-lg text-emerald-deep"><i data-lucide="sparkles" class="text-gold"></i><span>BL1 Engine</span></div>
+                <div class="flex items-center space-x-2 font-bold text-lg text-emerald-deep"><i data-lucide="credit-card" class="text-gold"></i><span>Parcelex Finance</span></div>
+                <div class="flex items-center space-x-2 font-bold text-lg text-emerald-deep"><i data-lucide="video" class="text-gold"></i><span>Teleconsulta Pro</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 1: Sorriso com IA -->
+    <section id="sorriso-ia" class="py-20 lg:py-28 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-emerald font-bold text-xs uppercase tracking-widest bg-emerald-mint px-3.5 py-1.5 rounded-full inline-block">
+                        Inteligência Artificial de Ponta
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-emerald-deep tracking-tight">
+                        Sorriso com IA: Clareamento e Lentes em Padrão BL1
+                    </h2>
+                    <p class="text-stone-600 text-base leading-relaxed">
+                        Encante seus pacientes antes mesmo de iniciar o tratamento. Com nossa tecnologia de IA com prompts BL1 aprovados, você gera prévias fotorrealistas instantâneas preservando rigorosamente o esmalte natural.
+                    </p>
+                    <ul class="space-y-3 text-stone-700 text-sm">
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-5 h-5 flex-shrink-0"></i><span>Tratamento desmarcado por padrão para controle total do cirurgião</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-5 h-5 flex-shrink-0"></i><span>Ajustes locais no esmalte sem custos adicionais de créditos</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-5 h-5 flex-shrink-0"></i><span>Prévias antigas acessíveis a qualquer momento no perfil do paciente</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-stone-200 shadow-xl">
+                    <div class="relative rounded-2xl overflow-hidden aspect-video shadow-inner bg-stone-900">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=800&q=80" alt="Sorriso com IA" class="w-full h-full object-cover">
+                        <div class="absolute bottom-3 left-3 bg-black/70 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-medium text-white border border-white/20">
+                            Simulação Ativa: <span class="text-gold font-bold">BL1 Natural</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 2: Teleconsulta -->
+    <section id="teleconsulta" class="py-20 lg:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1 bg-stone-50 p-6 rounded-3xl border border-stone-200 shadow-xl">
+                    <div class="relative rounded-2xl overflow-hidden aspect-video shadow-inner bg-stone-900">
+                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" alt="Teleconsulta Odontológica" class="w-full h-full object-cover">
+                        <div class="absolute bottom-3 left-3 bg-emerald-deep/90 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs font-medium text-white border border-gold/30 flex items-center space-x-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
+                            <span>Teleconsulta em Andamento</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 space-y-6">
+                    <span class="text-emerald font-bold text-xs uppercase tracking-widest bg-emerald-mint px-3.5 py-1.5 rounded-full inline-block">
+                        Atendimento Remoto Avançado
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-emerald-deep tracking-tight">
+                        Teleconsulta Integrada e Gestão Ágil
+                    </h2>
+                    <p class="text-stone-600 text-base leading-relaxed">
+                        Realize chamadas de vídeo com cabeçalhos compactos e modernos em degradê verde, anotações em memória até a confirmação e salvamento simplificado. Documentos da chamada prontos para visualização e envio manual seguro via chat ou WhatsApp.
+                    </p>
+                    <ul class="space-y-3 text-stone-700 text-sm">
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-5 h-5 flex-shrink-0"></i><span>Cabeçalho do paciente em degradê verde sem subtítulo</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-5 h-5 flex-shrink-0"></i><span>Documentos preparados sem envio automático indesejado</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-5 h-5 flex-shrink-0"></i><span>Área limpa e organizada após cada salvamento de atendimento</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 3: Simulado de Financiamento -->
+    <section id="financiamento" class="py-20 lg:py-28 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-emerald font-bold text-xs uppercase tracking-widest bg-emerald-mint px-3.5 py-1.5 rounded-full inline-block">
+                        Parceria Estratégica
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-emerald-deep tracking-tight">
+                        Simulado de Financiamento com Portal Parcelex Incorporado
+                    </h2>
+                    <p class="text-stone-600 text-base leading-relaxed">
+                        Facilite a aprovação de orçamentos de alto valor com o portal Parcelex integrado diretamente no menu do sistema. Abra simulações na mesma guia ou em aba alternativa para garantir o fechamento imediato do tratamento.
+                    </p>
+                    <ul class="space-y-3 text-stone-700 text-sm">
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-5 h-5 flex-shrink-0"></i><span>Menu habilitado com portal Parcelex incorporado</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-5 h-5 flex-shrink-0"></i><span>Opção de abertura alternativa em outra guia</span></li>
+                        <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-5 h-5 flex-shrink-0"></i><span>Aumento expressivo na conversão de tratamentos estéticos</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-stone-200 shadow-xl">
+                    <div class="bg-emerald-deep text-white p-6 rounded-2xl space-y-4">
+                        <div class="flex items-center justify-between border-b border-emerald-dark pb-3">
+                            <span class="font-bold text-sm text-gold">Simulador Parcelex — Evoluna</span>
+                            <span class="text-xs bg-gold text-emerald-deep px-2.5 py-1 rounded font-bold">Ativo</span>
+                        </div>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-2 border-b border-emerald-dark/50">
+                                <span class="text-stone-300">Valor do Tratamento:</span>
+                                <span class="font-bold text-white">R$ 12.500,00</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-emerald-dark/50">
+                                <span class="text-stone-300">Parcelas Sugeridas:</span>
+                                <span class="font-bold text-gold">Até 24x sem juros no boleto/cartão</span>
+                            </div>
+                            <div class="pt-2">
+                                <button onclick="showToast('Portal Parcelex', 'Simulador de financiamento aberto com sucesso!')" class="w-full py-3 gold-gradient text-emerald-deep font-bold rounded-xl text-center text-xs shadow">
+                                    Simular Crédito para o Paciente
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prova Social (Depoimentos) -->
+    <section class="py-20 lg:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-emerald font-bold text-xs uppercase tracking-widest bg-emerald-mint px-3.5 py-1.5 rounded-full inline-block">
+                    Depoimentos
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-emerald-deep tracking-tight">
+                    O que dizem os cirurgiões-dentistas
+                </h2>
+                <p class="text-stone-600 text-base">
+                    Veja como a combinação de IA, teleconsulta e financiamento transformou a rotina de centenas de consultórios.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Depoimento 1 -->
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-1 text-amber-400">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-stone-700 text-sm leading-relaxed italic">
+                            "A simulação BL1 do Sorriso com IA é fantástica. Meus pacientes fecham lentes de contato na primeira consulta porque conseguem ver o resultado exato."
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-4 pt-4 border-t border-stone-200">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=150&q=80" alt="Dr. Carlos" class="w-12 h-12 rounded-full object-cover border-2 border-gold">
+                        <div>
+                            <p class="font-bold text-sm text-emerald-deep">Dr. Carlos Mendes</p>
+                            <p class="text-xs text-stone-500">Especialista em Prótese</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 2 -->
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-1 text-amber-400">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-stone-700 text-sm leading-relaxed italic">
+                            "A teleconsulta integrada e o simulador de financiamento Parcelex mudaram o patamar do meu atendimento remoto. Agilidade e segurança impecáveis."
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-4 pt-4 border-t border-stone-200">
+                        <img src="https://images.unsplash.com/photo-1594824813576-905d491104e7?auto=format&fit=crop&w=150&q=80" alt="Dra. Juliana" class="w-12 h-12 rounded-full object-cover border-2 border-gold">
+                        <div>
+                            <p class="font-bold text-sm text-emerald-deep">Dra. Juliana Vasconcelos</p>
+                            <p class="text-xs text-stone-500">Ortodontista</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 3 -->
+                <div class="bg-stone-50 p-8 rounded-2xl border border-stone-200 shadow-sm flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-1 text-amber-400">
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        </div>
+                        <p class="text-stone-700 text-sm leading-relaxed italic">
+                            "O armazenamento privado no Supabase e os backups diários automáticos me dão total tranquilidade sobre a segurança dos prontuários dos pacientes."
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-4 pt-4 border-t border-stone-200">
+                        <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=150&q=80" alt="Dr. Marcos" class="w-12 h-12 rounded-full object-cover border-2 border-gold">
+                        <div>
+                            <p class="font-bold text-sm text-emerald-deep">Dr. Marcos Vinicius</p>
+                            <p class="text-xs text-stone-500">Implantodontista</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabela de Preços com os Nomes Solicitados -->
+    <section id="precos" class="py-20 lg:py-28 bg-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-emerald font-bold text-xs uppercase tracking-widest bg-emerald-mint px-3.5 py-1.5 rounded-full inline-block">
+                    Investimento
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-emerald-deep tracking-tight">
+                    Planos transparentes para o seu consultório
+                </h2>
+                <p class="text-stone-600 text-base">
+                    Escolha o plano ideal e comece a transformar seus atendimentos hoje mesmo.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+
+                <!-- Card 1: Evoluna Start -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-stone-200 flex flex-col justify-between card-hover">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-extrabold text-emerald-deep">Evoluna Start</h3>
+                            <p class="text-stone-500 text-sm mt-1">Ideal para clínicos gerais começando na digitalização.</p>
+                        </div>
+                        <div class="flex items-baseline space-x-2">
+                            <span class="text-xs font-semibold text-stone-500">R$</span>
+                            <span class="text-4xl lg:text-5xl font-extrabold text-emerald-deep">75,90</span>
+                            <span class="text-stone-500 text-sm">/mês</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-stone-700">
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-4 h-4 flex-shrink-0"></i><span>Simulações básicas de sorriso</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-4 h-4 flex-shrink-0"></i><span>Prontuário clínico padrão</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-4 h-4 flex-shrink-0"></i><span>Gestão de documentos e termos</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-4 h-4 flex-shrink-0"></i><span>Suporte por e-mail</span></li>
+                        </ul>
+                    </div>
+                    <div class="pt-8">
+                        <button onclick="selectPlan('Evoluna Start', 'R$ 75,90/mês')" class="w-full py-3.5 px-4 rounded-xl border-2 border-emerald-deep text-emerald-deep font-bold hover:bg-emerald-deep hover:text-white transition-all text-center">
+                            Assinar Evoluna Start
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Evoluna Pro (Destaque) -->
+                <div class="bg-emerald-deep text-white rounded-3xl p-8 shadow-2xl border-2 border-gold flex flex-col justify-between card-hover relative transform lg:-translate-y-4">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 gold-gradient text-emerald-deep text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full shadow">
+                        Mais Popular
+                    </div>
+                    <div class="space-y-6 pt-2">
+                        <div>
+                            <h3 class="text-2xl font-extrabold text-white">Evoluna Pro</h3>
+                            <p class="text-stone-300 text-sm mt-1">Mais popular, com IA avançada, simulações ilimitadas e teleconsulta.</p>
+                        </div>
+                        <div class="flex items-baseline space-x-2">
+                            <span class="text-xs font-semibold text-stone-300">R$</span>
+                            <span class="text-4xl lg:text-5xl font-extrabold text-gold">149,90</span>
+                            <span class="text-stone-300 text-sm">/mês</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-stone-200">
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-gold w-4 h-4 flex-shrink-0"></i><span>Sorriso com IA (Clareamento & Lentes BL1)</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-gold w-4 h-4 flex-shrink-0"></i><span>Teleconsulta integrada avançada</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-gold w-4 h-4 flex-shrink-0"></i><span>Simulado de Financiamento (Parcelex)</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-gold w-4 h-4 flex-shrink-0"></i><span>Armazenamento seguro Supabase</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-gold w-4 h-4 flex-shrink-0"></i><span>Suporte prioritário via WhatsApp</span></li>
+                        </ul>
+                    </div>
+                    <div class="pt-8">
+                        <button onclick="selectPlan('Evoluna Pro', 'R$ 149,90/mês')" class="w-full py-4 px-4 rounded-xl gold-gradient text-emerald-deep font-extrabold hover:opacity-95 transition-all text-center shadow-lg">
+                            Assinar Evoluna Pro
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3: Evoluna Master -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-stone-200 flex flex-col justify-between card-hover">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-extrabold text-emerald-deep">Evoluna Master</h3>
+                            <p class="text-stone-500 text-sm mt-1">Para clínicas de alto desempenho com suporte prioritário e recursos completos.</p>
+                        </div>
+                        <div class="flex items-baseline space-x-2">
+                            <span class="text-xs font-semibold text-stone-500">R$</span>
+                            <span class="text-4xl lg:text-5xl font-extrabold text-emerald-deep">279,90</span>
+                            <span class="text-stone-500 text-sm">/mês</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-stone-700">
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-4 h-4 flex-shrink-0"></i><span>Múltiplas contas de dentistas vinculadas</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-4 h-4 flex-shrink-0"></i><span>IA ilimitada com prompts BL1 exclusivos</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-4 h-4 flex-shrink-0"></i><span>Backup diário automatizado às 18:00</span></li>
+                            <li class="flex items-center space-x-3"><i data-lucide="check" class="text-emerald w-4 h-4 flex-shrink-0"></i><span>Suporte VIP dedicado 24/7</span></li>
+                        </ul>
+                    </div>
+                    <div class="pt-8">
+                        <button onclick="selectPlan('Evoluna Master', 'R$ 279,90/mês')" class="w-full py-3.5 px-4 rounded-xl border-2 border-emerald-deep text-emerald-deep font-bold hover:bg-emerald-deep hover:text-white transition-all text-center">
+                            Assinar Evoluna Master
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé Completo -->
+    <footer class="bg-emerald-deep text-stone-300 py-16 border-t border-emerald-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-white/10 p-1 border border-gold/40 flex items-center justify-center">
+                        <svg viewBox="0 0 200 200" class="w-full h-full fill-gold">
+                            <path d="M100 25C70 25 50 45 50 70C50 85 60 100 70 110C75 115 80 125 80 140C80 155 90 165 100 165C110 165 120 155 120 140C120 125 125 115 130 110C140 100 150 85 150 70C150 45 130 25 100 25Z" fill="none" stroke="#d4af37" stroke-width="14" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold text-white">Evoluna Odonto</span>
+                </div>
+                <p class="text-xs text-stone-400 leading-relaxed">
+                    Plataforma completa com Sorriso com IA (BL1), Teleconsulta e Simulado de Financiamento.
+                </p>
+                <p class="text-xs text-gold font-mono">Versão 120 — Implantação Oficial</p>
+            </div>
+
+            <div>
+                <p class="font-bold text-white text-sm mb-4">Navegação</p>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#sorriso-ia" class="hover:text-gold transition-colors">Sorriso com IA</a></li>
+                    <li><a href="#teleconsulta" class="hover:text-gold transition-colors">Teleconsulta</a></li>
+                    <li><a href="#financiamento" class="hover:text-gold transition-colors">Simulado de Financiamento</a></li>
+                    <li><a href="#precos" class="hover:text-gold transition-colors">Planos & Preços</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="font-bold text-white text-sm mb-4">Legal & Segurança</p>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" class="hover:text-gold transition-colors">Política de Privacidade</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Termos de Uso</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Segurança Supabase</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors">Conformidade LGPD</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p class="font-bold text-white text-sm mb-4">Acesso Rápido</p>
+                <div class="space-y-3">
+                    <button onclick="location.href='/sistema.html'" class="w-full py-2 bg-emerald-dark hover:bg-emerald text-white rounded-lg text-xs font-semibold transition-colors">Entrar</button>
+                    <button onclick="location.href='/sistema.html?cadastro=1'" class="w-full py-2 gold-gradient text-emerald-deep rounded-lg text-xs font-bold transition-colors">Cadastrar-se</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-emerald-dark/50 text-center text-xs text-stone-500">
+            &copy; 2026 Evoluna Odonto. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <!-- JavaScript Scripts -->
+    <script>
+        lucide.createIcons();
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function switchHeroSim(type) {
+            const img = document.getElementById('heroSimImg');
+            const btnClareamento = document.getElementById('btnClareamento');
+            const btnLentes = document.getElementById('btnLentes');
+
+            if (type === 'clareamento') {
+                img.src = 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80';
+                btnClareamento.className = 'py-2 px-3 rounded-lg text-xs font-semibold bg-gold text-emerald-deep transition-all shadow';
+                btnLentes.className = 'py-2 px-3 rounded-lg text-xs font-semibold bg-emerald-dark text-white hover:bg-emerald-light transition-all';
+            } else {
+                img.src = 'https://images.unsplash.com/photo-1606811841689-23dfddce6395?auto=format&fit=crop&w=800&q=80';
+                btnLentes.className = 'py-2 px-3 rounded-lg text-xs font-semibold bg-gold text-emerald-deep transition-all shadow';
+                btnClareamento.className = 'py-2 px-3 rounded-lg text-xs font-semibold bg-emerald-dark text-white hover:bg-emerald-light transition-all';
+            }
+        }
+
+        function selectPlan(planName, price) {
+            showToast('Plano Selecionado', `Você escolheu o plano ${planName} (${price}). Redirecionando para o checkout...`);
+            setTimeout(() => {
+                location.href='/sistema.html?cadastro=1';
+            }, 1500);
+        }
+
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').textContent = title;
+            document.getElementById('toast-desc').textContent = desc;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

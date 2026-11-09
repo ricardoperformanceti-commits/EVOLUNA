@@ -1,0 +1,56 @@
+.document-patient-search-card{margin-bottom:18px}
+.document-patient-search{display:flex;align-items:center;gap:10px;border:1px solid #cfd9cf;background:#fff;border-radius:12px;padding:0 14px;color:#35664f}
+.document-patient-search input{width:100%;min-height:48px;border:0;outline:0;background:transparent;font:inherit;color:#20352b}
+.document-patient-results{display:grid;gap:7px;margin-top:10px;padding:8px;border:1px solid #e1e8df;border-radius:12px;background:#fbfcf8}
+.document-patient-results button{display:flex;align-items:center;gap:11px;width:100%;border:0;border-radius:10px;padding:10px;text-align:left;background:#fff;color:inherit;cursor:pointer}
+.document-patient-results button:hover,.document-patient-results button:focus-visible{background:#edf6e8;outline:2px solid #86b782}
+.document-patient-results button>span:nth-child(2),.document-selected-patient>span:nth-child(2){display:flex;flex:1;min-width:0;flex-direction:column;gap:2px}
+.document-patient-results small,.document-selected-patient small{color:#69796e}
+.document-selected-patient{display:flex;align-items:center;gap:12px;margin-top:12px;padding:13px;border-radius:13px;background:#edf6e8}
+.support-layout{display:grid;grid-template-columns:minmax(240px,.75fr) minmax(0,1.5fr);gap:18px}
+.support-ticket-list .card-body{display:grid;gap:8px}
+.support-ticket-list article{display:flex;flex-direction:column;gap:3px;padding:12px;border:1px solid #dfe8dc;border-radius:11px;background:#fbfcf8}
+.support-ticket-list article span,.support-ticket-list article small{color:#637568}
+.support-identity{display:flex;flex-direction:column;gap:3px;margin-bottom:18px;padding:12px;border-radius:11px;background:#edf6e8}
+.support-identity span{color:#557061;font-size:13px}
+.support-message{max-width:78%;margin:9px 0;padding:12px 14px;border-radius:15px;background:#f2f3ee}
+.support-message.outgoing{margin-left:auto;background:#e2f0d8}
+.support-message p{margin:5px 0 0;white-space:pre-wrap}
+.support-message small{color:#66776b}
+#support-message-form{display:flex;gap:8px;margin-top:22px}
+#support-message-form input{flex:1;min-width:0;border:1px solid #ced9cf;border-radius:11px;padding:12px;font:inherit}
+.support-privacy-note{padding:10px 12px;border-radius:10px;background:#f6f4e9;color:#665f40;font-size:13px;line-height:1.45}
+.team-users-card{margin-top:18px}
+.team-user-row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #e5ebe3}
+.team-user-row:last-child{border-bottom:0}
+.team-user-row>span:nth-child(2){display:flex;flex:1;min-width:0;flex-direction:column;gap:3px}
+.team-user-row small{color:#6b7b70}
+.permission-title{margin:22px 0 10px;color:#173e31}
+.permission-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.permission-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 12px;border:1px solid #e0e8de;border-radius:11px;background:#fbfcf9}
+.permission-toggle>span{display:flex;flex-direction:column;gap:2px}
+.permission-toggle small{color:#7b817a}
+.permission-toggle input{width:20px;height:20px;accent-color:#21834f}
+.permission-toggle.locked{color:#7b817a;background:#f4f5f2}
+.id-code-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.id-code-grid div{display:flex;flex-direction:column;gap:4px;padding:12px;border-radius:10px;background:#edf6e8}
+.id-code-grid small{color:#617469}.id-code-grid strong{color:#174b36;letter-spacing:.04em}
+.marketing-placeholder{display:grid;place-items:center;min-height:320px;text-align:center;color:#245d45}
+.marketing-placeholder p{max-width:520px;color:#65776b}
+@media(max-width:800px){.support-layout{grid-template-columns:1fr}.permission-grid{grid-template-columns:1fr}.team-user-row{flex-wrap:wrap}.team-user-row>span:nth-child(2){min-width:calc(100% - 60px)}.documents-patient-page .page-heading .heading-actions{width:100%}.support-message{max-width:92%}}
+
+/* Teleconsulta móvel aprovada: vídeo primeiro e chat logo abaixo. */
+@media(max-width:600px){
+ body.consultation-focus{overflow:auto}
+ .consultation-focus .workspace,.consultation-focus #content,.consultation-focus .teleconsult-page{min-height:100dvh;height:auto;overflow:visible}
+ .consultation-focus .consultation-workspace-header{position:sticky;top:0;z-index:20}
+ .consultation-focus .consultation-mobile-tabs{display:none}
+ .consultation-focus .teleconsult-page .consultation-three-columns{display:flex;flex-direction:column;margin:10px;gap:10px;height:auto}
+ .consultation-focus .consultation-three-columns>.consultation-video-column{display:flex!important;order:1;min-height:0;height:auto;padding:10px;border-radius:16px}
+ .consultation-focus .consultation-video-column .live-stage,.consultation-focus .consultation-video-column #live-stage{width:100%;aspect-ratio:1/1;min-height:0;height:auto;max-height:none}
+ .consultation-focus .consultation-three-columns>.consultation-messages-column{display:block!important;order:2;min-height:520px;height:65dvh}
+ .consultation-focus .consultation-three-columns>.consultation-notes-column{display:none!important}
+ .consultation-focus .consultation-three-columns .rtc-controls{position:absolute;left:50%;bottom:15px;transform:translateX(-50%);z-index:4;width:auto;max-width:calc(100% - 24px);border-radius:18px;background:#10271fbd;backdrop-filter:blur(8px)}
+ .consultation-focus .consultation-three-columns .rtc-controls .button{color:#fff}
+ .consultation-focus .consultation-three-columns .consultation-chat{height:100%;border-radius:16px}
+}

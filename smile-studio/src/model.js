@@ -1,5 +1,5 @@
 const bl2Reference=[250,241,231];
-export const shades={BL1:{name:'Branco intenso',rgb:bl2Reference.map(channel=>Math.round(channel+(255-channel)*.1))},BL2:{name:'Branco suave',rgb:bl2Reference},A1:{name:'Natural marfim',rgb:[211,190,170]}};
+export const shades={BL1:{name:'Branco intenso',rgb:bl2Reference.map(channel=>Math.round(channel+(255-channel)*.1))},BL2:{name:'Branco suave',rgb:bl2Reference},A1:{name:'Natural marfim',rgb:[243,229,220]}};
 export const treatments={clareamento:'Clareamento',lentes:'Lentes'};
 export function freshCase(patient=null){return {patient,photo:null,base:null,after:null,record:null,mouth:null,shade:null,procedure:null,intensity:55,compare:50,dirty:false}}
 export function sameContext(a,b){return a.user===b.user&&a.epoch===b.epoch&&a.patient===b.patient}

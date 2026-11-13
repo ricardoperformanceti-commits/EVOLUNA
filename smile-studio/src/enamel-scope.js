@@ -19,7 +19,9 @@ export function restoreOutsideEnamel(output,original,mask){
  if(output.length!==original.length||mask.length*4!==original.length)throw Error('Máscara incompatível com a foto.');
  for(let p=0;p<mask.length;p++){
   const i=p*4;
-  if(!mask[p])for(let c=0;c<4;c++)output[i+c]=original[i+c];
+  // Only solid enamel confidence may be changed. Soft boundary pixels remain untouched.
+  if(mask[p]<160)for(let c=0;c<4;c++)output[i+c]=original[i+c];
   else output[i+3]=original[i+3];
  }
 }
+

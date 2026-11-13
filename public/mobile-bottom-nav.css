@@ -1,11 +1,11 @@
 .mobile-bottom-nav{display:none}
-@media(max-width:800px){
+@media(max-width:800px),(display-mode:standalone){
   html,body{max-width:100%;overflow-x:hidden}
   .workspace{width:100%;max-width:100%;margin-left:0!important;overflow-x:clip}.workspace>main,#content{width:100%;max-width:100%;min-width:0}.topbar .mobile-menu{display:none!important}.sidebar,.consultation-focus .sidebar,.smile-focus .sidebar{display:none!important}
   #content :is(img,video,canvas,iframe,table){max-width:100%}.card,.page-heading,.two-columns,.module-grid{min-width:0;max-width:100%}
-  body{padding-bottom:calc(74px + env(safe-area-inset-bottom))}
+  body{--mobile-nav-space:calc(98px + env(safe-area-inset-bottom));padding-bottom:var(--mobile-nav-space)}
   .workspace>footer{margin-bottom:calc(68px + env(safe-area-inset-bottom))}
-  .mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));left:0;right:0;bottom:0;z-index:100;padding:7px 7px calc(7px + env(safe-area-inset-bottom));border-top:1px solid #d8dfd5;background:#fffdf8f2;box-shadow:0 -8px 24px #153e3214;backdrop-filter:blur(16px)}
+  .mobile-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));left:0;right:0;bottom:0;z-index:100;height:calc(81px + env(safe-area-inset-bottom));padding:7px 7px calc(7px + env(safe-area-inset-bottom));border-top:1px solid #d8dfd5;background:#fffdf8f2;box-shadow:0 -8px 24px #153e3214;backdrop-filter:blur(16px)}
   .mobile-bottom-nav button{position:relative;display:grid;place-items:center;gap:3px;min-width:0;min-height:48px;padding:4px 2px;border:0;border-radius:12px;background:transparent;color:#637469;font:600 10px Inter,Arial,sans-serif;cursor:pointer}
   .mobile-bottom-nav button span{display:grid;place-items:center;width:27px;height:25px;font-size:21px;line-height:1}
   .mobile-bottom-nav button small{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:inherit}
@@ -15,11 +15,16 @@
   .mobile-bottom-nav .mobile-smile-main span{font-size:26px;color:#f2c955}.mobile-bottom-nav .mobile-smile-main small{font-size:9px}.mobile-bottom-nav .mobile-smile-main.active{background:linear-gradient(145deg,#0d6c4d,#06412e)}
   .mobile-bottom-nav .mobile-more-menu span{font-size:20px;letter-spacing:1px}
   .mobile-bottom-nav button:focus-visible{outline:3px solid #c99a22;outline-offset:1px}
-  body.auth-required .mobile-bottom-nav,body.consultation-focus .mobile-bottom-nav,body.smile-focus .mobile-bottom-nav{display:none}
+  body.auth-required .mobile-bottom-nav{display:none}
+  /* Focus screens keep the same app navigation without covering their controls. */
   body.consultation-focus,body.smile-focus{padding-bottom:0}
+  body:is(.consultation-focus,.smile-focus)>.workspace{height:calc(100dvh - var(--mobile-nav-space));min-height:0}
+  body:is(.consultation-focus,.smile-focus) .topbar{display:grid!important;height:68px;min-height:68px;flex-shrink:0}
+  body:is(.consultation-focus,.smile-focus) main#content{height:calc(100dvh - 68px - var(--mobile-nav-space))}
+  .smile-focus #smile-studio-frame{height:calc(100dvh - 68px - var(--mobile-nav-space))}
 }
 .mobile-more-backdrop,.mobile-more-sheet{display:none}
-@media(max-width:800px){
+@media(max-width:800px),(display-mode:standalone){
   body.mobile-more-open{overflow:hidden}
   .mobile-more-backdrop:not([hidden]){display:block;position:fixed;inset:0;z-index:115;border:0;background:#102c246b;backdrop-filter:blur(3px)}
   .mobile-more-sheet:not([hidden]){display:block;position:fixed;left:0;right:0;bottom:0;z-index:120;max-height:min(78dvh,620px);overflow:auto;padding:17px 15px calc(92px + env(safe-area-inset-bottom));border-radius:24px 24px 0 0;background:#fffdf8;box-shadow:0 -15px 45px #102f2633}
@@ -28,3 +33,5 @@
   .mobile-more-sheet>div .mobile-financing-feature{grid-column:1/-1;min-height:68px;border-color:#d3ad3e;background:linear-gradient(110deg,#0b5b41,#073e2e);color:#fff;font-size:16px;box-shadow:0 8px 20px #0b463326}.mobile-more-sheet>div .mobile-financing-feature span{background:#f1d16d;color:#153e2e}.mobile-more-sheet>div .mobile-financing-feature b{font:inherit}
 }
 @media(max-width:350px){.mobile-bottom-nav button{font-size:9px}.mobile-bottom-nav{padding-inline:3px}}
+
+@media print{.mobile-bottom-nav,.mobile-more-sheet,.mobile-more-backdrop{display:none!important}body{padding-bottom:0}}

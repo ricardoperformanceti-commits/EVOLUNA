@@ -92,10 +92,9 @@
 
             <!-- Menu de Navegação Solicitado -->
             <nav class="hidden lg:flex items-center space-x-8 text-sm font-medium text-slate-800">
-                <a href="#sorriso-ia" class="hover:text-emerald transition-colors">Sorriso com IA</a>
-                <a href="#teleconsulta" class="hover:text-emerald transition-colors">Teleconsulta</a>
-                <a href="#financiamento" class="hover:text-emerald transition-colors">Simulado de Financiamento</a>
-                <a href="#precos" class="hover:text-emerald transition-colors">Planos & Preços</a>
+                <a href="#recursos" class="hover:text-emerald transition-colors">Recursos</a>
+                <a href="#como-comecar" class="hover:text-emerald transition-colors">Como funciona</a>
+                <a href="#precos" class="hover:text-emerald transition-colors">Plano gratuito</a>
             </nav>
 
             <!-- Botões de Ação -->
@@ -104,7 +103,7 @@
                     Entrar
                 </a>
                 <button onclick="location.href='/sistema.html?cadastro=1'" class="hidden sm:inline-flex bg-emerald-deep text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-lg hover:bg-emerald-dark transition-all transform hover:-translate-y-0.5">
-                    Cadastrar-se
+                    Começar grátis
                 </button>
                 <button onclick="toggleMobileMenu()" class="lg:hidden text-slate-900 p-2">
                     <i data-lucide="menu" class="w-6 h-6"></i>
@@ -114,13 +113,12 @@
 
         <!-- Menu Mobile -->
         <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-stone-200 px-6 py-6 space-y-4">
-            <a href="#sorriso-ia" onclick="toggleMobileMenu()" class="block text-slate-800 hover:text-emerald font-medium">Sorriso com IA</a>
-            <a href="#teleconsulta" onclick="toggleMobileMenu()" class="block text-slate-800 hover:text-emerald font-medium">Teleconsulta</a>
-            <a href="#financiamento" onclick="toggleMobileMenu()" class="block text-slate-800 hover:text-emerald font-medium">Simulado de Financiamento</a>
-            <a href="#precos" onclick="toggleMobileMenu()" class="block text-slate-800 hover:text-emerald font-medium">Planos & Preços</a>
+            <a href="#recursos" onclick="toggleMobileMenu()" class="block text-slate-800 hover:text-emerald font-medium">Recursos</a>
+            <a href="#como-comecar" onclick="toggleMobileMenu()" class="block text-slate-800 hover:text-emerald font-medium">Como funciona</a>
+            <a href="#precos" onclick="toggleMobileMenu()" class="block text-slate-800 hover:text-emerald font-medium">Plano gratuito</a>
             <div class="pt-4 border-t border-stone-200 flex flex-col space-y-3">
                 <a href="/sistema.html" class="w-full py-2.5 text-center text-slate-900 border border-stone-300 rounded-xl font-medium">Entrar</a>
-                <button onclick="location.href='/sistema.html?cadastro=1'" class="w-full py-2.5 text-center bg-emerald-deep text-white font-bold rounded-xl shadow">Cadastrar-se</button>
+                <button onclick="location.href='/sistema.html?cadastro=1'" class="w-full py-2.5 text-center bg-emerald-deep text-white font-bold rounded-xl shadow">Começar grátis</button>
             </div>
         </div>
     </header>
@@ -139,12 +137,13 @@
                     </p>
                     <div class="mt-9 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                         <a href="/sistema.html?cadastro=1" class="w-full sm:w-auto bg-emerald-deep hover:bg-emerald-dark text-white font-bold px-8 py-4 rounded-2xl shadow-xl transition-all flex items-center justify-center gap-3">
-                            Começar agora <span aria-hidden="true">→</span>
+                            Começar grátis <span aria-hidden="true">→</span>
                         </a>
                         <a href="#recursos" class="w-full sm:w-auto bg-white border border-gold text-emerald-deep font-bold px-8 py-4 rounded-2xl hover:bg-gold-champagne transition-all text-center">
                             Conhecer recursos
                         </a>
                     </div>
+                    <p class="mt-4 text-sm font-semibold text-emerald-deep flex items-center justify-center lg:justify-start gap-2"><i data-lucide="shield-check" class="w-5 h-5 text-emerald"></i>Sem cartão de crédito</p>
                 </div>
 
                 <div class="lg:col-span-6 relative min-h-[540px] sm:min-h-[610px] hero-orbit rounded-[44%_56%_46%_54%/48%_42%_58%_52%]">
@@ -421,7 +420,30 @@
         </div>
     </section>
 
-    <!-- Tabela de Preços com os Nomes Solicitados -->
+    <section id="como-comecar" class="py-20 lg:py-28 bg-white border-t border-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="text-emerald font-bold text-xs uppercase tracking-widest bg-emerald-mint px-4 py-2 rounded-full inline-block">Comece em poucos minutos</span>
+                <h2 class="mt-5 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-emerald-deep tracking-tight">Cadastre-se, configure sua clínica e comece a atender</h2>
+            </div>
+            <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <article class="relative bg-stone-50 border border-stone-200 rounded-3xl p-7 text-center">
+                    <span class="mx-auto w-16 h-16 rounded-full bg-emerald-mint text-emerald-deep flex items-center justify-center"><i data-lucide="user-plus" class="w-8 h-8"></i></span>
+                    <strong class="mt-5 block text-xl text-emerald-deep">1. Cadastre-se</strong><p class="mt-2 text-sm text-stone-600 leading-relaxed">Crie sua conta profissional com seus dados e uma senha segura.</p>
+                </article>
+                <article class="relative bg-stone-50 border border-stone-200 rounded-3xl p-7 text-center">
+                    <span class="mx-auto w-16 h-16 rounded-full bg-emerald-mint text-emerald-deep flex items-center justify-center"><i data-lucide="settings" class="w-8 h-8"></i></span>
+                    <strong class="mt-5 block text-xl text-emerald-deep">2. Configure a clínica</strong><p class="mt-2 text-sm text-stone-600 leading-relaxed">Complete o perfil, convide sua equipe e ajuste as preferências.</p>
+                </article>
+                <article class="relative bg-stone-50 border border-stone-200 rounded-3xl p-7 text-center">
+                    <span class="mx-auto w-16 h-16 rounded-full bg-gold-champagne text-gold-dark flex items-center justify-center"><i data-lucide="sparkles" class="w-8 h-8"></i></span>
+                    <strong class="mt-5 block text-xl text-emerald-deep">3. Comece a atender</strong><p class="mt-2 text-sm text-stone-600 leading-relaxed">Use agenda, prontuário, teleconsulta e Sorriso com IA em um só lugar.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plano gratuito -->
     <section id="precos" class="py-20 lg:py-28 bg-stone-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">

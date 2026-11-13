@@ -1,0 +1,64 @@
+name: Verificar e preparar publicação
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Obter código
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Preparar Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Instalar dependências
+        run: npm ci
+      - name: Verificar código e fluxos
+        run: |
+          npm test
+          npm run test:cloud
+          npm run test:database
+          npm run test:chat
+          npm run test:workflow
+          npm run test:enamel
+          npm run test:magic-hour
+          npm run test:smile-documents
+          npm run test:smile-workspace
+          node --test tests/public-config.test.mjs
+      - name: Gerar arquivos da publicação
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: npm run build
+      - name: Preparar pacote
+        run: |
+          tar --exclude='./.openai' -czf evoluna-publicacao.tar.gz -C dist .
+          echo 'Pacote gerado. Esta rotina não publica o aplicativo nem configura domínio ou DNS.' >> "$GITHUB_STEP_SUMMARY"
+          if grep -q 'SUA_CHAVE_PUBLICAVEL' dist/cloud-config.js; then
+            echo 'Atenção: configuração Supabase de exemplo. Configure as duas variáveis públicas antes de usar o pacote.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Disponibilizar pacote para download
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: evoluna-publicacao
+          path: evoluna-publicacao.tar.gz
+          retention-days: 7
+          if-no-files-found: error

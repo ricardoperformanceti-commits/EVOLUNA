@@ -6,11 +6,17 @@
   color: transparent;
   text-shadow: none;
   background: url('/assets/evoluna-odonto-logo.png') center / contain no-repeat;
+  transform: none;
 }
 .brand .tooth + span { display: none; }
 
 .btn { position: relative; z-index: 2; }
 .btn, .submit { pointer-events: auto; }
+
+.comparison {
+  background: url('/assets/sorriso-ia-antes-depois-card.webp') center / cover no-repeat;
+}
+.comparison img { opacity: 0; }
 .btn:focus-visible, .show:focus-visible {
   outline: 3px solid #e0b12c;
   outline-offset: 3px;

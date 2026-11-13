@@ -1,0 +1,26 @@
+{
+  "id": "/sistema.html",
+  "name": "Evoluna Odonto",
+  "short_name": "Evoluna",
+  "description": "Gestão odontológica, Sorriso com IA, teleconsulta, agenda e prontuário.",
+  "lang": "pt-BR",
+  "start_url": "/sistema.html#inicio",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#f7f8f3",
+  "theme_color": "#064532",
+  "categories": ["medical", "business", "productivity"],
+  "icons": [
+    {"src":"/icons/evoluna-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"/icons/evoluna-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"/icons/evoluna-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
+  ],
+  "shortcuts": [
+    {"name":"Agenda","short_name":"Agenda","url":"/sistema.html#agenda"},
+    {"name":"Pacientes","short_name":"Pacientes","url":"/sistema.html#pacientes"},
+    {"name":"Sorriso com IA","short_name":"Sorriso IA","url":"/sistema.html#sorriso"},
+    {"name":"Teleconsulta","short_name":"Teleconsulta","url":"/sistema.html#teleconsultas"}
+  ]
+}

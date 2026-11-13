@@ -1,5 +1,5 @@
 const bl2Reference=[250,241,231];
-export const shades={BL1:{name:'Branco intenso',rgb:[255,255,255]},BL2:{name:'Branco suave',rgb:bl2Reference},A1:{name:'Natural marfim',rgb:[243,229,220]}};
+export const shades={BL1:{name:'Branco intenso',rgb:bl2Reference.map(channel=>Math.round(channel+(255-channel)*.1))},BL2:{name:'Branco suave',rgb:bl2Reference},A1:{name:'Natural marfim',rgb:[243,229,220]}};
 export const treatments={clareamento:'Clareamento',lentes:'Lentes'};
 export function freshCase(patient=null){return {patient,photo:null,base:null,after:null,record:null,mouth:null,shade:null,procedure:null,intensity:55,compare:50,dirty:false}}
 export function sameContext(a,b){return a.user===b.user&&a.epoch===b.epoch&&a.patient===b.patient}
@@ -29,9 +29,10 @@ function naturalA1(pixels,mask,strength){
 // Every edit starts from the immutable AI base. Zero leaves every byte unchanged.
 export function retone(pixels,mask,shade,intensity){const strength=Math.max(0,Math.min(100,Number(intensity)))/100,target=shades[shade]?.rgb||shades.BL1.rgb;if(!strength)return 0;if(shade==='A1')return naturalA1(pixels,mask,strength);
  if(shade==='BL1'){
-  // BL1 is the visibly intense option: it moves the enamel strongly toward pure white.
-  for(let p=0;p<mask.length;p++){const i=p*4,y=.2126*pixels[i]+.7152*pixels[i+1]+.0722*pixels[i+2],coverage=mask[p]/255,shadow=Math.max(0,Math.min(1,(y-65)/80));if(coverage<.015||!shadow)continue;const amount=.82*strength*coverage*shadow;for(let c=0;c<3;c++)pixels[i+c]=Math.round(pixels[i+c]+(255-pixels[i+c])*amount)}
-  return mask.reduce((n,v)=>n+(v>3?1:0),0);
+  // BL1 starts from the identical BL2 result, then closes 10% of its gap to white.
+  const source=pixels.slice(),count=retone(pixels,mask,'BL2',intensity);
+  for(let p=0;p<mask.length;p++){const i=p*4,y=.2126*source[i]+.7152*source[i+1]+.0722*source[i+2],coverage=mask[p]/255,shadow=Math.max(0,Math.min(1,(y-65)/80));if(coverage<.015||!shadow)continue;const amount=.1*strength*coverage*shadow;for(let c=0;c<3;c++)pixels[i+c]=Math.round(pixels[i+c]+(255-pixels[i+c])*amount)}
+  return count;
  }
  let count=0;
  for(let p=0;p<mask.length;p++){const i=p*4,y=.2126*pixels[i]+.7152*pixels[i+1]+.0722*pixels[i+2],coverage=mask[p]/255,shadow=Math.max(0,Math.min(1,(y-65)/80));if(coverage<.015||!shadow)continue;
@@ -43,4 +44,3 @@ export function retone(pixels,mask,shade,intensity){const strength=Math.max(0,Ma
 
 export const hasTreatment=value=>Object.hasOwn(treatments,value||'');
 export const toggleTreatment=(current,value)=>hasTreatment(value)?current===value?null:value:current;
-

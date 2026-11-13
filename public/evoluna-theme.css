@@ -395,5 +395,3 @@ body{background:var(--bg)}
 #content .patients-reference-page .patient-card-photo .photo-camera svg{width:10px;height:10px}
 #content .patients-reference-page .reference-patient-detail>header .avatar{width:34px;height:34px;min-width:34px;flex:0 0 34px;font-size:13px}
 #content .profile-header .avatar{width:34px;height:34px;min-width:34px;flex:0 0 34px;font-size:14px}
-.free-command-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}.prompt-help-button{width:26px;height:26px;padding:0;border:1px solid #1c493c;border-radius:50%;background:#fff;color:#1c493c;font-weight:800;cursor:pointer}.prompt-help-copy{margin:0 0 12px;color:#5d6e60;font-size:13px}.prompt-list{display:grid;gap:8px}.prompt-option{padding:11px 12px;border:1px solid #d6dfcd;border-radius:10px;background:#fffdf8;color:#173e34;text-align:left;line-height:1.4;cursor:pointer}.prompt-option:hover{border-color:#1c493c;background:#f2f7ed}
-

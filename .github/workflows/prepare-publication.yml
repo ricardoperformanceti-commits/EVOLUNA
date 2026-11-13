@@ -41,7 +41,7 @@ jobs:
           npm run test:magic-hour
           npm run test:smile-documents
           npm run test:smile-workspace
-          node --test tests/public-config.test.mjs
+          node --test tests/public-config.test.mjs tests/pwa-navigation.test.mjs
       - name: Gerar arquivos da publicação
         env:
           SUPABASE_URL: ${{ vars.SUPABASE_URL }}

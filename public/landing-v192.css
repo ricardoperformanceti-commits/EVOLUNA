@@ -1,11 +1,17 @@
 @import url('/landing-mobile.css');
 
-@media (min-width: 901px) {
-  html { background: #fff; }
-  body {
-    min-height: 150vw;
-    background: #fff url('/assets/evoluna-landing-reference.png') center top / 100% auto no-repeat;
-  }
-  .topbar, main, .page-footer { opacity: 0; }
-  .topbar { background: transparent; border: 0; }
+.brand .tooth {
+  width: 178px;
+  height: 62px;
+  color: transparent;
+  text-shadow: none;
+  background: url('/assets/evoluna-odonto-logo.png') center / contain no-repeat;
+}
+.brand .tooth + span { display: none; }
+
+.btn { position: relative; z-index: 2; }
+.btn, .submit { pointer-events: auto; }
+.btn:focus-visible, .show:focus-visible {
+  outline: 3px solid #e0b12c;
+  outline-offset: 3px;
 }

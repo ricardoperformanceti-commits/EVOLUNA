@@ -3,6 +3,13 @@
  const sidebar=document.getElementById('sidebar'),toggle=document.querySelector('[data-action="menu"]');
  if(!sidebar||!toggle)return;
  const mobile=matchMedia('(max-width:800px)');
+ const bottomNav=document.createElement('nav');
+ bottomNav.className='mobile-bottom-nav';bottomNav.setAttribute('aria-label','Navegação principal do aplicativo');
+ bottomNav.innerHTML=`<button type="button" data-mobile-route="inicio"><span>⌂</span><small>Início</small></button><button type="button" data-mobile-route="agenda"><span>▦</span><small>Agenda</small></button><button type="button" data-mobile-route="pacientes"><span>♙</span><small>Pacientes</small></button><button type="button" data-mobile-route="sorriso"><span>✦</span><small>Sorriso IA</small></button><button type="button" data-mobile-route="mais"><span>⚙</span><small>Conta</small></button>`;
+ document.body.append(bottomNav);
+ function syncBottomNav(){const current=(location.hash.slice(1).split('?')[0]||'inicio');bottomNav.querySelectorAll('[data-mobile-route]').forEach(button=>{const active=button.dataset.mobileRoute===current;button.classList.toggle('active',active);if(active)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current')})}
+ bottomNav.addEventListener('click',event=>{const button=event.target.closest('[data-mobile-route]');if(!button)return;location.hash=button.dataset.mobileRoute;sidebar.classList.remove('open')});
+ window.addEventListener('hashchange',syncBottomNav);syncBottomNav();
  const backdrop=document.createElement('button');
  backdrop.className='mobile-menu-backdrop';backdrop.setAttribute('aria-label','Fechar menu');backdrop.hidden=true;backdrop.tabIndex=-1;
  const close=document.createElement('button');close.className='mobile-drawer-close';close.type='button';close.textContent='×';close.setAttribute('aria-label','Fechar menu');sidebar.prepend(close);sidebar.before(backdrop);

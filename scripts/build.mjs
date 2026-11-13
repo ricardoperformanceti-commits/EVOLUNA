@@ -20,7 +20,7 @@ await build({entryPoints:['smile-studio/src/app.js'],bundle:true,format:'esm',pl
 // Cada versão pede os arquivos novos, sem reutilizar JavaScript ou CSS antigo do navegador.
 for(const page of ['smile-studio/index.html','index.html','sistema.html','teleconsulta.html']){
 let html=await readFile('dist/'+page,'utf8');
-if(page==='index.html'||page==='sistema.html')html=html.replace('</head>','<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/icons/evoluna-apple.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="stylesheet" href="/pwa.css"><script src="/pwa.js" defer></script></head>');
+if(page==='index.html'||page==='sistema.html')html=html.replace('</head>','<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/icons/evoluna-apple.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><link rel="stylesheet" href="/pwa.css"><link rel="stylesheet" href="/mobile-bottom-nav.css"><script src="/pwa.js" defer></script></head>');
 for(const match of [...html.matchAll(/(?:src|href)="(\/[^"?]+\.(?:js|css))"/g)]){const path=match[1],hash=createHash('sha256').update(await readFile('dist'+path)).digest('hex').slice(0,12);html=html.replaceAll('"'+path+'"','"'+path+'?v='+hash+'"')}
 await writeFile('dist/'+page,html);
 if(page==='smile-studio/index.html'){const revision=createHash('sha256').update(html).digest('hex').slice(0,12),host=await readFile('dist/smile-studio-host.js','utf8');await writeFile('dist/smile-studio-host.js',host.replace('/smile-studio/index.html','/smile-studio/index.html?v='+revision))}

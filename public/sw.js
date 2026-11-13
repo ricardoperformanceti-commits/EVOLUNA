@@ -1,4 +1,4 @@
-const VERSION='evoluna-pwa-v5';
+const VERSION='evoluna-pwa-v6';
 const OFFLINE='/offline.html';
 const STATIC_DESTINATIONS=new Set(['style','script','image','font']);
 

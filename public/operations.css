@@ -1,3 +1,4 @@
+.plus-heading .plus-logout{margin-left:auto;align-self:center;min-width:92px;justify-content:center;border-color:#b9c9bd;color:#164b38;background:#fff}.plus-heading .plus-logout:hover{background:#edf6ed;border-color:#7aa58a}@media(max-width:650px){.plus-heading{flex-wrap:wrap}.plus-heading .plus-logout{margin-left:auto;min-width:78px}}
 .document-patient-search-card{margin-bottom:18px}
 .document-patient-search{display:flex;align-items:center;gap:10px;border:1px solid #cfd9cf;background:#fff;border-radius:12px;padding:0 14px;color:#35664f}
 .document-patient-search input{width:100%;min-height:48px;border:0;outline:0;background:transparent;font:inherit;color:#20352b}

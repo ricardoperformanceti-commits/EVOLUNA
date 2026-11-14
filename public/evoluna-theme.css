@@ -73,6 +73,26 @@ body{background:var(--bg)}
 @media(max-width:800px){.sidebar{box-shadow:10px 0 60px #173b3124}.financing-copy{width:74%}.financing-copy h1{font-size:36px}.financing-hero{min-height:570px}.financing-steps li{gap:12px}.financing-steps li>svg{display:none}}
 @media(max-width:600px){.financing-sales{gap:16px}.financing-hero{display:flex;flex-direction:column;border-radius:16px;min-height:0}.financing-photo{position:relative;order:0;inset:auto;z-index:0;height:245px}.financing-photo img{object-position:right 38%;object-fit:cover}.financing-hero::after{display:none}.financing-copy{width:100%;padding:23px 21px 25px;order:1}.financing-copy h1{font-size:32px;letter-spacing:-1px;margin-top:19px}.financing-intro{font-size:15px;margin-bottom:20px}.financing-benefits{flex-wrap:wrap;gap:13px;margin:23px 0}.financing-benefits li{flex:1 1 100%;font-size:13px}.financing-benefits li br{display:none}.financing-benefits li+li{border:0;padding-left:0}.financing-cta-row{gap:12px}#content .financing-cta{width:100%;font-size:17px}.financing-next{padding:0}.financing-caption{font-size:12px}.financing-terms{font-size:11px}.financing-steps{grid-template-columns:1fr;gap:10px}.financing-steps li{padding:19px 21px}.financing-steps li>svg{display:block}.financing-steps strong{font-size:16px}.financing-steps br{display:none}}
 @media(prefers-reduced-motion:reduce){.sidebar,.sidebar .nav-item,#content .button{transition:none}}
+@media(min-width:801px){
+ body.sidebar-compact .sidebar{width:78px;padding-inline:10px}
+ body.sidebar-compact>.workspace{margin-left:78px}
+ body.sidebar-compact .sidebar .brand.evolluna-brand{justify-content:center;padding:0;margin-bottom:22px}
+ body.sidebar-compact .sidebar .brand.evolluna-brand::before{flex-basis:44px;width:44px;height:50px}
+ body.sidebar-compact .sidebar .brand-wordmark,
+ body.sidebar-compact .sidebar .brand>small,
+ body.sidebar-compact .sidebar .nav-item>span,
+ body.sidebar-compact .sidebar>.clinic>span:not(.clinic-icon),
+ body.sidebar-compact .sidebar .profile>span:not(.avatar){display:none!important}
+ body.sidebar-compact .sidebar #overview-navigation{margin-bottom:16px}
+ body.sidebar-compact .sidebar #overview-navigation .nav-item,
+ body.sidebar-compact .sidebar .nav-item{justify-content:center;padding:0;gap:0;min-height:48px}
+ body.sidebar-compact .sidebar>.clinic{justify-content:center;min-height:58px;padding:10px;margin-bottom:10px}
+ body.sidebar-compact .sidebar>.clinic .clinic-icon{width:32px;min-width:32px}
+ body.sidebar-compact .sidebar>.teleconsulta-shortcut{margin-bottom:14px}
+ body.sidebar-compact .sidebar .profile{justify-content:center;padding-top:14px}
+ body.sidebar-compact .sidebar .avatar.doctor{width:38px;height:38px}
+ body.sidebar-compact.smile-focus{--studio-sidebar-width:78px}
+}
 @media print{.sidebar{display:none!important}.financing-hero{min-height:0}.financing-photo,.financing-next{display:none}.financing-copy{width:100%}.financing-hero::after{display:none}.financing-steps{grid-template-columns:repeat(3,1fr)}}
 
 /* Shared visual language inside the smile studio and the patient invitation. */

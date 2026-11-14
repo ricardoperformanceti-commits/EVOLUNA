@@ -81,6 +81,7 @@ body{background:var(--bg)}
  body.sidebar-compact .sidebar{width:78px;padding-inline:10px}
  body.sidebar-compact>.workspace{margin-left:78px}
  body.sidebar-compact .topbar-brand{display:flex}
+ body.sidebar-compact .topbar{grid-template-columns:auto minmax(150px,1fr) minmax(280px,520px) auto;align-items:center;gap:20px}
  body.sidebar-compact .sidebar .brand.evolluna-brand{justify-content:center;padding:0;margin-bottom:22px}
  body.sidebar-compact .sidebar .brand.evolluna-brand::before{flex-basis:44px;width:44px;height:50px}
  body.sidebar-compact .sidebar .brand-wordmark,
@@ -98,6 +99,7 @@ body{background:var(--bg)}
  body.sidebar-compact .sidebar .avatar.doctor{width:38px;height:38px}
  body.sidebar-compact.smile-focus{--studio-sidebar-width:78px}
 }
+@media(min-width:801px) and (max-width:1100px){body.sidebar-compact .topbar{grid-template-columns:auto minmax(170px,1fr) auto;gap:12px}body.sidebar-compact .topbar .breadcrumb{display:none}}
 @media print{.sidebar{display:none!important}.financing-hero{min-height:0}.financing-photo,.financing-next{display:none}.financing-copy{width:100%}.financing-hero::after{display:none}.financing-steps{grid-template-columns:repeat(3,1fr)}}
 
 /* Shared visual language inside the smile studio and the patient invitation. */

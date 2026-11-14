@@ -4,18 +4,20 @@ body{background:var(--bg)}
 .sidebar{background:linear-gradient(155deg,#194e40 0%,#123e33 58%,#0e332c 100%);color:#f8faf4;border-right:1px solid #163e33;padding-top:24px;overflow-x:hidden;scrollbar-color:#8baf94 #123e33;box-shadow:8px 0 28px #153b3108}
 .sidebar::after{content:"";position:absolute;pointer-events:none;z-index:0;bottom:72px;left:35%;width:240px;height:130px;border-top:1px solid #caa35d;border-radius:100% 0 0 0;transform:rotate(-12deg);opacity:.8}
 .sidebar>*{position:relative;z-index:1}
-.sidebar .brand.evolluna-brand{display:flex;flex-direction:column;align-items:center;text-align:center;color:#fff;margin:0 0 22px;letter-spacing:-.7px;font-size:30px;line-height:1.15}
-.sidebar .brand.evolluna-brand::before{content:"";display:block;width:47px;height:47px;margin-bottom:9px;background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 54' fill='none' stroke='%23d4af65' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 8C13 0 3 7 6 20l6 25c2 9 6 8 8-3l2-11c1-5 3-5 4 0l2 11c2 11 6 12 8 3l6-25C45 7 35 0 24 8Z'/%3E%3C/svg%3E")}
-.sidebar .brand.evolluna-brand>.brand-wordmark{display:flex;flex-direction:column;align-items:center;gap:1px;white-space:normal}
+.sidebar .brand.evolluna-brand{display:flex;flex-direction:row;align-items:center;text-align:left;gap:13px;color:#fff;margin:0 0 22px;padding:0 1px;letter-spacing:-.7px;font-size:30px;line-height:1.03}
+.sidebar .brand.evolluna-brand::before{content:"";display:block;flex:0 0 49px;width:49px;height:56px;margin:0;background:center/contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 54' fill='none' stroke='%23d4af65' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 8C13 0 3 7 6 20l6 25c2 9 6 8 8-3l2-11c1-5 3-5 4 0l2 11c2 11 6 12 8 3l6-25C45 7 35 0 24 8Z'/%3E%3C/svg%3E")}
+.sidebar .brand.evolluna-brand>.brand-wordmark{display:flex;flex-direction:column;align-items:flex-start;gap:1px;white-space:normal}
 .sidebar .brand.evolluna-brand .brand-specialty{font-size:23px;font-weight:450;letter-spacing:.15px}
-.sidebar .brand.evolluna-brand small{color:#e2c58d;letter-spacing:1.5px;font-size:10px;font-weight:500;margin-top:8px}
-.sidebar>.clinic{color:#f8faf4;border:1px solid #85a8976b;background:#ffffff05;border-radius:13px;padding:11px 12px;gap:10px;margin-bottom:9px;min-height:59px}
+.sidebar .brand.evolluna-brand small{display:none}
+.sidebar #overview-navigation{border:0;padding:0;margin:0 0 27px}
+.sidebar #overview-navigation .nav-item{min-height:56px;margin:0;border-radius:14px;padding:0 16px;font-size:16px}
+.sidebar>.clinic{color:#f8faf4;border:1px solid #85a89797;background:#ffffff05;border-radius:14px;padding:16px 14px;gap:12px;margin-bottom:12px;min-height:88px;font-size:16px}
 .sidebar>.clinic:hover,.sidebar>.clinic.active{background:#ffffff12;border-color:#b7d0a4}
-.sidebar>.clinic small{font-size:11px;color:#d1dfd1;line-height:1.35;margin-top:3px}
+.sidebar>.clinic small{font-size:13px;color:#d1dfd1;line-height:1.45;margin-top:6px}
 .sidebar>.clinic .clinic-icon{background:transparent;color:#e5cf97;border:0;width:29px;min-width:29px}
 .sidebar>.clinic .smile-shortcut-arrow{color:#bfd2b7}
-.sidebar>.teleconsulta-shortcut{margin-bottom:20px}
-.sidebar nav{border-top:1px solid #b1c9b352;padding-top:16px}
+.sidebar>.teleconsulta-shortcut{margin-bottom:16px}
+.sidebar #navigation{border-top:1px solid #b1c9b352;padding-top:14px}
 .sidebar .nav-item{color:#edf3e8;min-height:45px;height:auto;padding:10px 12px;margin-bottom:5px;border-radius:12px;line-height:1.4;font-size:14px;gap:12px;font-weight:450}
 .sidebar .nav-item svg{width:21px;height:21px}
 .sidebar .nav-item span{white-space:normal}

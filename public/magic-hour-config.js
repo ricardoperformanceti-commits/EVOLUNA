@@ -1,1 +1,1 @@
-window.EVOLUNA_MAGIC_HOUR={endpoint:'https://evoluna-smile-api.appevoluna.workers.dev'};
+window.EVOLUNA_MAGIC_HOUR={endpoint:'https://frviuoafenrqnueglwnq.supabase.co/functions/v1/evoluna-smile-api'};

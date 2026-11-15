@@ -10,7 +10,7 @@ let host=null;
 try{if(production&&window.parent!==window&&window.parent.location.origin===location.origin)host=window.parent.EvolunaSmileBridge}catch{}
 if(production&&!host){document.getElementById('app').innerHTML='<main class="login"><h1>Sorriso com IA</h1><p>Abra o estúdio pela sua conta Evoluna.</p><a href="/#sorriso" target="_top">Abrir Evoluna</a></main>';throw Error('Abra o estúdio pelo Evoluna.')}
 const client=host?.client||createClient('https://frviuoafenrqnueglwnq.supabase.co','sb_publishable_QL2mGPDVsrFuK4ABqKA4bA_4mr6RFHN',{auth:{storageKey:'evoluna-smile-trial-auth'}});
-const API='https://evoluna-smile-api.appevoluna.workers.dev',PRESENTATION=host?.presentation||'/assets/sorriso-apresentacao.jpg';
+const API='https://frviuoafenrqnueglwnq.supabase.co/functions/v1/evoluna-smile-api',PRESENTATION=host?.presentation||'/assets/sorriso-apresentacao.jpg';
 const root=document.getElementById('app'),modal=document.getElementById('modal');
 let session=null,store=null,patients=[],records=[],s=freshCase(),epoch=0,busy=false,loading=false,pane='compare',adjustSection='settings',page=0,pending=null,confirmation=null,activeTreatment=null,freeCommand='',unsaved=null,documentPending=false,urls=[],toastTimer,search='',patientPage=0;
 const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

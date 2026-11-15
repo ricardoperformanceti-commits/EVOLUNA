@@ -1,6 +1,14 @@
 import {MagicHourMCP} from './mcp.mjs';
 const MAX_IMAGE=4*1024*1024,MAX_BODY=6*1024*1024;
-const credentials=env=>[...new Set([env.MAGIC_HOUR_MCP_API_KEY||env.MAGIC_HOUR_API_KEY,env.MAGIC_HOUR_MCP_API_KEY_2,env.MAGIC_HOUR_MCP_API_KEY_3].filter(Boolean))];
+function configuredCredentials(env){
+ let configured=[];
+ try{
+  const parsed=JSON.parse(env.MAGIC_HOUR_KEYS_JSON||'[]');
+  if(Array.isArray(parsed))configured=parsed.map(item=>typeof item==='string'?item:item?.apiKey).filter(Boolean);
+ }catch{}
+ return [...new Set([...configured,env.MAGIC_HOUR_MCP_API_KEY||env.MAGIC_HOUR_API_KEY,env.MAGIC_HOUR_MCP_API_KEY_2,env.MAGIC_HOUR_MCP_API_KEY_3].filter(Boolean))];
+}
+const credentials=configuredCredentials;
 const configured=env=>!!(credentials(env).length&&env.JOB_SIGNING_KEY&&(env.ALLOW_ALL_AUTHENTICATED==='true'||env.ALLOWED_EMAILS?.trim()));
 const fail=(status,message)=>Object.assign(new Error(message),{status});
 async function bytes(response,max){const reader=response.body?.getReader();if(!reader)return new Uint8Array();const chunks=[];let size=0;try{for(;;){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>max)throw fail(413,'Arquivo maior que o permitido.');chunks.push(value)}}catch(error){await reader.cancel().catch(()=>{});throw error}const data=new Uint8Array(size);let at=0;for(const part of chunks){data.set(part,at);at+=part.byteLength}return data}
@@ -16,10 +24,10 @@ async function verify(env,value,user){try{if(!value||value.length>2048)throw Err
 async function credentialRef(value){return encode(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value))))}
 async function selectAccount(env,fetcher){
  const checks=await Promise.allSettled(credentials(env).map(async credential=>{const mcp=new MagicHourMCP(fetcher,credential),account=await mcp.call('get_account_info');return {mcp,account,ref:await credentialRef(credential)}}));
- // Ten is the documented starting balance for this model, not a cost quote.
- const available=checks.filter(r=>r.status==='fulfilled').map(r=>r.value).filter(r=>['free','creator','pro','business'].includes(r.account.tier)&&Number.isFinite(r.account.credits)&&r.account.credits>=10);
+ // Keep a 20-credit reserve in every account. An account at exactly 20 is skipped.
+ const available=checks.filter(r=>r.status==='fulfilled').map(r=>r.value).filter(r=>['free','creator','pro','business'].includes(r.account.tier)&&Number.isFinite(r.account.credits)&&r.account.credits>20);
  available.sort((a,b)=>b.account.credits-a.account.credits);
- if(!available.length)throw fail(503,'O processamento de imagens está temporariamente indisponível. Tente novamente mais tarde.');
+ if(!available.length)throw fail(503,'O processamento de imagens está temporariamente indisponível. Entre em contato com o suporte.');
  return available[0];
 }
 async function projectClient(env,fetcher,signed){
@@ -42,7 +50,7 @@ try{if(url.pathname==='/health'&&request.method==='GET')return respond({service:
  }if(!['/v1/smile','/v1/smile/result','/v1/smile/access','/v1/smile/free-edit'].includes(url.pathname))throw fail(404,'Recurso não encontrado.');if((url.pathname==='/v1/smile/free-edit'&&request.method!=='POST')||(url.pathname==='/v1/smile'&&request.method!=='GET')||((url.pathname.endsWith('/result')||url.pathname.endsWith('/access'))&&request.method!=='GET'))throw fail(405,'Método não permitido.');if(url.pathname!=='/v1/smile/access'&&!configured(env))throw fail(503,'O processamento de imagens está temporariamente indisponível.');const auth=request.headers.get('Authorization');if(!/^Bearer [A-Za-z0-9._-]{20,8192}$/.test(auth||''))throw fail(401,'Entre na sua conta para gerar imagens.');
 const authResponse=await fetcher(env.SUPABASE_URL+'/auth/v1/user',{headers:{Authorization:auth,apikey:env.SUPABASE_PUBLISHABLE_KEY},signal:AbortSignal.timeout(15000),redirect:'manual'});if(!authResponse.ok)throw fail(401,'Sua sessão expirou. Entre novamente.');const user=await json(authResponse);const eligible=!!(user.id&&!user.is_anonymous&&user.email_confirmed_at&&configured(env)&&(env.ALLOW_ALL_AUTHENTICATED==='true'||new Set((env.ALLOWED_EMAILS||'').split(',').map(x=>x.trim().toLowerCase())).has(String(user.email||'').toLowerCase())));if(url.pathname==='/v1/smile/access')return respond({enabled:eligible});if(!eligible)throw fail(403,'Sua conta não está habilitada para editar imagens.');
 if(url.pathname==='/v1/smile/free-edit'){
- if(!env.GENERATE_LIMITER||!(await env.GENERATE_LIMITER.limit({key:user.id})).success)throw fail(429,'Aguarde um minuto antes de gerar outra edição.');
+ if(env.GENERATE_LIMITER&&!(await env.GENERATE_LIMITER.limit({key:user.id})).success)throw fail(429,'Aguarde um minuto antes de gerar outra edição.');
  if(!String(request.headers.get('Content-Type')).startsWith('application/json'))throw fail(415,'Envie uma foto JPG ou PNG.');
  const body=await json(request,MAX_BODY),prompt=typeof body.prompt==='string'?body.prompt.trim():'';
  if(!['lentes','clareamento'].includes(body.procedure)||!['BL1','BL2','A1'].includes(body.shade))throw fail(400,'Escolha o serviço e a tonalidade antes de executar o comando.');

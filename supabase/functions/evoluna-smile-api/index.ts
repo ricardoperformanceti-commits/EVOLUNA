@@ -9,6 +9,7 @@ function publishableKey(){
 const origins=[
  'https://sorriso-com-ia-clinica.ricardo-performancet.chatgpt.site',
  'https://evoluna-odonto.pages.dev',
+ 'https://app.smilesimulator.com.br',
  Deno.env.get('EVOLUNA_SITE_ORIGIN')||''
 ].filter(Boolean).join(',');
 

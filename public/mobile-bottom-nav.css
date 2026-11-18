@@ -28,3 +28,61 @@
   .mobile-more-sheet>div .mobile-financing-feature{grid-column:1/-1;min-height:68px;border-color:#d3ad3e;background:linear-gradient(110deg,#0b5b41,#073e2e);color:#fff;font-size:16px;box-shadow:0 8px 20px #0b463326}.mobile-more-sheet>div .mobile-financing-feature span{background:#f1d16d;color:#153e2e}.mobile-more-sheet>div .mobile-financing-feature b{font:inherit}
 }
 @media(max-width:350px){.mobile-bottom-nav button{font-size:9px}.mobile-bottom-nav{padding-inline:3px}}
+
+/* Formulários essenciais no PWA: o conteúdo rola, mas os botões permanecem visíveis. */
+@media(max-width:600px){
+  .topbar{
+    grid-template-columns:auto minmax(0,1fr) auto;
+    gap:6px;
+    padding-inline:9px;
+  }
+  .topbar .mobile-menu{display:none!important}
+  .topbar .topbar-brand{
+    min-width:0;
+    margin:0;
+    gap:4px;
+    font-size:13px;
+    letter-spacing:-.3px;
+  }
+  .topbar .topbar-brand>span{width:16px;height:21px}
+  .topbar .header-patient-search{min-width:0;padding-inline:8px}
+  .topbar .header-patient-search input{min-width:0}
+  .topbar .top-actions{min-width:0;gap:0}
+  .topbar .dr-help-trigger{padding-inline:7px}
+  .topbar .dr-help-trigger strong{font-size:10px}
+  #modal-root .modal-overlay:has(#appointment-form,#patient-form){
+    z-index:160;
+    align-items:stretch;
+    padding:max(8px,env(safe-area-inset-top)) 8px max(8px,env(safe-area-inset-bottom));
+  }
+  #modal-root .modal:has(#appointment-form,#patient-form){
+    width:100%;
+    height:100%;
+    max-height:none;
+    border-radius:14px;
+  }
+  #modal-root .modal:has(#appointment-form,#patient-form) .modal-head{
+    padding:14px 16px 12px;
+  }
+  #modal-root .modal:has(#appointment-form,#patient-form) .modal-body{
+    flex:1 1 auto;
+    min-height:0;
+    padding:14px 16px;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+  }
+  #modal-root .modal:has(#appointment-form,#patient-form) .form-grid{
+    gap:12px;
+  }
+  #modal-root .modal:has(#appointment-form,#patient-form) .modal-actions{
+    position:relative;
+    z-index:1;
+    flex:0 0 auto;
+    padding:11px 16px max(12px,env(safe-area-inset-bottom));
+    background:#fff;
+    box-shadow:0 -8px 20px #173e3210;
+  }
+  #modal-root .modal:has(#appointment-form,#patient-form) .modal-actions .button{
+    flex:1 1 130px;
+  }
+}

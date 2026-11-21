@@ -425,3 +425,10 @@ body{background:var(--bg)}
 #content .patients-reference-page .patient-card-photo .photo-camera svg{width:10px;height:10px}
 #content .patients-reference-page .reference-patient-detail>header .avatar{width:34px;height:34px;min-width:34px;flex:0 0 34px;font-size:13px}
 #content .profile-header .avatar{width:34px;height:34px;min-width:34px;flex:0 0 34px;font-size:14px}
+
+.evoluna-studio .reference-studio-title > [data-action="exit"] {
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  min-height: 44px;
+  padding-inline: 12px;
+}

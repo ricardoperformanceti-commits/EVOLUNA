@@ -114,13 +114,25 @@ html{overflow-y:scroll;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-co
 
 .saved-smile-png{display:block;max-width:100%;max-height:65dvh;width:auto;height:auto;object-fit:contain;margin:18px auto}
 
-/* Portal de financiamento do parceiro dentro da área de trabalho. */
-.financing-page{display:flex;flex-direction:column;min-width:0;gap:10px}
-.financing-page>.page-heading{margin-bottom:0;gap:16px;flex-wrap:wrap}
-.financing-login-note,.financing-fallback{margin:0;color:#526653;font-size:14px;line-height:1.5}
-.financing-portal{height:calc(100dvh - 235px);min-height:420px;overflow:hidden;border-radius:14px;padding:0}
-.financing-portal iframe{display:block;width:100%;height:100%;border:0;background:#fff}
-@media(max-width:600px){.financing-page>.page-heading h1{font-size:23px}.financing-portal{height:calc(100dvh - 250px);min-height:400px}}
+/* Análise de crédito integrada ao Evoluna, usando os campos exigidos pela Parcelex. */
+.financing-page{display:flex;flex-direction:column;min-width:0}
+.financing-analysis-page{max-width:1120px;margin:0 auto;padding-bottom:32px;gap:22px}
+.financing-analysis-header{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;padding:26px 30px;border-radius:20px;background:linear-gradient(125deg,#0b513d,#12654b);color:#fff;box-shadow:0 16px 38px #0c47331c}
+.financing-analysis-header h1{margin:8px 0 7px;font-size:clamp(28px,3vw,40px);line-height:1.05}.financing-analysis-header p{max-width:660px;margin:0;color:#e6f2e9;font-size:16px;line-height:1.55}
+.financing-analysis-header .financing-eyebrow{display:flex;align-items:center;gap:8px;color:#f3c85d;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.financing-progress{flex:0 0 210px;display:grid;gap:7px}.financing-progress strong{font-size:14px}.financing-progress>span{height:7px;border-radius:10px;background:#ffffff30;overflow:hidden}.financing-progress i{display:block;width:50%;height:100%;border-radius:inherit;background:#f2c65a}.financing-progress small{color:#dcebe0;font-size:13px}
+.financing-analysis-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(290px,.8fr);gap:20px;align-items:start}
+.financing-form-card,.financing-consent-card{border:1px solid #dce6d9;border-radius:18px;background:#fff;box-shadow:0 10px 30px #1b3d2510}
+.financing-form-card{padding:26px}.financing-form-card>header{display:flex;align-items:center;gap:13px;margin-bottom:23px}.financing-form-card h2,.financing-consent-card h2{margin:0;color:#113d30;font-size:21px}.financing-form-card header p,.financing-consent-card>p{margin:4px 0 0;color:#647466;font-size:14px;line-height:1.45}
+.financing-card-icon{display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;border-radius:13px;background:#e8f2df;color:#17583f}
+.financing-form-card>.field{display:block;margin-bottom:20px}.financing-form-card .field>span{display:block;margin-bottom:7px;color:#294a3b;font-size:14px;font-weight:700}.financing-form-card :is(input,select){width:100%;height:48px;border:1px solid #cedbca;border-radius:10px;background:#fbfcf9;padding:0 13px;color:#1d3328;font-size:16px}.financing-form-card :is(input,select):focus{outline:3px solid #bcd6a866;border-color:#5d8a64}
+.financing-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.financing-fields .field small{display:flex;align-items:flex-start;gap:5px;margin-top:7px;color:#68786a;font-size:13px;line-height:1.35}.financing-fields .field small svg{flex:0 0 auto;margin-top:1px;color:#92731c}
+.financing-clt{margin:2px 0 0;padding:20px;border:1px solid #dce6d9;border-radius:13px;background:#f8faf6}.financing-clt legend{padding:0 7px;color:#294a3b;font-size:14px;font-weight:700}.financing-clt>div{display:grid;grid-template-columns:1fr 1fr;gap:12px}.financing-clt label{cursor:pointer}.financing-clt input{position:absolute;opacity:0;pointer-events:none}.financing-clt label span{display:grid;place-items:center;min-height:44px;border:1px solid #cbd9c6;border-radius:10px;background:#fff;color:#315343;font-size:15px;font-weight:700}.financing-clt input:checked+span{border-color:#176047;background:#176047;color:#fff;box-shadow:0 0 0 3px #bcd6a866}
+.financing-consent-card{position:sticky;top:100px;padding:25px}.financing-consent-card>.financing-card-icon{margin-bottom:17px;background:#fff3cf;color:#8a6511}.financing-consent{display:flex;align-items:flex-start;gap:11px;margin:20px 0;padding:15px;border:1px solid #d8e3d4;border-radius:12px;background:#f8faf6;color:#354b3e;font-size:14px;line-height:1.55}.financing-consent input{width:19px;height:19px;flex:0 0 auto;margin-top:2px;accent-color:#126047}.financing-consent a{color:#0d5a42;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.financing-warning{display:flex;align-items:flex-start;gap:10px;padding:13px;border-radius:11px;background:#fff6da;color:#5d4a18}.financing-warning svg{flex:0 0 auto;margin-top:2px}.financing-warning p{margin:0;font-size:13px;line-height:1.45}.financing-warning strong{display:block;margin-bottom:2px}
+.financing-summary{display:grid;gap:3px;margin:20px 0;padding:15px 0;border-block:1px solid #e4ebe1}.financing-summary span,.financing-summary small{color:#718074;font-size:13px}.financing-summary strong{color:#173e30;font-size:16px}.financing-continue{width:100%;min-height:48px;font-size:16px}.financing-disclaimer{display:block;margin-top:12px;color:#718074;font-size:12px;line-height:1.45;text-align:center}
+@media(max-width:900px){.financing-analysis-header{align-items:flex-start;flex-direction:column}.financing-progress{width:100%;flex-basis:auto}.financing-analysis-grid{grid-template-columns:1fr}.financing-consent-card{position:static}}
+@media(max-width:600px){.financing-analysis-page{gap:14px;padding-bottom:96px}.financing-analysis-header{padding:21px 18px;border-radius:15px}.financing-analysis-header h1{font-size:28px}.financing-analysis-header p{font-size:15px}.financing-form-card,.financing-consent-card{padding:18px;border-radius:14px}.financing-fields{grid-template-columns:1fr;gap:14px}.financing-form-card :is(input,select){height:50px}.financing-clt{padding:16px}.financing-consent-card .financing-continue{position:sticky;bottom:76px;z-index:3;box-shadow:0 8px 24px #0c47333b}}
 
 /* Lista de documentos com preparação em janela própria. */
 .documents-list-page>.page-heading{gap:14px;flex-wrap:wrap}

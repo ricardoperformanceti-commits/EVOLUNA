@@ -34,6 +34,15 @@ test('menu closes on hash navigation, including selection of the current page',a
  sidebar.classList.add('open');const link={dataset:{},classList:{contains:()=>false},closest(selector){return selector==='#navigation a[href^="#"]'||selector==='#sidebar'?this:null}};await f.dispatch('click',link);assert.equal(sidebar.classList.contains('open'),false);
 });
 
+test('financing menu always opens the financing history list',()=>{
+ const f=fixture();
+ f.run("financingView='form';financingAnalysis={id:'fin-test'};navigate('simulacao-financiamento')");
+ assert.equal(f.run('financingView'),'history');assert.equal(f.run('financingAnalysis'),null);
+ f.run("financingView='form';financingAnalysis={id:'fin-test-2'};location.hash='#simulacao-financiamento'");
+ for(const fn of f.windowEvents.hashchange)fn();
+ assert.equal(f.run('financingView'),'history');assert.equal(f.run('financingAnalysis'),null);
+});
+
 test('midnight refresh advances current-day agenda and new records while preserving chosen dates and draft text',async()=>{
  const f=fixture(),old=f.run('dateKey()');f.run('selectedDate=dateKey()');f.node('#document-text').value='Rascunho que deve permanecer';
  f.advance(120000);assert.notEqual(f.run('dateKey()'),old);f.run('refreshCurrentDay()');assert.equal(f.run('selectedDate'),f.run('dateKey()'));assert.equal(f.node('#document-text').value,'Rascunho que deve permanecer');
